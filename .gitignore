@@ -1,0 +1,17 @@
+.venv/
+.direnv/
+data/
+__pycache__/
+*.pyc
+.env
+.env.agent
+*.egg-info/
+
+# Premium license: per-customer file, never commit (#294)
+config/license.json
+config/license.local.json
+*.license.json
+license-private.key
+
+# Operator prompt overrides (#351): per-deployment user data, not code
+config/llm/prompts/

@@ -1,0 +1,15 @@
+{
+  "name": "standard",
+  "steps": [
+    {"on": "IssueReady", "send": "PlanIssue"},
+    {"on": "PlanValidated", "send": "Implement"},
+    {"on": "CodeGenerated", "send": "Score"},
+    {"on": "Scored", "send": "Evaluate"},
+    {"on": "EvalCompleted", "send": "CreatePR"},
+    {"on": "EvalFailed", "send": "Heal", "condition": "healing_enabled_and_under_budget"},
+    {"on": "HealingSuggested", "send": "Implement"},
+    {"on": "PRCreated", "send": "Review"}
+  ],
+  "max_risk": 3,
+  "max_parallel": 1
+}

@@ -1,0 +1,526 @@
+{
+  "version": "owasp_top10_agentic_2024_internal",
+  "_note": "Project-internal OWASP Top 10 for Agentic AI taxonomy (2024 draft vocabulary). ASI01-ASI10 migration is tracked in #290. Edit this file to add new mappings or fallback categories — no code reload needed, samuel re-reads on import.",
+  "categories": [
+    {
+      "id": "A01",
+      "key": "unrestricted_agency",
+      "name": "Unrestricted Agency",
+      "description": "Agent führt Aktionen ohne Berechtigungs-Schranken aus — z.B. Self-Repair, Force-Push, Schranken-Übergehen."
+    },
+    {
+      "id": "A02",
+      "key": "uncontrolled_behavior",
+      "name": "Uncontrolled Agentic Behavior",
+      "description": "Agent zeigt unkontrolliertes Verhalten ohne Aufsicht — z.B. Approval-Bypass, Workflow-Entgleisung, Konfig-Änderung."
+    },
+    {
+      "id": "A03",
+      "key": "inadequate_sandboxing",
+      "name": "Inadequate Sandboxing",
+      "description": "Agent kann Sandbox/Worktree-Schutz unterlaufen — z.B. Quality-Gate-Bypass, Step-Bypass, Self-Check-Failure."
+    },
+    {
+      "id": "A04",
+      "key": "broken_trust_boundaries",
+      "name": "Broken Trust Boundaries",
+      "description": "Agent verletzt Slice-/Modul-/System-Grenzen — z.B. Cross-Slice-Import, destruktive Merges, Branch-Stale."
+    },
+    {
+      "id": "A05",
+      "key": "identity_access_abuse",
+      "name": "Identity & Access Abuse",
+      "description": "Agent missbraucht Identität oder Zugriffsrechte — z.B. unbefugte Issue-/Label-/Comment-Operations, Env-Exposure."
+    },
+    {
+      "id": "A06",
+      "key": "unmonitored_activities",
+      "name": "Unmonitored Agent Activities",
+      "description": "Agent-Aktivitäten ohne Audit-Trail oder Logging — z.B. LLM-Calls, System-Events, Health-Checks ohne Sichtbarkeit."
+    },
+    {
+      "id": "A07",
+      "key": "unsafe_tool_integration",
+      "name": "Unsafe Tool/API Integration",
+      "description": "Agent ruft Tools/APIs unsicher auf — z.B. Patch-Apply, Changelog-Update, PR-Exists ohne Validation."
+    },
+    {
+      "id": "A08",
+      "key": "excessive_autonomy",
+      "name": "Excessive Autonomy",
+      "description": "Agent agiert autonomer als nötig — z.B. eigenmächtiges Healing, Auto-Implementation, Self-Repair."
+    },
+    {
+      "id": "A09",
+      "key": "inadequate_feedback_loops",
+      "name": "Inadequate Feedback Loops",
+      "description": "Eval-/Test-/AC-Verifikations-Schleifen unzureichend — Score-Aussagekraft kompromittiert, Test-Failures unbemerkt."
+    },
+    {
+      "id": "A10",
+      "key": "opaque_reasoning",
+      "name": "Opaque Agent Reasoning",
+      "description": "Agent-Entscheidungen sind nicht nachvollziehbar — Routing/Context-Auswahl ohne Begründung, intransparente Plan-Generierung."
+    }
+  ],
+  "mappings": [
+    {
+      "cat": "workflow",
+      "evt": "resume_clear",
+      "risk": "unrestricted_agency"
+    },
+    {
+      "cat": "workflow",
+      "evt": "approval_found",
+      "risk": "uncontrolled_behavior"
+    },
+    {
+      "cat": "workflow",
+      "evt": "step_bypassed",
+      "risk": "inadequate_sandboxing"
+    },
+    {
+      "cat": "workflow",
+      "evt": "agent_start",
+      "risk": "excessive_autonomy"
+    },
+    {
+      "cat": "workflow",
+      "evt": "healing_run",
+      "risk": "excessive_autonomy"
+    },
+    {
+      "cat": "workflow",
+      "evt": "implement_done",
+      "risk": "excessive_autonomy"
+    },
+    {
+      "cat": "workflow",
+      "evt": "resume_save",
+      "risk": "excessive_autonomy"
+    },
+    {
+      "cat": "workflow",
+      "evt": "resume_load",
+      "risk": "excessive_autonomy"
+    },
+    {
+      "cat": "workflow",
+      "evt": "healing_attempt_started",
+      "risk": "excessive_autonomy"
+    },
+    {
+      "cat": "workflow",
+      "evt": "healing_attempt_completed",
+      "risk": "excessive_autonomy"
+    },
+    {
+      "cat": "workflow",
+      "evt": "healing_aborted",
+      "risk": "excessive_autonomy"
+    },
+    {
+      "cat": "workflow",
+      "evt": "healing_suggested",
+      "risk": "excessive_autonomy"
+    },
+    {
+      "cat": "guard",
+      "evt": "quality_check",
+      "risk": "inadequate_sandboxing"
+    },
+    {
+      "cat": "guard",
+      "evt": "chat_mode_bypass",
+      "risk": "inadequate_sandboxing"
+    },
+    {
+      "cat": "guard",
+      "evt": "gate_blocked",
+      "risk": "inadequate_sandboxing"
+    },
+    {
+      "cat": "guard",
+      "evt": "branch_stale",
+      "risk": "broken_trust_boundaries"
+    },
+    {
+      "cat": "guard",
+      "evt": "merge_destructive",
+      "risk": "broken_trust_boundaries"
+    },
+    {
+      "cat": "guard",
+      "evt": "label_hygiene",
+      "risk": "uncontrolled_behavior"
+    },
+    {
+      "cat": "guard",
+      "evt": "chat_mode_guard",
+      "risk": "inadequate_sandboxing"
+    },
+    {
+      "cat": "guard",
+      "evt": "security_tamper",
+      "risk": "unrestricted_agency"
+    },
+    {
+      "cat": "guard",
+      "evt": "workflow_bypass_blocked",
+      "risk": "uncontrolled_behavior"
+    },
+    {
+      "cat": "guard",
+      "evt": "scope_creep_detected",
+      "risk": "excessive_autonomy"
+    },
+    {
+      "cat": "guard",
+      "evt": "plan_pre_check",
+      "risk": "inadequate_feedback_loops"
+    },
+    {
+      "cat": "guard",
+      "evt": "plan_pre_check_blocked",
+      "risk": "inadequate_feedback_loops"
+    },
+    {
+      "cat": "config",
+      "evt": "chat_mode_toggle",
+      "risk": "uncontrolled_behavior"
+    },
+    {
+      "cat": "config",
+      "evt": "config_change",
+      "risk": "uncontrolled_behavior"
+    },
+    {
+      "cat": "scm",
+      "evt": "git_commit",
+      "risk": "broken_trust_boundaries"
+    },
+    {
+      "cat": "scm",
+      "evt": "git_checkout",
+      "risk": "broken_trust_boundaries"
+    },
+    {
+      "cat": "scm",
+      "evt": "pr_create",
+      "risk": "broken_trust_boundaries"
+    },
+    {
+      "cat": "scm",
+      "evt": "pr_merge",
+      "risk": "broken_trust_boundaries"
+    },
+    {
+      "cat": "scm",
+      "evt": "issue_create",
+      "risk": "identity_access_abuse"
+    },
+    {
+      "cat": "scm",
+      "evt": "issue_close",
+      "risk": "identity_access_abuse"
+    },
+    {
+      "cat": "scm",
+      "evt": "issue_update",
+      "risk": "identity_access_abuse"
+    },
+    {
+      "cat": "scm",
+      "evt": "comment_post",
+      "risk": "identity_access_abuse"
+    },
+    {
+      "cat": "scm",
+      "evt": "label_add",
+      "risk": "identity_access_abuse"
+    },
+    {
+      "cat": "scm",
+      "evt": "label_remove",
+      "risk": "identity_access_abuse"
+    },
+    {
+      "cat": "scm",
+      "evt": "label_swap",
+      "risk": "identity_access_abuse"
+    },
+    {
+      "cat": "scm",
+      "evt": "pr_exists",
+      "risk": "unsafe_tool_integration"
+    },
+    {
+      "cat": "scm",
+      "evt": "changelog_update",
+      "risk": "unsafe_tool_integration"
+    },
+    {
+      "cat": "scm",
+      "evt": "patch_apply",
+      "risk": "unsafe_tool_integration"
+    },
+    {
+      "cat": "llm",
+      "evt": "llm_call",
+      "risk": "unmonitored_activities"
+    },
+    {
+      "cat": "system",
+      "evt": "session_start",
+      "risk": "unmonitored_activities"
+    },
+    {
+      "cat": "system",
+      "evt": "skeleton_build",
+      "risk": "unmonitored_activities"
+    },
+    {
+      "cat": "system",
+      "evt": "skeleton_update",
+      "risk": "unmonitored_activities"
+    },
+    {
+      "cat": "system",
+      "evt": "dashboard_generate",
+      "risk": "unmonitored_activities"
+    },
+    {
+      "cat": "system",
+      "evt": "sequence_extract",
+      "risk": "unmonitored_activities"
+    },
+    {
+      "cat": "system",
+      "evt": "self_check_complete",
+      "risk": "unmonitored_activities"
+    },
+    {
+      "cat": "system",
+      "evt": "self_check_fatal",
+      "risk": "inadequate_sandboxing"
+    },
+    {
+      "cat": "system",
+      "evt": "self_repair",
+      "risk": "excessive_autonomy"
+    },
+    {
+      "cat": "system",
+      "evt": "self_repair_failed",
+      "risk": "inadequate_sandboxing"
+    },
+    {
+      "cat": "system",
+      "evt": "self_check_resolved",
+      "risk": "inadequate_sandboxing"
+    },
+    {
+      "cat": "system",
+      "evt": "agent_start",
+      "risk": "unmonitored_activities"
+    },
+    {
+      "cat": "system",
+      "evt": "session_increment",
+      "risk": "unmonitored_activities"
+    },
+    {
+      "cat": "health",
+      "evt": "doctor_run",
+      "risk": "unmonitored_activities"
+    },
+    {
+      "cat": "health",
+      "evt": "health_run",
+      "risk": "unmonitored_activities"
+    },
+    {
+      "cat": "health",
+      "evt": "health_check_fail",
+      "risk": "unmonitored_activities"
+    },
+    {
+      "cat": "health",
+      "evt": "anomaly_detected",
+      "risk": "unmonitored_activities"
+    },
+    {
+      "cat": "eval",
+      "evt": "optimizer_run",
+      "risk": "inadequate_feedback_loops"
+    },
+    {
+      "cat": "eval",
+      "evt": "cause",
+      "risk": "inadequate_feedback_loops"
+    },
+    {
+      "cat": "eval",
+      "evt": "ac_test_pass",
+      "risk": "inadequate_feedback_loops"
+    },
+    {
+      "cat": "eval",
+      "evt": "ac_test_fail",
+      "risk": "inadequate_feedback_loops"
+    },
+    {
+      "cat": "eval",
+      "evt": "ac_verify",
+      "risk": "inadequate_feedback_loops"
+    },
+    {
+      "cat": "eval",
+      "evt": "eval_run",
+      "risk": "inadequate_feedback_loops"
+    },
+    {
+      "cat": "eval",
+      "evt": "eval_fail",
+      "risk": "inadequate_feedback_loops"
+    },
+    {
+      "cat": "eval",
+      "evt": "test_run",
+      "risk": "inadequate_feedback_loops"
+    },
+    {
+      "cat": "eval",
+      "evt": "ast_diff",
+      "risk": "inadequate_feedback_loops"
+    },
+    {
+      "cat": "eval",
+      "evt": "llm_quality_check",
+      "risk": "inadequate_feedback_loops"
+    },
+    {
+      "cat": "eval",
+      "evt": "test_passed",
+      "risk": "inadequate_feedback_loops"
+    },
+    {
+      "cat": "eval",
+      "evt": "test_failed",
+      "risk": "inadequate_feedback_loops"
+    },
+    {
+      "cat": "eval",
+      "evt": "test_timeout",
+      "risk": "inadequate_feedback_loops"
+    },
+    {
+      "cat": "eval",
+      "evt": "ac_verified",
+      "risk": "inadequate_feedback_loops"
+    },
+    {
+      "cat": "eval",
+      "evt": "ac_failed",
+      "risk": "inadequate_feedback_loops"
+    },
+    {
+      "cat": "routing",
+      "evt": "routing",
+      "risk": "opaque_reasoning"
+    },
+    {
+      "cat": "context",
+      "evt": "context",
+      "risk": "opaque_reasoning"
+    },
+    {
+      "cat": "context",
+      "evt": "context_build",
+      "risk": "opaque_reasoning"
+    },
+    {
+      "cat": "context",
+      "evt": "architecture_context_load",
+      "risk": "opaque_reasoning"
+    },
+    {
+      "cat": "context",
+      "evt": "plan_context_load",
+      "risk": "opaque_reasoning"
+    },
+    {
+      "cat": "security",
+      "evt": "protection_change",
+      "risk": "unrestricted_agency"
+    },
+    {
+      "cat": "security",
+      "evt": "api_guard_block",
+      "risk": "unrestricted_agency"
+    },
+    {
+      "cat": "security",
+      "evt": "hook_tamper",
+      "risk": "unrestricted_agency"
+    },
+    {
+      "cat": "security",
+      "evt": "env_exposure",
+      "risk": "identity_access_abuse"
+    },
+    {
+      "cat": "security",
+      "evt": "bot_scope_violation",
+      "risk": "identity_access_abuse"
+    },
+    {
+      "cat": "error",
+      "evt": "emergency",
+      "risk": "inadequate_sandboxing"
+    },
+    {
+      "cat": "gates",
+      "evt": "gates_passed",
+      "risk": "uncontrolled_behavior"
+    },
+    {
+      "cat": "gates",
+      "evt": "gate_failed",
+      "risk": "inadequate_sandboxing"
+    },
+    {
+      "cat": "quality",
+      "evt": "quality_passed",
+      "risk": "inadequate_feedback_loops"
+    },
+    {
+      "cat": "quality",
+      "evt": "quality_failed",
+      "risk": "inadequate_feedback_loops"
+    },
+    {
+      "cat": "plan",
+      "evt": "complexity_warn",
+      "risk": "excessive_autonomy"
+    }
+  ],
+  "fallbacks": {
+    "guard": "inadequate_sandboxing",
+    "llm": "unmonitored_activities",
+    "eval": "inadequate_feedback_loops",
+    "scm": "broken_trust_boundaries",
+    "workflow": "uncontrolled_behavior",
+    "system": "unmonitored_activities",
+    "routing": "opaque_reasoning",
+    "context": "opaque_reasoning",
+    "health": "unmonitored_activities",
+    "config": "unmonitored_activities",
+    "perf": "unmonitored_activities",
+    "error": "unmonitored_activities",
+    "security": "unrestricted_agency",
+    "gates": "inadequate_sandboxing",
+    "quality": "inadequate_feedback_loops",
+    "plan": "excessive_autonomy"
+  }
+}

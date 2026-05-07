@@ -1,0 +1,491 @@
+{
+  "version": "eu_ai_act_2024_1689",
+  "_note": "EU AI Act (Regulation 2024/1689) article references for SAMUEL events. Articles cited: 12 (Logging), 13 (Transparency), 14 (Human Oversight), 15 (Robustness), 50 (AI-generated content). Edit this file to add new mappings — no code reload needed.",
+  "articles": [
+    {
+      "id": "Art. 12",
+      "title": "Logging",
+      "description": "Aufzeichnungspflicht (Logging) für High-Risk AI Systems — automatische Protokollierung relevanter Ereignisse über die gesamte Lebensdauer des Systems."
+    },
+    {
+      "id": "Art. 13",
+      "title": "Transparency",
+      "description": "Transparenz und Information für Nutzer — Anbieter müssen betroffene Nutzer eindeutig informieren, wenn ein AI-System eingesetzt wird."
+    },
+    {
+      "id": "Art. 14",
+      "title": "Human Oversight",
+      "description": "Menschliche Aufsicht (Human Oversight) — High-Risk AI Systems müssen von natürlichen Personen wirksam beaufsichtigt werden können (Stop-/Override-Mechanismen)."
+    },
+    {
+      "id": "Art. 15",
+      "title": "Robustness & Cybersecurity",
+      "description": "Genauigkeit, Robustheit und Cybersicherheit — Resilienz gegen Fehler, Inkonsistenzen, Adversarial-Inputs."
+    },
+    {
+      "id": "Art. 50",
+      "title": "Transparency for AI-generated Content",
+      "description": "Transparenzpflichten für AI-generierte Inhalte — Output muss als künstlich erzeugt gekennzeichnet werden (Watermarking, AI-Attribution)."
+    }
+  ],
+  "mappings": [
+    {
+      "cat": "eval",
+      "evt": "test_run",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "eval",
+      "evt": "test_passed",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "eval",
+      "evt": "test_failed",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "eval",
+      "evt": "test_timeout",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "eval",
+      "evt": "ac_verify",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "eval",
+      "evt": "ac_test_pass",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "eval",
+      "evt": "ac_test_fail",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "eval",
+      "evt": "eval_run",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "eval",
+      "evt": "eval_fail",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "eval",
+      "evt": "ast_diff",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "eval",
+      "evt": "llm_quality_check",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "eval",
+      "evt": "optimizer_run",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "eval",
+      "evt": "cause",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "eval",
+      "evt": "ac_verified",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "eval",
+      "evt": "ac_failed",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "workflow",
+      "evt": "healing_run",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "workflow",
+      "evt": "agent_start",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "workflow",
+      "evt": "approval_found",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "workflow",
+      "evt": "resume_clear",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "workflow",
+      "evt": "step_bypassed",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "workflow",
+      "evt": "implement_done",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "workflow",
+      "evt": "resume_save",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "workflow",
+      "evt": "resume_load",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "workflow",
+      "evt": "healing_attempt_started",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "workflow",
+      "evt": "healing_attempt_completed",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "workflow",
+      "evt": "healing_aborted",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "workflow",
+      "evt": "healing_suggested",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "guard",
+      "evt": "quality_check",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "guard",
+      "evt": "chat_mode_bypass",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "guard",
+      "evt": "gate_blocked",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "guard",
+      "evt": "branch_stale",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "guard",
+      "evt": "merge_destructive",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "guard",
+      "evt": "label_hygiene",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "guard",
+      "evt": "chat_mode_guard",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "guard",
+      "evt": "security_tamper",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "guard",
+      "evt": "workflow_bypass_blocked",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "guard",
+      "evt": "scope_creep_detected",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "guard",
+      "evt": "plan_pre_check",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "guard",
+      "evt": "plan_pre_check_blocked",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "scm",
+      "evt": "git_commit",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "git_checkout",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "pr_create",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "pr_merge",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "pr_exists",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "changelog_update",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "patch_apply",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "issue_create",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "issue_close",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "issue_update",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "comment_post",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "label_add",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "label_remove",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "label_swap",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "llm",
+      "evt": "llm_call",
+      "article": "Art. 50"
+    },
+    {
+      "cat": "context",
+      "evt": "context",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "context",
+      "evt": "context_build",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "context",
+      "evt": "architecture_context_load",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "context",
+      "evt": "plan_context_load",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "routing",
+      "evt": "routing",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "system",
+      "evt": "session_start",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "system",
+      "evt": "agent_start",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "system",
+      "evt": "session_increment",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "system",
+      "evt": "skeleton_build",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "system",
+      "evt": "skeleton_update",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "system",
+      "evt": "dashboard_generate",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "system",
+      "evt": "sequence_extract",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "system",
+      "evt": "self_check_complete",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "system",
+      "evt": "self_check_fatal",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "system",
+      "evt": "self_repair",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "system",
+      "evt": "self_repair_failed",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "system",
+      "evt": "self_check_resolved",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "health",
+      "evt": "doctor_run",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "health",
+      "evt": "health_run",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "health",
+      "evt": "health_check_fail",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "health",
+      "evt": "anomaly_detected",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "security",
+      "evt": "protection_change",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "security",
+      "evt": "api_guard_block",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "security",
+      "evt": "hook_tamper",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "security",
+      "evt": "env_exposure",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "security",
+      "evt": "bot_scope_violation",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "config",
+      "evt": "chat_mode_toggle",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "config",
+      "evt": "config_change",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "error",
+      "evt": "emergency",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "gates",
+      "evt": "gates_passed",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "gates",
+      "evt": "gate_failed",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "quality",
+      "evt": "quality_passed",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "quality",
+      "evt": "quality_failed",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "plan",
+      "evt": "complexity_warn",
+      "article": "Art. 14"
+    }
+  ],
+  "fallbacks": {
+    "eval": "Art. 15",
+    "guard": "Art. 14",
+    "scm": "Art. 12",
+    "llm": "Art. 50",
+    "context": "Art. 13",
+    "routing": "Art. 13",
+    "workflow": "Art. 14",
+    "system": "Art. 12",
+    "health": "Art. 15",
+    "config": "Art. 12",
+    "perf": "Art. 12",
+    "error": "Art. 12",
+    "security": "Art. 15",
+    "gates": "Art. 14",
+    "quality": "Art. 15",
+    "plan": "Art. 14"
+  }
+}

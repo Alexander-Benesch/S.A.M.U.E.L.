@@ -1,0 +1,44 @@
+{
+  "default": {
+    "max_tokens": 4096,
+    "temperature": 0.2,
+    "timeout": 60
+  },
+  "tasks": {
+    "planning": {
+      "max_tokens": 4096,
+      "temperature": 0.3,
+      "provider": "deepseek",
+      "model": "deepseek-chat",
+      "timeout": 60,
+      "system_prompt": "planner.md"
+    },
+    "implementation": {
+      "max_tokens": 8192,
+      "temperature": 0.1,
+      "system_prompt": "senior_python.md"
+    },
+    "review": {
+      "max_tokens": 4096,
+      "temperature": 0.2,
+      "system_prompt": "reviewer.md"
+    },
+    "healing": {
+      "max_tokens": 4096,
+      "temperature": 0.2,
+      "system_prompt": "healer.md"
+    },
+    "evaluation": {
+      "max_tokens": 2048,
+      "temperature": 0.0,
+      "system_prompt": "log_analyst.md"
+    }
+  },
+  "circuit_breaker": {
+    "failure_threshold": 3,
+    "cooldown_seconds": 120
+  },
+  "pricing_cache_hours": 24,
+  "response_size_limit_bytes": 10485760,
+  "_note": "Per-task provider/model overrides are supported under tasks..provider and tasks..model — only effective when premium license has 'llm_routing' feature (see #225, samuel/core/license.py). Without license: overrides are ignored and the default provider handles all tasks. Per-task system_prompt resolves via 4-stage cascade (model > provider > generic > package) — see samuel/adapters/llm/prompts.py:load_system_prompt (#338)."
+}
