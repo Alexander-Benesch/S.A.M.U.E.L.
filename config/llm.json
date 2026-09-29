@@ -1,0 +1,21 @@
+{
+  "default": {
+    "provider": "deepseek",
+    "fallbacks": []
+  },
+  "min_local_model_params_b": 7,
+  "deepseek": {
+    "model": "deepseek-chat"
+  },
+  "claude": {
+    "model": "claude-sonnet-4-6"
+  },
+  "ollama": {
+    "model": "llama3",
+    "url": "http://localhost:11434"
+  },
+  "lmstudio": {
+    "model": "local-model",
+    "url": "http://localhost:1234/v1"
+  }
+}

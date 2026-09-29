@@ -1,0 +1,375 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "issue-399.schema.json",
+  "version": "1.0",
+  "title": "S.A.M.U.E.L. #399 bound-authority rollout evidence",
+  "description": "Closed structural contract for the five rollout cases required before 2.0.0a5. Cross-field head, policy, event-count, rollback-order and no-migration semantics are enforced offline by tools/rollout_evidence.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "schema",
+    "schema_digest",
+    "decision_issue",
+    "rollout_issue",
+    "generated_at",
+    "cases"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "schema": {"const": "issue-399.schema.json"},
+    "schema_digest": {"$ref": "#/$defs/digest"},
+    "decision_issue": {"const": 399},
+    "rollout_issue": {"const": 577},
+    "generated_at": {"$ref": "#/$defs/timestamp"},
+    "cases": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "oneOf": [
+          {"$ref": "#/$defs/success_case"},
+          {"$ref": "#/$defs/required_block_case"},
+          {"$ref": "#/$defs/healing_case"},
+          {"$ref": "#/$defs/refail_case"},
+          {"$ref": "#/$defs/rollback_case"}
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "sha": {
+      "type": "string",
+      "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+    },
+    "timestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]{1,6})?Z$"
+    },
+    "url": {
+      "type": "string",
+      "pattern": "^https?://[^/]+/.+$"
+    },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "base_sha",
+        "head_sha",
+        "contract_hash",
+        "policy_version",
+        "policy_digest",
+        "observation_key",
+        "correlation_id",
+        "observed_at"
+      ],
+      "properties": {
+        "repository": {"$ref": "#/$defs/url"},
+        "base_sha": {"$ref": "#/$defs/sha"},
+        "head_sha": {"$ref": "#/$defs/sha"},
+        "contract_hash": {"$ref": "#/$defs/digest"},
+        "policy_version": {"type": "string", "minLength": 1},
+        "policy_digest": {"$ref": "#/$defs/digest"},
+        "observation_key": {"$ref": "#/$defs/digest"},
+        "correlation_id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+        },
+        "observed_at": {"$ref": "#/$defs/timestamp"}
+      }
+    },
+    "run": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["issue_number", "issue_url", "evidence_comment_id", "evidence_comment_url"],
+      "properties": {
+        "issue_number": {"type": "integer", "minimum": 1},
+        "issue_url": {"$ref": "#/$defs/url"},
+        "evidence_comment_id": {"type": "integer", "minimum": 1},
+        "evidence_comment_url": {"$ref": "#/$defs/url"}
+      }
+    },
+    "gate_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["count", "blocked", "gate_results"],
+      "properties": {
+        "count": {"const": 1},
+        "blocked": {"type": "boolean"},
+        "gate_results": {"type": "integer", "minimum": 1}
+      }
+    },
+    "score_one": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["count", "non_binding"],
+      "properties": {"count": {"const": 1}, "non_binding": {"const": true}}
+    },
+    "score_two": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["count", "non_binding"],
+      "properties": {"count": {"const": 2}, "non_binding": {"const": true}}
+    },
+    "pr_created": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["count", "number", "url", "base_sha", "head_sha"],
+      "properties": {
+        "count": {"const": 1},
+        "number": {"type": "integer", "minimum": 1},
+        "url": {"$ref": "#/$defs/url"},
+        "base_sha": {"$ref": "#/$defs/sha"},
+        "head_sha": {"$ref": "#/$defs/sha"}
+      }
+    },
+    "no_pr": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["count"],
+      "properties": {"count": {"const": 0}}
+    },
+    "gate_pair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["count", "initial_blocked", "healed_blocked", "gate_results_each"],
+      "properties": {
+        "count": {"const": 2},
+        "initial_blocked": {"const": true},
+        "healed_blocked": {"type": "boolean"},
+        "gate_results_each": {"type": "integer", "minimum": 1}
+      }
+    },
+    "healing_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classified",
+        "attempts_started",
+        "attempts_completed",
+        "max_attempts",
+        "second_attempts",
+        "failed_head",
+        "healed_parent_sha",
+        "healed_head"
+      ],
+      "properties": {
+        "classified": {"const": 2},
+        "attempts_started": {"const": 1},
+        "attempts_completed": {"const": 1},
+        "max_attempts": {"const": 1},
+        "second_attempts": {"const": 0},
+        "failed_head": {"$ref": "#/$defs/sha"},
+        "healed_parent_sha": {"$ref": "#/$defs/sha"},
+        "healed_head": {"$ref": "#/$defs/sha"}
+      }
+    },
+    "case_base": {
+      "type": "object",
+      "required": ["id", "result", "run", "subject", "evidence"],
+      "properties": {
+        "result": {"const": "passed"},
+        "run": {"$ref": "#/$defs/run"},
+        "subject": {"$ref": "#/$defs/subject"}
+      }
+    },
+    "success_case": {
+      "allOf": [
+        {"$ref": "#/$defs/case_base"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "result", "run", "subject", "evidence"],
+          "properties": {
+            "id": {"const": "success"},
+            "result": {"const": "passed"},
+            "run": {"$ref": "#/$defs/run"},
+            "subject": {"$ref": "#/$defs/subject"},
+            "evidence": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["gate_evaluation_completed", "score_observed", "gates_passed", "pr_created"],
+              "properties": {
+                "gate_evaluation_completed": {"$ref": "#/$defs/gate_result"},
+                "score_observed": {"$ref": "#/$defs/score_one"},
+                "gates_passed": {"const": 1},
+                "pr_created": {"$ref": "#/$defs/pr_created"}
+              }
+            }
+          }
+        }
+      ]
+    },
+    "required_block_case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "result", "run", "subject", "evidence"],
+      "properties": {
+        "id": {"const": "required_gate_block"},
+        "result": {"const": "passed"},
+        "run": {"$ref": "#/$defs/run"},
+        "subject": {"$ref": "#/$defs/subject"},
+        "evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "gate_evaluation_completed",
+            "score_observed",
+            "healing_classified",
+            "healing_attempts_started",
+            "workflow_blocked",
+            "pr_created"
+          ],
+          "properties": {
+            "gate_evaluation_completed": {"$ref": "#/$defs/gate_result"},
+            "score_observed": {"$ref": "#/$defs/score_one"},
+            "healing_classified": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["count", "classification", "reason"],
+              "properties": {
+                "count": {"const": 1},
+                "classification": {"const": "not_healable"},
+                "reason": {"type": "string", "minLength": 1}
+              }
+            },
+            "healing_attempts_started": {"const": 0},
+            "workflow_blocked": {"$ref": "#/$defs/terminal"},
+            "pr_created": {"$ref": "#/$defs/no_pr"}
+          }
+        }
+      }
+    },
+    "healing_case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "result", "run", "subject", "evidence"],
+      "properties": {
+        "id": {"const": "evidence_healing_new_head"},
+        "result": {"const": "passed"},
+        "run": {"$ref": "#/$defs/run"},
+        "subject": {"$ref": "#/$defs/subject"},
+        "evidence": {"$ref": "#/$defs/healing_evidence"}
+      }
+    },
+    "refail_case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "result", "run", "subject", "evidence"],
+      "properties": {
+        "id": {"const": "terminal_refail"},
+        "result": {"const": "passed"},
+        "run": {"$ref": "#/$defs/run"},
+        "subject": {"$ref": "#/$defs/subject"},
+        "evidence": {"$ref": "#/$defs/refail_evidence"}
+      }
+    },
+    "terminal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["count", "reason"],
+      "properties": {"count": {"const": 1}, "reason": {"type": "string", "minLength": 1}}
+    },
+    "healing_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["healed_subject", "gate_evaluation_completed", "score_observed", "healing", "gates_passed", "pr_created"],
+      "properties": {
+        "healed_subject": {"$ref": "#/$defs/subject"},
+        "gate_evaluation_completed": {"$ref": "#/$defs/gate_pair"},
+        "score_observed": {"$ref": "#/$defs/score_two"},
+        "healing": {"$ref": "#/$defs/healing_counts"},
+        "gates_passed": {"const": 1},
+        "pr_created": {"$ref": "#/$defs/pr_created"}
+      }
+    },
+    "refail_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["healed_subject", "gate_evaluation_completed", "score_observed", "healing", "workflow_blocked", "pr_created"],
+      "properties": {
+        "healed_subject": {"$ref": "#/$defs/subject"},
+        "gate_evaluation_completed": {"$ref": "#/$defs/gate_pair"},
+        "score_observed": {"$ref": "#/$defs/score_two"},
+        "healing": {"$ref": "#/$defs/healing_counts"},
+        "workflow_blocked": {"$ref": "#/$defs/terminal"},
+        "pr_created": {"$ref": "#/$defs/no_pr"}
+      }
+    },
+    "state_store_hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evaluation_observations.json", "bound_healing_attempts.json", "quality_metrics.json"],
+      "properties": {
+        "evaluation_observations.json": {"$ref": "#/$defs/digest"},
+        "bound_healing_attempts.json": {"$ref": "#/$defs/digest"},
+        "quality_metrics.json": {"$ref": "#/$defs/digest"}
+      }
+    },
+    "transition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authority_mode", "gate_profile", "policy_version", "policy_digest", "bound_healing_active", "gate_10_required", "legacy_steps_active"],
+      "properties": {
+        "authority_mode": {"enum": ["bound_gate_authority", "legacy_score_authority"]},
+        "gate_profile": {"enum": ["default", "legacy"]},
+        "policy_version": {"type": "string", "minLength": 1},
+        "policy_digest": {"$ref": "#/$defs/digest"},
+        "bound_healing_active": {"type": "boolean"},
+        "gate_10_required": {"type": "boolean"},
+        "legacy_steps_active": {"type": "boolean"}
+      }
+    },
+    "rollback_case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "result", "run", "subject", "evidence"],
+      "properties": {
+        "id": {"const": "legacy_rollback"},
+        "result": {"const": "passed"},
+        "run": {"$ref": "#/$defs/run"},
+        "subject": {"$ref": "#/$defs/subject"},
+        "evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["drill_observed_at", "runtime_revision", "transitions", "data_migration", "mixed_state", "state_hashes", "implementation"],
+          "properties": {
+            "drill_observed_at": {"$ref": "#/$defs/timestamp"},
+            "runtime_revision": {"$ref": "#/$defs/sha"},
+            "transitions": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/transition"}},
+            "data_migration": {"const": false},
+            "mixed_state": {"const": false},
+            "state_hashes": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["before", "legacy", "after"],
+              "properties": {
+                "before": {"$ref": "#/$defs/state_store_hashes"},
+                "legacy": {"$ref": "#/$defs/state_store_hashes"},
+                "after": {"$ref": "#/$defs/state_store_hashes"}
+              }
+            },
+            "implementation": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["issue", "pr", "source_sha", "merge_sha", "pr_ci_run", "push_ci_run"],
+              "properties": {
+                "issue": {"const": 579},
+                "pr": {"const": 590},
+                "source_sha": {"$ref": "#/$defs/sha"},
+                "merge_sha": {"$ref": "#/$defs/sha"},
+                "pr_ci_run": {"type": "integer", "minimum": 1},
+                "push_ci_run": {"type": "integer", "minimum": 1}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
