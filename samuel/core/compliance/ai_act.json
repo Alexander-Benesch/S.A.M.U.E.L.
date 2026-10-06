@@ -1,0 +1,606 @@
+{
+  "version": "eu_ai_act_2024_1689",
+  "_note": "EU AI Act (Regulation 2024/1689) article references for SAMUEL events. Whether an article is a legal OBLIGATION or a voluntarily-applied best practice depends on the DEPLOYMENT risk class — not on a fixed property of SAMUEL. Each article therefore declares `applies_to` (its addressee circle): Art. 50 applies to `all` AI systems; Art. 12/13/14/15 apply to `high_risk` systems only. The effective obligation is derived at runtime: `required` if the deployment risk class is in `applies_to` (or `applies_to` contains `all`), else `voluntary`. The deployment risk class is set via `SAMUEL_RISK_CLASS` (default `limited_risk` for self-mode). In self-mode SAMUEL is Limited Risk, so Art. 12-15 are voluntary; when SAMUEL supervises a High-Risk host project they become the host's mandatory compliance instruments. See #366 (self-classification) and #373 (deployment-dependent obligation).",
+  "articles": [
+    {
+      "id": "Art. 12",
+      "title": "Logging",
+      "applies_to": ["high_risk"],
+      "description": "Aufzeichnungspflicht (Logging). VO 2024/1689 Art. 12 adressiert Hochrisiko-KI-Systeme. SAMUEL stellt das Instrument bereit: Audit-Trail mit Correlation-IDs pro Event."
+    },
+    {
+      "id": "Art. 13",
+      "title": "Transparency",
+      "applies_to": ["high_risk"],
+      "description": "Transparenz und Information für Nutzer. VO 2024/1689 Art. 13 adressiert Hochrisiko-KI-Systeme. SAMUEL stellt das Instrument bereit: operator-sichtbare Eval-/AC-Verifikation."
+    },
+    {
+      "id": "Art. 14",
+      "title": "Human Oversight",
+      "applies_to": ["high_risk"],
+      "description": "Menschliche Aufsicht. VO 2024/1689 Art. 14 adressiert Hochrisiko-KI-Systeme. SAMUEL stellt das Instrument bereit: 14 PR-Gates, Plan-Approval, Workflow-Approval-Schleifen."
+    },
+    {
+      "id": "Art. 15",
+      "title": "Robustness & Cybersecurity",
+      "applies_to": ["high_risk"],
+      "description": "Genauigkeit, Robustheit und Cybersicherheit. VO 2024/1689 Art. 15 adressiert Hochrisiko-KI-Systeme. SAMUEL stellt das Instrument bereit: Eval-Score, Healing-Budget, Test-Run-Verifikation."
+    },
+    {
+      "id": "Art. 50",
+      "title": "Transparency for AI-generated Content",
+      "applies_to": ["all"],
+      "description": "Transparenzpflichten für KI-generierte Inhalte (VO 2024/1689 Art. 50) — gilt für alle KI-Systeme unabhängig von der Risikoklasse. SAMUEL erfüllt dies via AI-Attribution-Trailer in jedem KI-generierten Commit."
+    }
+  ],
+  "mappings": [
+    {
+      "cat": "eval",
+      "evt": "test_run",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "eval",
+      "evt": "test_passed",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "eval",
+      "evt": "test_failed",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "eval",
+      "evt": "test_timeout",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "eval",
+      "evt": "ac_verify",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "eval",
+      "evt": "ac_test_pass",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "eval",
+      "evt": "ac_test_fail",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "eval",
+      "evt": "eval_run",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "eval",
+      "evt": "eval_fail",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "eval",
+      "evt": "ast_diff",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "eval",
+      "evt": "llm_quality_check",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "eval",
+      "evt": "optimizer_run",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "eval",
+      "evt": "cause",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "eval",
+      "evt": "ac_verified",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "eval",
+      "evt": "ac_failed",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "eval",
+      "evt": "ac_manual_pending",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "eval",
+      "evt": "score_observed",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "workflow",
+      "evt": "healing_run",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "workflow",
+      "evt": "agent_start",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "workflow",
+      "evt": "approval_found",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "workflow",
+      "evt": "resume_clear",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "workflow",
+      "evt": "step_bypassed",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "workflow",
+      "evt": "implement_done",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "workflow",
+      "evt": "resume_save",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "workflow",
+      "evt": "resume_load",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "workflow",
+      "evt": "healing_attempt_started",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "workflow",
+      "evt": "healing_attempt_completed",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "workflow",
+      "evt": "healing_aborted",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "workflow",
+      "evt": "healing_suggested",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "workflow",
+      "evt": "healing_classified",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "state",
+      "evt": "authority_reconcile_required",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "guard",
+      "evt": "quality_check",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "guard",
+      "evt": "chat_mode_bypass",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "guard",
+      "evt": "gate_blocked",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "guard",
+      "evt": "branch_stale",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "guard",
+      "evt": "merge_destructive",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "guard",
+      "evt": "label_hygiene",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "guard",
+      "evt": "chat_mode_guard",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "guard",
+      "evt": "security_tamper",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "guard",
+      "evt": "workflow_bypass_blocked",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "guard",
+      "evt": "scope_creep_detected",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "guard",
+      "evt": "plan_pre_check",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "guard",
+      "evt": "plan_pre_check_blocked",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "scm",
+      "evt": "git_commit",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "git_checkout",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "pr_create",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "pr_merge",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "pr_exists",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "changelog_update",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "patch_apply",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "issue_create",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "issue_close",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "issue_update",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "comment_post",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "label_add",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "label_remove",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "scm",
+      "evt": "label_swap",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "llm",
+      "evt": "llm_call",
+      "article": "Art. 50"
+    },
+    {
+      "cat": "context",
+      "evt": "context",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "context",
+      "evt": "context_build",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "context",
+      "evt": "architecture_context_load",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "context",
+      "evt": "plan_context_load",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "routing",
+      "evt": "routing",
+      "article": "Art. 13"
+    },
+    {
+      "cat": "system",
+      "evt": "session_start",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "system",
+      "evt": "agent_start",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "system",
+      "evt": "session_increment",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "system",
+      "evt": "skeleton_build",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "system",
+      "evt": "skeleton_update",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "system",
+      "evt": "dashboard_generate",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "system",
+      "evt": "sequence_extract",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "system",
+      "evt": "self_check_complete",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "system",
+      "evt": "self_check_fatal",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "system",
+      "evt": "self_repair",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "system",
+      "evt": "self_repair_failed",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "system",
+      "evt": "self_check_resolved",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "health",
+      "evt": "doctor_run",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "health",
+      "evt": "health_run",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "health",
+      "evt": "health_check_fail",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "health",
+      "evt": "anomaly_detected",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "security",
+      "evt": "protection_change",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "security",
+      "evt": "api_guard_block",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "security",
+      "evt": "prompt_injection_signal",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "security",
+      "evt": "secret_shape_signal",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "security",
+      "evt": "hook_tamper",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "security",
+      "evt": "TamperDetected",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "security",
+      "evt": "UnauthorizedChange",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "security",
+      "evt": "IntegrityViolation",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "security",
+      "evt": "env_exposure",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "security",
+      "evt": "bot_scope_violation",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "config",
+      "evt": "chat_mode_toggle",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "config",
+      "evt": "config_change",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "error",
+      "evt": "emergency",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "gates",
+      "evt": "gates_passed",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "gates",
+      "evt": "gate_failed",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "gates",
+      "evt": "gate_evaluation_completed",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "gates",
+      "evt": "gate_evaluation_unavailable",
+      "article": "Art. 12"
+    },
+    {
+      "cat": "gates",
+      "evt": "subject_invalidated",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "quality",
+      "evt": "quality_passed",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "quality",
+      "evt": "quality_failed",
+      "article": "Art. 15"
+    },
+    {
+      "cat": "plan",
+      "evt": "complexity_warn",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "plan",
+      "evt": "split_recommended",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "plan",
+      "evt": "ScopeCreepDetected",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "guard",
+      "evt": "out_of_scope_diff",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "guard",
+      "evt": "OutOfScopeDiff",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "workflow",
+      "evt": "plan_replan_rejected",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "workflow",
+      "evt": "plan_revoked",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "plan",
+      "evt": "clarification_requested",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "plan",
+      "evt": "clarification_waiting",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "plan",
+      "evt": "clarification_accepted",
+      "article": "Art. 14"
+    },
+    {
+      "cat": "plan",
+      "evt": "clarification_superseded",
+      "article": "Art. 14"
+    }
+  ],
+  "fallbacks": {
+    "eval": "Art. 15",
+    "guard": "Art. 14",
+    "scm": "Art. 12",
+    "llm": "Art. 50",
+    "context": "Art. 13",
+    "routing": "Art. 13",
+    "workflow": "Art. 14",
+    "system": "Art. 12",
+    "health": "Art. 15",
+    "config": "Art. 12",
+    "perf": "Art. 12",
+    "error": "Art. 12",
+    "security": "Art. 15",
+    "gates": "Art. 14",
+    "quality": "Art. 15",
+    "plan": "Art. 14"
+  }
+}

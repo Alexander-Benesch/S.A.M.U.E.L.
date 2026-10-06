@@ -1,0 +1,1560 @@
+{
+  "schema_version": "1.0",
+  "generator_version": "1.0",
+  "issue": 572,
+  "principle": "Formal existence does not grant authority without subject, context and policy binding.",
+  "active_document_status": "active",
+  "section_defaults": {
+    "owner": "repository-maintainers",
+    "review_status": "reviewed",
+    "review_rule": "Generated sections must be regenerated; manual sections require source-aware review and an explicit digest update. Listed proofs remain mandatory."
+  },
+  "documents": [
+    {
+      "path": ".claude/CLAUDE.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "MANIFESTO.md",
+      "class": "target_architecture",
+      "mode": "manual"
+    },
+    {
+      "path": "README.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "SECURITY.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/AI_ACT_COMPLIANCE.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/AI_ACT_TECHNICAL_DOC.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/CAPABILITY_MATRIX.md",
+      "class": "runtime_reference",
+      "mode": "generated"
+    },
+    {
+      "path": "docs/CI_RUNNER_OPERATIONS.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/CONTAINER_RELEASE_OPERATIONS.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/DSGVO_VVT.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/EXTENSION_CONTRACT.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/GATE_COMPLIANCE_MATRIX.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/INSTALL.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/OPERATING_RULES.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/PRODUCT_BOUNDARY_HANDOVER_PROMPT.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/PROMPT_CONTRACT_AUDIT.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/README_technical.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/RUNTIME_REFERENCE.md",
+      "class": "runtime_reference",
+      "mode": "generated"
+    },
+    {
+      "path": "docs/SAMUEL_ARCHITECTURE_V2.1.md",
+      "class": "target_architecture",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/SAMUEL_DESIGN_DECISIONS.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/VERSIONING.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0399-score-authority.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0422-local-dashboard-identity.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0482-runtime-state-store.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0583-installed-cli-entrypoint.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0618-worktree-manager.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0619-candidate-sandbox.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0620-preflight-gate-state.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0635-wiki-pilot.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0643-repository-wiki-materialization.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0649-wiki-content-projection.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0678-product-boundary-and-integration-profile.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0693-health-readiness-qualification.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0706-atomic-release-layout.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/README.md",
+      "class": "adr",
+      "mode": "generated"
+    },
+    {
+      "path": "docs/agents/AGENT_CONFIGURATION_REFERENCE.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/agents/AGENT_PROMPTS_AND_INSTRUCTIONS.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/INDEX.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/completed/BACKLOG_STORY_MATERIALIZATION.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/completed/EXTERNAL_CHALLENGE_RECONCILIATION.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/completed/ISSUE_COMMENT_RECONCILIATION.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/completed/P4_CHALLENGE_RECONCILIATION.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/completed/SAMUEL_AUDIT_ERRATA_2026-09-27.json.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/completed/SAMUEL_AUDIT_INTEGRITY_RECONCILIATION_2026-09-27.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/completed/SAMUEL_AUDIT_SOURCE_INDEX_2026-09-26.json.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/completed/SAMUEL_TARGETED_FALSIFICATION_CHALLENGE_2026-09-28.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/completed/SAMUEL_TARGETED_FALSIFICATION_RESULTS_2026-09-28.json.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/BACKLOG_AUDIT_INDEX.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/BACKLOG_CHALLENGE_BUNDLE.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/P1_CHALLENGE_PACKAGE.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/P2_AUDIT_PACKAGE.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/P2_CHALLENGE_PACKAGE.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/P3_CHALLENGE_PACKAGE.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/P4_CHALLENGE_PACKAGE.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/P5_CHALLENGE_PACKAGE.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/P6_CHALLENGE_PACKAGE.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/P7_CHALLENGE_PACKAGE.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/P8_CHALLENGE_PACKAGE.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/RELEASE_LINEAGE_DRIFT_AUDIT.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/checkpoint.json.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/verification-ledger.jsonl.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/partial/D0_BOOTSTRAP_CONTRACT_AUDIT.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/partial/EXECUTION_CONFORMANCE_AUDIT.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/partial/OPERATIONAL_CONTRACTS.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/partial/POST_AUDIT_CONSOLIDATION.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/partial/REMEDIATION_MATRIX.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/partial/SAMUEL_FULL_AUTHORITY_HISTORY_DRIFT_AUDIT_2026-09-26.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/partial/SAMUEL_GOLDEN_PREPARATION_ISSUE_LEDGER.json.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/partial/SAMUEL_GOLDEN_PREPARATION_RECONCILIATION.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/partial/SAMUEL_WORKING_DECISIONS_v8.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/github/GITHUB_SYNC_READINESS.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/governance/CURRENT_ENGINEERING_WORKFLOW.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/governance/DRIFT_HISTORY_AND_LESSONS.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/governance/PROCESS_DEVIATIONS_AND_SHORTCUTS.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/runbooks/TEST_AND_QUALIFICATION_RUNBOOK.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/status/ACTIVE_DOCUMENT_RECONCILIATION.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/status/CLOSED_ISSUE_CLASSIFICATION.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/status/CURRENT_PRODUCT_STATUS.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/status/ISSUE_IMPLEMENTATION_MATRIX.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/status/ISSUE_WORKSTREAM_MAP.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/status/REHEARSAL_REPOSITORY_CLEANUP.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/status/WORKING_DECISIONS_TO_ISSUES.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "technische Beschreibungen/README.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "technische Beschreibungen/pipeline_evaluation.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "technische Beschreibungen/pipeline_issue_to_llm.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "technische Beschreibungen/pipeline_planning.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "technische Beschreibungen/pipeline_pr_gates.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    }
+  ],
+  "sections": [
+    {
+      "id": "runtime-reference",
+      "document": "docs/RUNTIME_REFERENCE.md",
+      "mode": "generated",
+      "generator": "runtime_reference",
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered",
+        "tests/test_document_contract.py::test_runtime_reference_changes_with_shipped_eval_config",
+        "tests/test_document_contract.py::test_runtime_reference_changes_with_shipped_retention_config",
+        "tests/test_document_contract.py::test_runtime_reference_generates_exact_verifier_environment_allowlist",
+        "tests/test_document_contract.py::test_runtime_reference_binds_preflight_and_evidence_schema_truth"
+      ],
+      "sources": [
+        {
+          "path": "samuel/core/commands.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/events.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/ports.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/workspaces.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/config.py",
+          "kind": "python_symbol",
+          "symbol": "EvalSchema"
+        },
+        {
+          "path": "samuel/core/config.py",
+          "kind": "python_symbol",
+          "symbol": "GatesConfigSchema"
+        },
+        {
+          "path": "samuel/core/config.py",
+          "kind": "python_symbol",
+          "symbol": "resolve_gate_profile"
+        },
+        {
+          "path": "samuel/core/config.py",
+          "kind": "python_symbol",
+          "symbol": "resolve_watch_parallelism"
+        },
+        {
+          "path": "samuel/slices/*/__init__.py",
+          "kind": "glob"
+        },
+        {
+          "path": "samuel/adapters/*/__init__.py",
+          "kind": "glob"
+        },
+        {
+          "path": "samuel/slices/ac_verification/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/acceptance.py",
+          "kind": "python_symbol",
+          "symbol": "parse_grep_criterion_argument"
+        },
+        {
+          "path": "samuel/core/acceptance.py",
+          "kind": "python_symbol",
+          "symbol": "parse_test_criterion_argument"
+        },
+        {
+          "path": "samuel/core/process_environment.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/test_runner.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/planning/handler.py",
+          "kind": "python_symbol",
+          "symbol": "_VALID_AC_TAGS"
+        },
+        {
+          "path": "samuel/slices/planning/handler.py",
+          "kind": "python_symbol",
+          "symbol": "_COMPLEXITY_PFLICHT_TAGS"
+        },
+        {
+          "path": "samuel/slices/scoring/handler.py",
+          "kind": "python_symbol",
+          "symbol": "_TAG_FAMILIES"
+        },
+        {
+          "path": "samuel/slices/scoring/handler.py",
+          "kind": "python_symbol",
+          "symbol": "_HALLUCINATION_TAGS"
+        },
+        {
+          "path": "samuel/slices/evaluation/bound_scoring.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/pr_gates/gates.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/gate_metadata.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/pr_gates/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "config/gates*.json",
+          "kind": "glob"
+        },
+        {
+          "path": "config/workflows/*.json",
+          "kind": "glob"
+        },
+        {
+          "path": "config/eval.json",
+          "kind": "file"
+        },
+        {
+          "path": "config/agent.json",
+          "kind": "file"
+        },
+        {
+          "path": "config/audit.json",
+          "kind": "file"
+        },
+        {
+          "path": "config/privacy.json",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/retention.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/bootstrap.py",
+          "kind": "python_symbol",
+          "symbol": "bootstrap"
+        },
+        {
+          "path": "samuel/slices/resume/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/state/sqlite.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/state/legacy.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/workspace/git.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/git.py",
+          "kind": "python_symbol",
+          "symbol": "commit_tree_transaction"
+        },
+        {
+          "path": "samuel/slices/evaluation/handler.py",
+          "kind": "python_symbol",
+          "symbol": "EvaluationHandler.observe"
+        },
+        {
+          "path": "samuel/slices/run_projection/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/healing/bound.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/quality_metrics/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/dashboard/data.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/watch/handler.py",
+          "kind": "python_symbol",
+          "symbol": "WatchHandler._poll_scm_activity"
+        }
+      ],
+      "source_digest": "sha256:88b37d9c441e0b56b68d083e24d4a29670216417c22fc8de21f4fad0b8289be2"
+    },
+    {
+      "id": "architecture-watch-concurrency",
+      "document": "docs/SAMUEL_ARCHITECTURE_V2.1.md",
+      "mode": "generated",
+      "generator": "watch_concurrency",
+      "proofs": [
+        "tests/test_document_contract.py::test_watch_concurrency_reference_is_bound_to_sync_try_finally",
+        "tests/test_core_config.py::test_resolve_watch_parallelism_rejects_unsupported_sources",
+        "samuel/slices/watch/tests/test_handler.py::TestWatchHandler::test_dispatches_all_issues_sequentially_and_releases_slot"
+      ],
+      "sources": [
+        {
+          "path": "samuel/slices/watch/handler.py",
+          "kind": "python_symbol",
+          "symbol": "WatchHandler.handle"
+        },
+        {
+          "path": "samuel/slices/watch/handler.py",
+          "kind": "python_symbol",
+          "symbol": "WatchHandler._try_acquire"
+        },
+        {
+          "path": "samuel/slices/watch/handler.py",
+          "kind": "python_symbol",
+          "symbol": "WatchHandler._release"
+        },
+        {
+          "path": "samuel/core/bus.py",
+          "kind": "python_symbol",
+          "symbol": "Bus.publish"
+        },
+        {
+          "path": "samuel/core/bootstrap.py",
+          "kind": "python_symbol",
+          "symbol": "bootstrap"
+        },
+        {
+          "path": "samuel/core/config.py",
+          "kind": "python_symbol",
+          "symbol": "resolve_watch_parallelism"
+        },
+        {
+          "path": "config/agent.json",
+          "kind": "json_pointer",
+          "pointer": "/max_parallel"
+        },
+        {
+          "path": "config/workflows/*.json",
+          "kind": "glob"
+        }
+      ],
+      "source_digest": "sha256:467706eed5212d1fb7de6ac6b892283967af736406139c65bba197f95997ad93"
+    },
+    {
+      "id": "technical-ac-tags",
+      "document": "docs/README_technical.md",
+      "mode": "generated",
+      "generator": "ac_tags",
+      "proofs": [
+        "tests/test_document_contract.py::test_ac_registry_and_generated_table_are_exact"
+      ],
+      "sources": [
+        {
+          "path": "samuel/slices/ac_verification/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/test_runner.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/acceptance.py",
+          "kind": "python_symbol",
+          "symbol": "parse_grep_criterion_argument"
+        },
+        {
+          "path": "samuel/core/acceptance.py",
+          "kind": "python_symbol",
+          "symbol": "parse_test_criterion_argument"
+        },
+        {
+          "path": "samuel/slices/planning/handler.py",
+          "kind": "python_symbol",
+          "symbol": "_VALID_AC_TAGS"
+        }
+      ],
+      "source_digest": "sha256:67fbf3c7ae327200dc71e3fa288698bd2c9498737a2fb92386dd29a57150d096"
+    },
+    {
+      "id": "operating-plan-complexity",
+      "document": "docs/OPERATING_RULES.md",
+      "mode": "generated",
+      "generator": "plan_complexity",
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered"
+      ],
+      "sources": [
+        {
+          "path": "samuel/slices/planning/handler.py",
+          "kind": "python_symbol",
+          "symbol": "_COMPLEXITY_DEFAULTS"
+        },
+        {
+          "path": "samuel/slices/planning/handler.py",
+          "kind": "python_symbol",
+          "symbol": "_COMPLEXITY_PFLICHT_TAGS"
+        },
+        {
+          "path": "config/eval.json",
+          "kind": "file"
+        }
+      ],
+      "source_digest": "sha256:f5447a92a3bdf878ecf7c908fd670f070b70f4db28665315e8293be131294d54"
+    },
+    {
+      "id": "technical-persistence-artifacts",
+      "document": "docs/README_technical.md",
+      "mode": "generated",
+      "generator": "persistence_artifacts",
+      "proofs": [
+        "tests/test_document_contract.py::test_persistence_reference_names_config_and_code_provenance",
+        "samuel/adapters/state/tests/test_sqlite.py::test_fresh_schema_is_local_versioned_wal_and_idempotent",
+        "samuel/adapters/state/tests/test_sqlite.py::test_backup_api_copies_active_wal_database_and_refuses_overwrite",
+        "tests/test_workspace_manager.py::test_run_and_verification_profiles_share_registry_and_stay_outside_repo"
+      ],
+      "sources": [
+        {
+          "path": "config/agent.json",
+          "kind": "json_pointer",
+          "pointer": "/data_dir"
+        },
+        {
+          "path": "config/agent.json",
+          "kind": "json_pointer",
+          "pointer": "/workspace"
+        },
+        {
+          "path": "config/audit.json",
+          "kind": "file"
+        },
+        {
+          "path": "config/privacy.json",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/bootstrap.py",
+          "kind": "python_symbol",
+          "symbol": "bootstrap"
+        },
+        {
+          "path": "samuel/slices/resume/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/state/sqlite.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/state/legacy.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/workspace/git.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/evaluation/handler.py",
+          "kind": "python_symbol",
+          "symbol": "EvaluationHandler.observe"
+        },
+        {
+          "path": "samuel/slices/run_projection/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/healing/bound.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/quality_metrics/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/dashboard/data.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/watch/handler.py",
+          "kind": "python_symbol",
+          "symbol": "WatchHandler._poll_scm_activity"
+        }
+      ],
+      "source_digest": "sha256:9dd0b48637d6a0ff438c48fd3de89fbf0df83c32eca3c4baccedb3df23077afb"
+    },
+    {
+      "id": "adr-index",
+      "document": "docs/adr/README.md",
+      "mode": "generated",
+      "generator": "adr_index",
+      "proofs": [
+        "tests/test_document_contract.py::test_superseded_adr_requires_known_successor"
+      ],
+      "sources": [
+        {
+          "path": "docs/adr/[0-9]*.md",
+          "kind": "glob"
+        }
+      ],
+      "source_digest": "sha256:017c165aaa7cb3f1ecd8edb84fb102d7ae889d38f9ce7c6164cf160045ee0ea9"
+    },
+    {
+      "id": "design-claims-to-code",
+      "document": "docs/SAMUEL_DESIGN_DECISIONS.md",
+      "mode": "manual",
+      "heading": "## E9 — Claims-to-Code-Audit als Release-Gate",
+      "source_digest": "sha256:c288b55b53a624a0855ffd6734a78abb23506e112505af2923ed24fef8ddba0c",
+      "proofs": [
+        "tests/test_document_contract.py::test_stale_manual_section_binding_is_rejected",
+        "tests/test_control_matrix.py::test_checked_in_capability_matrix_is_valid_and_fresh"
+      ],
+      "sources": [
+        {
+          "path": "tools/control_matrix.py",
+          "kind": "file"
+        },
+        {
+          "path": "docs/capabilities/control-matrix.json",
+          "kind": "json_pointer",
+          "pointer": "/observed_workflows"
+        },
+        {
+          "path": "docs/capabilities/control-matrix.json",
+          "kind": "json_pointer",
+          "pointer": "/release_baseline"
+        },
+        {
+          "path": "docs/capabilities/control-matrix.json",
+          "kind": "json_pointer",
+          "pointer": "/controls"
+        },
+        {
+          "path": ".gitea/workflows/ci.yml",
+          "kind": "text_range",
+          "start": "- name: Capability and documentation contract drift check",
+          "end": "run: python3 tools/control_matrix.py check"
+        }
+      ]
+    },
+    {
+      "id": "technical-state-store-observation-projection",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "### Versionierter State-Store (Stufen 3/4/5a/5b/5c-Fundament, #629/#633/#666/#667/#673)",
+      "source_digest": "sha256:bdf87de72bed493a851fe8a5308fbe63117363169888cd0863104627cbba5439",
+      "proofs": [
+        "samuel/adapters/state/tests/test_sqlite.py::test_fresh_schema_is_local_versioned_wal_and_idempotent",
+        "samuel/adapters/state/tests/test_sqlite.py::test_network_filesystems_are_rejected",
+        "tests/test_cli_state.py::test_installed_state_status_and_dump_are_deterministic_and_payload_free",
+        "tests/test_runtime_state_migration.py::test_legacy_import_is_one_way_checksum_bound_and_series_safe",
+        "tests/test_runtime_state_migration.py::test_dashboard_history_treats_observation_schema_change_as_series_cut",
+        "tests/test_runtime_state_migration.py::test_run_projection_survives_audit_removal_and_replay_is_idempotent",
+        "tests/test_runtime_state_migration.py::test_projection_materializes_real_failure_terminals_as_blocked",
+        "tests/test_runtime_state_migration.py::test_projection_reduction_is_idempotent_and_independent_of_delivery_order",
+        "tests/test_runtime_state_migration.py::test_existing_projection_reconciliation_separates_blocked_and_unbound",
+        "tests/test_runtime_state_migration.py::test_projection_subscriber_failure_is_dlq_visible_and_does_not_block",
+        "tests/test_cli_state.py::test_state_cli_reprojects_run_outcomes_without_printing_payloads",
+        "tests/test_runtime_state_migration.py::test_healing_claim_import_is_atomic_one_way_and_preserves_at_most_once",
+        "samuel/adapters/state/tests/test_sqlite.py::test_checkpoint_intent_and_lease_contracts_survive_restart",
+        "samuel/adapters/state/tests/test_sqlite.py::test_witness_write_failure_commits_claim_but_raises_before_external_effect",
+        "tests/test_retention.py::test_shipped_catalog_is_complete_and_dry_run_is_non_deleting",
+        "tests/test_retention.py::test_unknown_schema_object_is_visible_and_unknown_config_category_blocks",
+        "tests/test_score_replay.py::test_score_replay_is_idempotent_multi_formula_and_side_effect_free",
+        "tests/test_cli_retention.py::test_retention_cli_dry_run_approval_and_managed_backup",
+        "tests/test_retention.py::test_score_derivation_canary_is_bound_atomic_restart_safe_and_idempotent",
+        "tests/test_retention.py::test_retention_activation_rejects_cutoff_that_is_not_yet_eligible",
+        "tests/test_retention.py::test_bound_cutoff_remains_valid_and_receipt_replays_after_policy_stop_and_time",
+        "tests/test_retention.py::test_legacy_unbound_enforcement_grant_requires_reactivation",
+        "tests/test_retention.py::test_execution_revalidates_classification_inside_delete_transaction",
+        "tests/test_retention.py::test_score_derivation_plan_drift_blocks_and_suspends_category",
+        "tests/test_retention.py::test_score_derivation_delete_failure_rolls_back_and_suspends",
+        "tests/test_retention.py::test_restore_revokes_retention_execution_authority",
+        "tests/test_retention.py::test_run_projection_retention_never_selects_non_terminal_state",
+        "tests/test_cli_retention.py::test_retention_cli_requires_explicit_review_plan_and_stop_release",
+        "samuel/slices/healing/tests/test_bound.py::test_reconcile_blocks_before_claim_and_llm",
+        "tests/test_bound_resume.py::test_hard_crash_resume_is_effect_idempotent_across_real_processes",
+        "tests/test_bound_resume.py::test_live_os_lock_blocks_takeover_before_lease_or_git_mutation",
+        "samuel/adapters/state/tests/test_sqlite.py::test_workflow_budget_admission_attempts_and_plan_binding_survive_restart",
+        "samuel/adapters/state/tests/test_sqlite.py::test_restore_preserves_budget_admission_and_unknown_reservation",
+        "samuel/slices/health/tests/test_handler.py::TestHealthHandler::test_passive_health_does_not_erase_current_self_check_readiness"
+      ],
+      "sources": [
+        {
+          "path": "samuel/core/state.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/ports.py",
+          "kind": "python_symbol",
+          "symbol": "IObservationStore"
+        },
+        {
+          "path": "samuel/core/ports.py",
+          "kind": "python_symbol",
+          "symbol": "IRunProjectionStore"
+        },
+        {
+          "path": "samuel/core/ports.py",
+          "kind": "python_symbol",
+          "symbol": "IAuthorityStateStore"
+        },
+        {
+          "path": "samuel/core/ports.py",
+          "kind": "python_symbol",
+          "symbol": "IStateDiagnostics"
+        },
+        {
+          "path": "samuel/core/ports.py",
+          "kind": "python_symbol",
+          "symbol": "IRetentionStateStore"
+        },
+        {
+          "path": "samuel/core/ports.py",
+          "kind": "python_symbol",
+          "symbol": "IRetentionExecutionStore"
+        },
+        {
+          "path": "samuel/adapters/state/sqlite.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/state/legacy.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/evaluation/handler.py",
+          "kind": "python_symbol",
+          "symbol": "EvaluationHandler.observe"
+        },
+        {
+          "path": "samuel/slices/evaluation/replay.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/privacy/retention.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/retention.py",
+          "kind": "file"
+        },
+        {
+          "path": "config/privacy.json",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/quality_metrics/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/run_projection/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/workflow_outcome.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/dashboard/data.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/bootstrap.py",
+          "kind": "python_symbol",
+          "symbol": "bootstrap"
+        },
+        {
+          "path": "samuel/slices/resume/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/cli.py",
+          "kind": "python_symbol",
+          "symbol": "_cmd_state"
+        },
+        {
+          "path": "samuel/cli.py",
+          "kind": "python_symbol",
+          "symbol": "_cmd_retention"
+        },
+        {
+          "path": "samuel/slices/health/handler.py",
+          "kind": "python_symbol",
+          "symbol": "HealthHandler"
+        },
+        {
+          "path": "samuel/slices/healing/bound.py",
+          "kind": "python_symbol",
+          "symbol": "BoundHealingCoordinator"
+        },
+        {
+          "path": "samuel/slices/implementation/handler.py",
+          "kind": "python_symbol",
+          "symbol": "ImplementationHandler"
+        },
+        {
+          "path": "samuel/slices/pr_gates/handler.py",
+          "kind": "python_symbol",
+          "symbol": "PRGatesHandler"
+        },
+        {
+          "path": "samuel/slices/session/handler.py",
+          "kind": "python_symbol",
+          "symbol": "SessionHandler"
+        },
+        {
+          "path": "samuel/core/llm_budget.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/llm/workflow_budget.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/planning/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/watch/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/acceptance.py",
+          "kind": "file"
+        }
+      ]
+    },
+    {
+      "id": "pipeline-end-to-end-authority",
+      "document": "technische Beschreibungen/README.md",
+      "mode": "manual",
+      "heading": "## End-to-End-Ablauf, Authority und Sichtbarkeit",
+      "source_digest": "sha256:ffc256c11b4ee29f00be6bbfefcfd8ea9ba204300ca35c44ea8cb704379a91ac",
+      "proofs": [
+        "tests/test_integration_e2e.py::TestEventFlowE2E::test_workflow_event_chain",
+        "tests/test_workflow_outcome.py::test_declared_terminal_events_have_their_workflow_semantics",
+        "samuel/slices/planning/tests/test_handler.py::TestPlanningHandler::test_persists_budget_admission_before_llm_and_binds_posted_plan",
+        "tests/test_core_workflow.py::test_unattended_workflows_require_approval_only_for_clarified_plans"
+      ],
+      "sources": [
+        {
+          "path": "config/workflows/*.json",
+          "kind": "glob"
+        },
+        {
+          "path": "samuel/core/commands.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/events.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/workflow_outcome.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/test_runner.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/planning/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/implementation/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/pr_gates/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/evaluation/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/healing/bound.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/resume/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/llm_budget.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/llm/workflow_budget.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/watch/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/planning/clarification.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/acceptance.py",
+          "kind": "file"
+        }
+      ]
+    },
+    {
+      "id": "pipeline-reference-qualification",
+      "document": "technische Beschreibungen/README.md",
+      "mode": "manual",
+      "heading": "## Belegreife der realen Referenzstrecke",
+      "source_digest": "sha256:e5c32e2ae8e3005b55a4b7301789470dc2f7d6df806c0341baa1dbd17033eec4",
+      "proofs": [
+        "tests/test_control_matrix.py::test_real_reference_qualification_cannot_claim_success_with_missing_evidence",
+        "tests/test_control_matrix.py::test_checked_in_capability_matrix_is_valid_and_fresh"
+      ],
+      "sources": [
+        {
+          "path": "docs/capabilities/control-matrix.json",
+          "kind": "json_pointer",
+          "pointer": "/reference_qualification"
+        }
+      ]
+    },
+    {
+      "id": "pipeline-planning-context",
+      "document": "technische Beschreibungen/pipeline_planning.md",
+      "mode": "manual",
+      "heading": "## Kontextaktualität, Werkzeuge und Grenzen",
+      "source_digest": "sha256:be0d9861b774ecf927a0497591c1bd84936dbcfd511cf2a5621a5637c3e69123",
+      "proofs": [
+        "tests/test_planning_skeleton_integration.py::test_real_python_builder_populates_planning_context",
+        "samuel/slices/planning/tests/test_handler.py::TestPlanContext::test_plan_skeleton_reuses_data_for_pre_check",
+        "samuel/slices/planning/tests/test_handler.py::TestPlanContext::test_scoped_new_file_reaches_human_approval_with_nonempty_skeleton",
+        "tests/test_workspace_manager.py::test_planning_context_and_contract_are_bound_to_remote_base",
+        "tests/test_workspace_manager.py::test_planning_blocks_before_llm_when_repository_has_no_base_commit",
+        "tests/test_workspace_manager.py::test_planning_blocks_before_llm_when_scm_ref_resolution_is_unavailable",
+        "tests/test_workspace_manager.py::test_implementation_blocks_before_llm_when_planned_base_moved",
+        "samuel/slices/planning/tests/test_handler.py::TestPlanningHandler::test_persists_budget_admission_before_llm_and_binds_posted_plan",
+        "tests/test_planning_clarification.py::test_source_drift_requires_explicit_run_before_new_series"
+      ],
+      "sources": [
+        {
+          "path": "samuel/slices/planning/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/acceptance.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/test_runner.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/workspace/git.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/skeleton/registry.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/project_files.py",
+          "kind": "file"
+        },
+        {
+          "path": "config/agent.json",
+          "kind": "json_pointer",
+          "pointer": "/context"
+        },
+        {
+          "path": "config/agent.json",
+          "kind": "json_pointer",
+          "pointer": "/default_branch"
+        },
+        {
+          "path": "config/architecture.json",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/llm_budget.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/llm/workflow_budget.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/state/sqlite.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/watch/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/planning/clarification.py",
+          "kind": "file"
+        }
+      ]
+    },
+    {
+      "id": "pipeline-implementation-context",
+      "document": "technische Beschreibungen/pipeline_issue_to_llm.md",
+      "mode": "manual",
+      "heading": "## Kontextlebenszyklus und Werkzeuggrenzen",
+      "source_digest": "sha256:c5b0f8f62e8c5e011ff645c7709f71144b5180a9bd3aa188f3707acf44cc3e16",
+      "proofs": [
+        "samuel/slices/implementation/tests/test_context_builder.py::TestBuildFullContext::test_end_to_end",
+        "samuel/slices/implementation/tests/test_context_builder.py::TestTocAndSlice::test_toc_mode_renders_signatures_not_blind_dump",
+        "tests/test_workspace_manager.py::test_implementation_blocks_before_llm_when_planned_base_moved",
+        "samuel/adapters/llm/tests/test_workflow_budget.py::test_retry_reserves_each_physical_attempt_and_holds_unknown_usage"
+      ],
+      "sources": [
+        {
+          "path": "samuel/slices/implementation/context_builder.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/implementation/context_validator.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/implementation/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/skeleton/registry.py",
+          "kind": "file"
+        },
+        {
+          "path": "config/agent.json",
+          "kind": "json_pointer",
+          "pointer": "/context"
+        },
+        {
+          "path": "config/architecture.json",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/llm/workflow_budget.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/issue_context.py",
+          "kind": "file"
+        }
+      ]
+    },
+    {
+      "id": "pipeline-gates-and-acceptance",
+      "document": "technische Beschreibungen/pipeline_pr_gates.md",
+      "mode": "manual",
+      "heading": "## Gate-Ausführungsmodell und Status",
+      "source_digest": "sha256:6a18ae06134c5287f42e0864a5ec7e9e9bf7dab6ba9f86767e720d409dc75a17",
+      "proofs": [
+        "samuel/slices/pr_gates/tests/test_handler.py::TestPreflightGateOrdering::test_scope_preflight_skips_candidate_and_every_post_candidate_gate",
+        "tests/test_acceptance_gate_integration.py::test_gate_11_consumes_bound_verifier_evidence_not_checkbox_state"
+      ],
+      "sources": [
+        {
+          "path": "samuel/core/gate_metadata.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/acceptance.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/test_runner.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/pr_gates/gates.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/pr_gates/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/ac_verification/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/security/gate.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/path_risk/gate.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/symbol_resolution/gate.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/coverage_gate/gate.py",
+          "kind": "file"
+        },
+        {
+          "path": "config/gates*.json",
+          "kind": "glob"
+        },
+        {
+          "path": "config/eval.json",
+          "kind": "file"
+        },
+        {
+          "path": "config/path_risk.json",
+          "kind": "file"
+        }
+      ]
+    },
+    {
+      "id": "technical-cli-reference",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "## 16. CLI-Reference",
+      "source_digest": "sha256:ccd7ad2322f6e6165eec8b7a824f49a76ac864f45c5bdbd80da1b9ca9d4364db",
+      "proofs": [
+        "tests/test_cli_help.py::test_root_help_lists_commands_syntax_notation_and_examples",
+        "tests/test_cli_help.py::test_every_subcommand_help_contains_an_example"
+      ],
+      "sources": [
+        {
+          "path": "samuel/cli.py",
+          "kind": "file"
+        },
+        {
+          "path": "tests/test_cli*.py",
+          "kind": "glob"
+        }
+      ]
+    },
+    {
+      "id": "technical-wiki-build",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "## 23. Deterministischer Wiki-Build",
+      "source_digest": "sha256:5ff53332ba57c0b9cd26902a793bc95b39f0b1300e2ac51d9c308118f1aab673",
+      "proofs": [
+        "tests/test_wiki.py::test_checked_in_wiki_impact_is_empty",
+        "tests/test_wiki.py::test_wiki_impact_maps_stale_source_section_to_page",
+        "tests/test_wiki.py::test_wiki_impact_maps_stale_resolved_fact_to_page",
+        "tests/test_wiki.py::test_wiki_impact_maps_document_contract_section_to_primary_page",
+        "tests/test_wiki.py::test_wiki_impact_keeps_unresolvable_binding_visible",
+        "tests/test_wiki.py::test_impact_cli_is_read_only_and_does_not_require_clean_repository",
+        "tests/test_wiki.py::test_checked_in_manifest_covers_contract_and_renders_useful_pages",
+        "tests/test_wiki.py::test_wall_clock_changes_only_receipt_created_at",
+        "tests/test_wiki.py::test_manifest_mutations_fail_closed",
+        "tests/test_wiki.py::test_generated_links_resolve_to_page_or_repository_source",
+        "tests/test_wiki.py::test_source_section_rewrites_links_and_preserves_markdown",
+        "tests/test_wiki.py::test_source_section_rejects_ambiguous_heading",
+        "tests/test_wiki.py::test_source_section_rejects_unresolvable_local_link",
+        "tests/test_wiki.py::test_resolved_fact_change_requires_new_binding"
+      ],
+      "sources": [
+        {
+          "path": "docs/adr/0635-wiki-pilot.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/adr/0643-repository-wiki-materialization.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/adr/0649-wiki-content-projection.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/capabilities/wiki-manifest.json",
+          "kind": "file"
+        },
+        {
+          "path": "tools/wiki.py",
+          "kind": "file"
+        },
+        {
+          "path": ".gitea/workflows/ci.yml",
+          "kind": "file"
+        },
+        {
+          "path": ".gitignore",
+          "kind": "file"
+        },
+        {
+          "path": "install.sh",
+          "kind": "file"
+        }
+      ]
+    },
+    {
+      "id": "technical-wiki-publisher",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "## 24. Providerneutraler Git-Wiki-Publisher",
+      "source_digest": "sha256:a8155fdc89a8aa14bf889c1b6091c092e117fa68c13096c6d395b8df9393474c",
+      "proofs": [
+        "tests/test_wiki_publish.py::test_projection_maps_home_sidebar_and_bound_source_links",
+        "tests/test_wiki_publish.py::test_publish_and_idempotent_noop_on_local_git_remote",
+        "tests/test_wiki_publish.py::test_unmanaged_or_tampered_remote_blocks",
+        "tests/test_wiki_publish.py::test_concurrent_remote_progress_blocks_without_force_push",
+        "tests/test_wiki_publish.py::test_unsafe_receipt_staging_blocks_before_remote_effect"
+      ],
+      "sources": [
+        {
+          "path": "docs/adr/0643-repository-wiki-materialization.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/capabilities/wiki-manifest.json",
+          "kind": "file"
+        },
+        {
+          "path": "tools/wiki_publish.py",
+          "kind": "file"
+        },
+        {
+          "path": "tests/test_wiki_publish.py",
+          "kind": "file"
+        }
+      ]
+    },
+    {
+      "id": "technical-health-readiness-qualification",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "### Health-, Readiness- und Qualification-Projektion (#693)",
+      "source_digest": "sha256:27fe7cba31c5ba17d9a1f97077ac04aa2bb5e6ec86a86be7ab19d0f3f606ae07",
+      "proofs": [
+        "tests/test_health_projection.py::test_projection_survives_reopen_and_requires_current_instance",
+        "tests/test_health_projection.py::test_expired_and_missing_projections_never_pass",
+        "tests/test_health_projection.py::test_missing_audit_data_does_not_erase_current_failure",
+        "tests/test_server_dashboard.py::TestSelfCheckRoute::test_health_endpoint_matches_real_health_handler_contract",
+        "samuel/slices/dashboard/tests/test_handler.py::TestDashboardHandler::test_health_exposes_bounded_retention_authority",
+        "tests/test_cli_audit.py::test_audit_verify_persists_instance_bound_projection",
+        "tests/test_cli_version.py::test_doctor_persists_bounded_qualification_in_existing_state",
+        "tests/test_health_projection.py::test_projection_read_failure_returns_not_checked",
+        "samuel/slices/dashboard/tests/test_handler.py::TestSelfCheck::test_self_check_runs_active_probes_for_configured_task_routes",
+        "samuel/slices/health/tests/test_handler.py::TestHealthHandler::test_self_check_provider_probe_makes_readiness_ready",
+        "samuel/slices/health/tests/test_handler.py::TestHealthHandler::test_failed_self_check_provider_probe_blocks_without_provider_detail",
+        "samuel/slices/health/tests/test_handler.py::TestHealthHandler::test_passive_health_does_not_erase_current_self_check_readiness"
+      ],
+      "sources": [
+        {
+          "path": "samuel/core/health_projection.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/health/handler.py",
+          "kind": "python_symbol",
+          "symbol": "HealthHandler"
+        },
+        {
+          "path": "samuel/slices/dashboard/handler.py",
+          "kind": "python_symbol",
+          "symbol": "DashboardHandler._passive_readiness"
+        },
+        {
+          "path": "samuel/slices/dashboard/handler.py",
+          "kind": "python_symbol",
+          "symbol": "DashboardHandler.get_health"
+        },
+        {
+          "path": "samuel/cli.py",
+          "kind": "python_symbol",
+          "symbol": "_cmd_audit"
+        },
+        {
+          "path": "samuel/cli.py",
+          "kind": "python_symbol",
+          "symbol": "_cmd_doctor"
+        },
+        {
+          "path": "samuel/core/state.py",
+          "kind": "python_symbol",
+          "symbol": "StateStoreStatus.as_dict"
+        },
+        {
+          "path": "samuel/slices/dashboard/handler.py",
+          "kind": "python_symbol",
+          "symbol": "DashboardHandler.get_self_check"
+        },
+        {
+          "path": "samuel/slices/dashboard/handler.py",
+          "kind": "python_symbol",
+          "symbol": "DashboardHandler._run_active_provider_probes"
+        }
+      ]
+    }
+  ]
+}

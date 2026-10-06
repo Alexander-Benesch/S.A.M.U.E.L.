@@ -1,0 +1,234 @@
+{
+  "pii_scrubbing": {
+    "enabled": true,
+    "patterns": [
+      "email",
+      "ip_address",
+      "phone",
+      "credit_card"
+    ],
+    "replacement": "[REDACTED:{type}]"
+  },
+  "retention": {
+    "schema_version": "1.0",
+    "active_profile": "eu_operational",
+    "operator_role": "operator",
+    "managed_backup_dir": "data/backups",
+    "profiles": {
+      "eu_operational": {
+        "role": "operator",
+        "minimums": {}
+      },
+      "eu_ai_act_high_risk_support": {
+        "role": "declared_provider_or_deployer",
+        "minimums": {
+          "audit_logs": "P6M"
+        },
+        "notice": "Opt-in operational support profile; not a legal classification or conformity claim."
+      }
+    },
+    "categories": {
+      "authority_leases": {
+        "storage": "sqlite_table", "source": "authority_leases", "mode": "report_only", "period": null, "anchor": "expires_at",
+        "fields": {"resource_key": "pii_free", "owner_id": "pii_free", "expires_at": "pii_free", "version": "pii_free", "updated_at": "pii_free"},
+        "protections": ["lifecycle_only"]
+      },
+      "authority_metadata": {
+        "storage": "sqlite_table", "source": "authority_metadata", "mode": "report_only", "period": null, "anchor": "updated_at",
+        "fields": {"singleton": "pii_free", "instance_uuid": "pii_free", "authority_epoch": "pii_free", "reconcile_required": "pii_free", "reconcile_reason": "pii_free", "active_restore_operation": "pii_free", "pre_restore_epoch_highwater": "pii_free", "restored_from_uuid": "pii_free", "retention_emergency_stop": "pii_free", "updated_at": "pii_free"},
+        "protections": ["no_time_based_deletion"]
+      },
+      "authority_records": {
+        "storage": "sqlite_table", "source": "authority_records", "mode": "report_only", "period": null, "anchor": "updated_at",
+        "fields": {"record_key": "pii_free", "kind": "pii_free", "payload_json": "not_automatically_verifiable", "updated_at": "pii_free"},
+        "payload_paths": {"$": "not_automatically_verifiable"},
+        "protections": ["no_time_based_deletion", "authority_tombstone"]
+      },
+      "evaluation_terminals": {
+        "storage": "sqlite_table", "source": "evaluation_terminals", "mode": "report_only", "period": "P90D", "anchor": "observed_at",
+        "fields": {"terminal_key": "pii_free", "issue_number": "pii_free", "status": "pii_free", "payload_json": "not_automatically_verifiable", "observed_at": "pii_free"},
+        "payload_paths": {"$": "not_automatically_verifiable"},
+        "protections": ["classification_required"]
+      },
+      "healing_claims": {
+        "storage": "sqlite_table", "source": "healing_claims", "mode": "report_only", "period": "P1Y", "anchor": "updated_at",
+        "fields": {"observation_key": "pii_free", "issue_number": "pii_free", "correlation_id": "pii_free", "status": "pii_free", "outcome": "pii_bearing", "reason": "pii_bearing", "updated_at": "pii_free"},
+        "protections": ["active_never", "permanent_at_most_once_tombstone"]
+      },
+      "identity_metadata": {
+        "storage": "sqlite_table", "source": "identity_metadata", "mode": "report_only", "period": null, "anchor": "updated_at",
+        "fields": {"singleton": "pii_free", "status": "pii_free", "recovery_reason": "pii_bearing", "activated_at": "pii_free", "updated_at": "pii_free"},
+        "protections": ["no_time_based_deletion", "identity_lifecycle_only"]
+      },
+      "identity_principals": {
+        "storage": "sqlite_table", "source": "identity_principals", "mode": "report_only", "period": null, "anchor": "updated_at",
+        "fields": {"principal_id": "pii_bearing", "username": "pii_bearing", "kind": "pii_free", "password_hash": "secret_bearing", "disabled": "pii_free", "credential_version": "pii_free", "created_at": "pii_free", "updated_at": "pii_free"},
+        "protections": ["no_time_based_deletion", "identity_lifecycle_only", "credential_hash_never_exported"]
+      },
+      "identity_principal_roles": {
+        "storage": "sqlite_table", "source": "identity_principal_roles", "mode": "report_only", "period": null, "anchor": "principal_id",
+        "fields": {"principal_id": "pii_bearing", "role": "pii_free"},
+        "protections": ["no_time_based_deletion", "identity_lifecycle_only"]
+      },
+      "identity_sessions": {
+        "storage": "sqlite_table", "source": "identity_sessions", "mode": "report_only", "period": null, "anchor": "expires_at",
+        "fields": {"session_id": "secret_bearing", "session_hash": "secret_bearing", "principal_id": "pii_bearing", "instance_uuid": "pii_free", "csrf_hash": "secret_bearing", "credential_version": "pii_free", "created_at": "pii_free", "authenticated_at": "pii_free", "last_seen_at": "pii_free", "expires_at": "pii_free", "revoked_at": "pii_free", "revoked_by": "pii_bearing"},
+        "protections": ["identity_lifecycle_only", "revocation_state", "credential_hash_never_exported"]
+      },
+      "identity_tokens": {
+        "storage": "sqlite_table", "source": "identity_tokens", "mode": "report_only", "period": null, "anchor": "expires_at",
+        "fields": {"token_id": "secret_bearing", "token_hash": "secret_bearing", "principal_id": "pii_bearing", "permissions_json": "pii_free", "created_at": "pii_free", "expires_at": "pii_free", "revoked_at": "pii_free", "revoked_by": "pii_bearing"},
+        "payload_paths": {"$": "pii_free"},
+        "protections": ["identity_lifecycle_only", "revocation_state", "credential_hash_never_exported"]
+      },
+      "legacy_imports": {
+        "storage": "sqlite_table", "source": "legacy_imports", "mode": "report_only", "period": null, "anchor": "imported_at",
+        "fields": {"source_path": "pii_bearing", "checksum": "pii_free", "format_version": "pii_free", "archive_path": "pii_bearing", "record_counts_json": "pii_free", "imported_at": "pii_free"},
+        "payload_paths": {"$": "pii_free"},
+        "protections": ["no_time_based_deletion", "migration_tombstone"]
+      },
+      "llm_budget_attempts": {
+        "storage": "sqlite_table", "source": "llm_budget_attempts", "mode": "report_only", "period": null, "anchor": "updated_at",
+        "fields": {"attempt_key": "pii_free", "admission_key": "pii_free", "logical_call_id": "pii_free", "provider": "pii_free", "model": "pii_free", "task": "pii_free", "input_upper_bound": "pii_free", "output_upper_bound": "pii_free", "reserved_tokens": "pii_free", "status": "pii_free", "actual_input_tokens": "pii_free", "actual_output_tokens": "pii_free", "outcome_code": "pii_free", "created_at": "pii_free", "updated_at": "pii_free"},
+        "protections": ["no_time_based_deletion", "unknown_reservation_never_released"]
+      },
+      "managed_backups": {
+        "storage": "managed_backup", "source": "managed_backups", "mode": "report_only", "period": "P30D", "anchor": "created_at",
+        "fields": {"backup_id": "pii_free", "path": "pii_bearing", "digest": "pii_free", "instance_uuid": "pii_free", "authority_epoch": "pii_free", "created_at": "pii_free"},
+        "protections": ["open_restore_digest_pin", "managed_directory_only"]
+      },
+      "observations": {
+        "storage": "sqlite_table", "source": "observations", "mode": "report_only", "period": "P1Y", "anchor": "observed_at",
+        "fields": {"observation_key": "pii_free", "subject_key": "pii_free", "evidence_digest": "pii_free", "observation_schema": "pii_free", "issue_number": "pii_free", "evidence_origin": "pii_free", "payload_json": "not_automatically_verifiable", "observed_at": "pii_free"},
+        "payload_paths": {"$": "not_automatically_verifiable"},
+        "protections": ["raw_replay_source", "classification_required"]
+      },
+      "operation_intents": {
+        "storage": "sqlite_table", "source": "operation_intents", "mode": "report_only", "period": "P1Y", "anchor": "updated_at",
+        "fields": {"intent_key": "pii_free", "operation": "pii_free", "status": "pii_free", "issue_number": "pii_free", "correlation_id": "pii_free", "subject_key": "pii_free", "payload_json": "not_automatically_verifiable", "postcondition_json": "not_automatically_verifiable", "updated_at": "pii_free"},
+        "payload_paths": {"$": "not_automatically_verifiable"},
+        "protections": ["active_never", "reconcile_relevant_never"]
+      },
+      "planning_clarifications": {
+        "storage": "sqlite_table",
+        "source": "planning_clarifications",
+        "mode": "report_only",
+        "period": null,
+        "anchor": "updated_at",
+        "fields": {
+          "series_key": "pii_free",
+          "repository": "pii_free",
+          "issue_number": "pii_free",
+          "source_digest": "pii_free",
+          "admission_key": "pii_free",
+          "correlation_id": "pii_free",
+          "status": "pii_free",
+          "round_number": "pii_free",
+          "deadline_at": "pii_free",
+          "rounds_json": "pii_bearing",
+          "version": "pii_free",
+          "created_at": "pii_free",
+          "updated_at": "pii_free"
+        },
+        "payload_paths": {
+          "$": "pii_bearing"
+        },
+        "protections": [
+          "no_time_based_deletion",
+          "active_and_plan_authority"
+        ]
+      },
+      "quality_metrics": {
+        "storage": "sqlite_table", "source": "quality_metrics", "mode": "report_only", "period": null, "anchor": "updated_at",
+        "fields": {"metric_key": "pii_free", "provider": "pii_free", "model": "pii_free", "task": "pii_free", "evidence_origin": "pii_free", "observation_schema": "pii_free", "scoring_policy_version": "pii_free", "formula_version": "pii_free", "payload_json": "not_automatically_verifiable", "updated_at": "pii_free"},
+        "payload_paths": {"$": "not_automatically_verifiable"},
+        "protections": ["no_time_based_deletion", "explicit_reset_required"]
+      },
+      "reconcile_entries": {
+        "storage": "sqlite_table", "source": "reconcile_entries", "mode": "report_only", "period": "P1Y", "anchor": "updated_at",
+        "fields": {"operation_id": "pii_free", "object_type": "pii_free", "object_key": "pii_bearing", "classification": "pii_free", "reason": "pii_bearing", "evidence_json": "not_automatically_verifiable", "updated_at": "pii_free"},
+        "payload_paths": {"$": "not_automatically_verifiable"},
+        "protections": ["open_restore_never"]
+      },
+      "retention_category_states": {
+        "storage": "sqlite_table", "source": "retention_category_states", "mode": "report_only", "period": null, "anchor": "updated_at",
+        "fields": {"category_id": "pii_free", "category_digest": "pii_free", "profile_role_digest": "pii_free", "state": "pii_free", "version": "pii_free", "evidence_digest": "pii_free", "grant_cutoff_utc": "pii_free", "activated_at": "pii_free", "reason": "pii_bearing", "updated_at": "pii_free"},
+        "protections": ["no_time_based_deletion", "retention_authority"]
+      },
+      "retention_executions": {
+        "storage": "sqlite_table", "source": "retention_executions", "mode": "report_only", "period": null, "anchor": "executed_at",
+        "fields": {"execution_id": "pii_free", "category_id": "pii_free", "plan_digest": "pii_free", "category_digest": "pii_free", "profile_role_digest": "pii_free", "cutoff_utc": "pii_free", "anchor": "pii_free", "object_ids_json": "pii_free", "candidate_count": "pii_free", "deleted_count": "pii_free", "status": "pii_free", "reason": "pii_bearing", "authority_epoch": "pii_free", "executed_at": "pii_free"},
+        "payload_paths": {"$": "pii_free"},
+        "protections": ["no_time_based_deletion", "append_only_execution_receipt"]
+      },
+      "restore_operations": {
+        "storage": "sqlite_table", "source": "restore_operations", "mode": "report_only", "period": "P1Y", "anchor": "completed_at",
+        "fields": {"operation_id": "pii_free", "status": "pii_free", "source_digest": "pii_free", "restored_from_uuid": "pii_free", "instance_uuid": "pii_free", "pre_restore_epoch_highwater": "pii_free", "supersedes_operation_id": "pii_free", "reason": "pii_bearing", "scan_status": "pii_free", "scan_error_code": "pii_free", "created_at": "pii_free", "completed_at": "pii_free"},
+        "protections": ["open_restore_never"]
+      },
+      "run_projections": {
+        "storage": "sqlite_table", "source": "run_projections", "mode": "report_only", "period": "P90D", "anchor": "updated_at",
+        "fields": {"projection_key": "pii_free", "issue_number": "pii_free", "correlation_id": "pii_free", "series": "pii_free", "status": "pii_free", "payload_json": "not_automatically_verifiable", "updated_at": "pii_free"},
+        "payload_paths": {"$": "not_automatically_verifiable"},
+        "protections": ["replay_must_exist", "non_terminal_never"]
+      },
+      "schema_migrations": {
+        "storage": "sqlite_table", "source": "schema_migrations", "mode": "report_only", "period": null, "anchor": "applied_at",
+        "fields": {"version": "pii_free", "applied_at": "pii_free"},
+        "protections": ["no_time_based_deletion", "schema_provenance"]
+      },
+      "score_derivations": {
+        "storage": "sqlite_table", "source": "score_derivations", "mode": "report_only", "period": "P90D", "anchor": "derived_at",
+        "fields": {"score_key": "pii_free", "observation_key": "pii_free", "scoring_policy_version": "pii_free", "scoring_policy_digest": "pii_free", "formula_version": "pii_free", "issue_number": "pii_free", "evidence_origin": "pii_free", "observation_schema": "pii_free", "score": "pii_free", "payload_json": "not_automatically_verifiable", "derived_at": "pii_free"},
+        "payload_paths": {"$": "not_automatically_verifiable"},
+        "protections": ["replay_must_exist"]
+      },
+      "workflow_budget_admissions": {
+        "storage": "sqlite_table", "source": "workflow_budget_admissions", "mode": "report_only", "period": null, "anchor": "updated_at",
+        "fields": {"admission_key": "pii_free", "repository": "pii_bearing", "issue_number": "pii_free", "invocation_digest": "pii_free", "source_digest": "pii_free", "policy_digest": "pii_free", "correlation_id": "pii_free", "token_limit": "pii_free", "plan_contract_hash": "pii_free", "plan_comment_id": "pii_free", "created_at": "pii_free", "updated_at": "pii_free"},
+        "protections": ["no_time_based_deletion", "workflow_authority"]
+      },
+      "workflow_checkpoints": {
+        "storage": "sqlite_table", "source": "workflow_checkpoints", "mode": "report_only", "period": "P90D", "anchor": "updated_at",
+        "fields": {"checkpoint_key": "pii_free", "issue_number": "pii_free", "correlation_id": "pii_free", "workflow": "pii_free", "boundary": "pii_free", "repository": "pii_bearing", "branch": "pii_bearing", "base_ref": "pii_free", "head_sha": "pii_free", "workspace_id": "pii_free", "evaluation_subject_json": "not_automatically_verifiable", "resume_eligible": "pii_free", "payload_json": "not_automatically_verifiable", "updated_at": "pii_free"},
+        "payload_paths": {"$": "not_automatically_verifiable"},
+        "protections": ["active_never", "reconcile_relevant_never"]
+      },
+      "audit_logs": {
+        "storage": "audit_jsonl", "source": "configured_jsonl_sinks", "mode": "report_only", "period": "P1Y", "anchor": "last_parseable_event_ts",
+        "fields": {"path": "pii_bearing", "last_parseable_event_ts": "pii_free", "parse_status": "pii_free"},
+        "payload_paths": {"$": "not_automatically_verifiable"},
+        "protections": ["empty_corrupt_partial_unreadable_never"]
+      },
+      "workspaces": {
+        "storage": "workspace_registry", "source": "workspaces", "mode": "report_only", "period": null, "anchor": "updated_at",
+        "fields": {"workspace_id": "pii_free", "profile": "pii_free", "repository_root": "pii_bearing", "path": "pii_bearing", "branch": "pii_bearing", "head_sha": "pii_free", "base_ref": "pii_free", "status": "pii_free", "reserved_bytes": "pii_free", "owner_pid": "pii_free", "created_at": "pii_free", "updated_at": "pii_free", "quarantine_until": "pii_free", "reason": "pii_bearing"},
+        "protections": ["status_lifecycle_only"]
+      },
+      "quarantine_worktrees": {
+        "storage": "quarantine_worktree", "source": "workspaces", "mode": "report_only", "period": "P7D", "anchor": "updated_at",
+        "fields": {"workspace_id": "pii_free", "path": "pii_bearing", "status": "pii_free", "updated_at": "pii_free", "quarantine_until": "pii_free", "reason": "pii_bearing"},
+        "protections": ["operator_discard_only", "not_first_enforced_category"]
+      }
+    }
+  },
+  "attribution": {
+    "verbosity": "full",
+    "co_author_email": "noreply@samuel.local"
+  },
+  "allowed_regions": [
+    "EU",
+    "EEA",
+    "CH"
+  ],
+  "provider_locations": {
+    "ollama": "local",
+    "lmstudio": "local",
+    "deepseek": "CN",
+    "claude": "US",
+    "gemini": "US",
+    "openai": "US",
+    "openrouter": "US"
+  },
+  "transfer_warning": true
+}

@@ -1,0 +1,101 @@
+{
+  "$defs": {
+    "DocumentationClaim": {
+      "additionalProperties": false,
+      "properties": {
+        "digest": {
+          "title": "Digest",
+          "type": "string"
+        },
+        "media_type": {
+          "const": "text/markdown",
+          "title": "Media Type",
+          "type": "string"
+        },
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "size_bytes": {
+          "maximum": 1048576,
+          "minimum": 0,
+          "title": "Size Bytes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "path",
+        "digest",
+        "size_bytes",
+        "media_type"
+      ],
+      "title": "DocumentationClaim",
+      "type": "object"
+    },
+    "ExtensionSubject": {
+      "additionalProperties": false,
+      "properties": {
+        "head_sha": {
+          "title": "Head Sha",
+          "type": "string"
+        },
+        "repository": {
+          "maxLength": 255,
+          "minLength": 3,
+          "title": "Repository",
+          "type": "string"
+        }
+      },
+      "required": [
+        "repository",
+        "head_sha"
+      ],
+      "title": "ExtensionSubject",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "consumer_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Consumer Id",
+      "type": "string"
+    },
+    "documents": {
+      "items": {
+        "$ref": "#/$defs/DocumentationClaim"
+      },
+      "maxItems": 128,
+      "minItems": 1,
+      "title": "Documents",
+      "type": "array"
+    },
+    "policy_digest": {
+      "title": "Policy Digest",
+      "type": "string"
+    },
+    "schema": {
+      "const": "samuel-documentation-inventory-claims.v1",
+      "title": "Schema",
+      "type": "string"
+    },
+    "subject": {
+      "$ref": "#/$defs/ExtensionSubject"
+    },
+    "tool_digest": {
+      "title": "Tool Digest",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "subject",
+    "policy_digest",
+    "consumer_id",
+    "tool_digest",
+    "documents"
+  ],
+  "title": "DocumentationClaims",
+  "type": "object"
+}

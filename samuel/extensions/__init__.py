@@ -1,0 +1,71 @@
+"""Public, data-only extension contracts.
+
+This package is the supported import boundary for external consumers.  It does
+not load third-party code or grant an extension access to S.A.M.U.E.L. state.
+"""
+
+from samuel.extensions.contract import (
+    CAPABILITY_ID,
+    CLAIM_FAMILY,
+    CONTRACT_VERSION,
+    ArtifactReference,
+    CapabilityManifest,
+    CapabilityPolicy,
+    CapabilityResolution,
+    ContractError,
+    ExtensionConfiguration,
+    ExtensionRequest,
+    ExtensionResult,
+    ExtensionSubject,
+    canonical_contract_bytes,
+    contract_digest,
+    load_capability_manifest,
+    load_extension_policy,
+    load_extension_request,
+    load_extension_result,
+    resolve_capability,
+    validate_result_binding,
+    verify_artifact_reference,
+)
+from samuel.extensions.documentation import (
+    DOCUMENTATION_CLAIMS_SCHEMA,
+    DOCUMENTATION_POLICY_SCHEMA,
+    DocumentationClaim,
+    DocumentationClaims,
+    DocumentationConsumer,
+    DocumentationPolicy,
+    load_documentation_claims,
+    load_documentation_policy,
+)
+
+__all__ = [
+    "CAPABILITY_ID",
+    "CLAIM_FAMILY",
+    "CONTRACT_VERSION",
+    "DOCUMENTATION_CLAIMS_SCHEMA",
+    "DOCUMENTATION_POLICY_SCHEMA",
+    "ArtifactReference",
+    "CapabilityManifest",
+    "CapabilityPolicy",
+    "CapabilityResolution",
+    "ContractError",
+    "DocumentationClaim",
+    "DocumentationClaims",
+    "DocumentationConsumer",
+    "DocumentationPolicy",
+    "ExtensionConfiguration",
+    "ExtensionRequest",
+    "ExtensionResult",
+    "ExtensionSubject",
+    "canonical_contract_bytes",
+    "contract_digest",
+    "load_capability_manifest",
+    "load_documentation_claims",
+    "load_documentation_policy",
+    "load_extension_policy",
+    "load_extension_request",
+    "load_extension_result",
+    "resolve_capability",
+    "verify_artifact_reference",
+    "validate_result_binding",
+]

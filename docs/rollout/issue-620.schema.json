@@ -1,0 +1,250 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "issue-620.schema.json",
+  "version": "1.0",
+  "title": "S.A.M.U.E.L. #620 preflight rollout evidence",
+  "description": "Closed structural contract for the six real-port rollout cases required by #620. Cross-field subject, observation, gate-state and execution semantics are enforced offline by tools/preflight_rollout_evidence.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "schema",
+    "schema_digest",
+    "decision_issue",
+    "rollout_issue",
+    "product_commit",
+    "generated_at",
+    "repository",
+    "cases"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "schema": {"const": "issue-620.schema.json"},
+    "schema_digest": {"$ref": "#/$defs/digest"},
+    "decision_issue": {"const": 620},
+    "rollout_issue": {"const": 653},
+    "product_commit": {"$ref": "#/$defs/sha"},
+    "generated_at": {"$ref": "#/$defs/timestamp"},
+    "repository": {"$ref": "#/$defs/url"},
+    "cases": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {"$ref": "#/$defs/case"}
+    }
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "timestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]{1,6})?Z$"
+    },
+    "url": {"type": "string", "pattern": "^https?://[^/]+/.+$"},
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "base_sha",
+        "head_sha",
+        "contract_hash",
+        "policy_version",
+        "policy_digest"
+      ],
+      "properties": {
+        "repository": {"$ref": "#/$defs/url"},
+        "base_sha": {"$ref": "#/$defs/sha"},
+        "head_sha": {"$ref": "#/$defs/sha"},
+        "contract_hash": {"$ref": "#/$defs/digest"},
+        "policy_version": {"type": "string", "minLength": 1},
+        "policy_digest": {"$ref": "#/$defs/digest"}
+      }
+    },
+    "run": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["issue_number", "issue_url", "evidence_comment_id", "evidence_comment_url"],
+      "properties": {
+        "issue_number": {"type": "integer", "minimum": 1},
+        "issue_url": {"$ref": "#/$defs/url"},
+        "evidence_comment_id": {"type": "integer", "minimum": 1},
+        "evidence_comment_url": {"$ref": "#/$defs/url"}
+      }
+    },
+    "terminal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event",
+        "count",
+        "observed_at",
+        "observation_key",
+        "evidence_digest",
+        "terminal_key",
+        "gate_result_schema_version",
+        "observation_schema_version",
+        "status",
+        "error_code"
+      ],
+      "properties": {
+        "event": {"enum": ["GateEvaluationCompleted", "GateEvaluationUnavailable"]},
+        "count": {"const": 1},
+        "observed_at": {"$ref": "#/$defs/timestamp"},
+        "observation_key": {"anyOf": [{"$ref": "#/$defs/digest"}, {"type": "null"}]},
+        "evidence_digest": {"anyOf": [{"$ref": "#/$defs/digest"}, {"type": "null"}]},
+        "terminal_key": {"anyOf": [{"$ref": "#/$defs/digest"}, {"type": "null"}]},
+        "gate_result_schema_version": {"type": ["integer", "null"]},
+        "observation_schema_version": {"type": ["integer", "null"]},
+        "status": {"type": ["string", "null"]},
+        "error_code": {"type": ["string", "null"]}
+      }
+    },
+    "gate_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gate",
+        "passed",
+        "executed",
+        "status",
+        "reason_code",
+        "reason",
+        "owasp_risk",
+        "phase",
+        "authority",
+        "evaluation_subject"
+      ],
+      "properties": {
+        "gate": {"type": ["integer", "string"]},
+        "passed": {"type": ["boolean", "null"]},
+        "executed": {"type": "boolean"},
+        "status": {"type": "string", "minLength": 1},
+        "reason_code": {"type": "string", "minLength": 1},
+        "reason": {"type": "string"},
+        "owasp_risk": {"type": ["string", "null"]},
+        "phase": {"enum": ["preflight", "post_candidate"]},
+        "authority": {"enum": ["required", "optional"]},
+        "evaluation_subject": {"$ref": "#/$defs/subject"},
+        "tool": {"type": "object"}
+      }
+    },
+    "score_observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "count",
+        "score",
+        "scoreability",
+        "not_scoreable_reason",
+        "non_binding",
+        "observation_key",
+        "evidence_digest",
+        "score_key",
+        "scoring_policy_version",
+        "scoring_policy_digest",
+        "formula_version"
+      ],
+      "properties": {
+        "count": {"type": "integer", "minimum": 0, "maximum": 1},
+        "score": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "scoreability": {"type": ["string", "null"]},
+        "not_scoreable_reason": {"type": ["string", "null"]},
+        "non_binding": {"type": ["boolean", "null"]},
+        "observation_key": {"anyOf": [{"$ref": "#/$defs/digest"}, {"type": "null"}]},
+        "evidence_digest": {"anyOf": [{"$ref": "#/$defs/digest"}, {"type": "null"}]},
+        "score_key": {"anyOf": [{"$ref": "#/$defs/digest"}, {"type": "null"}]},
+        "scoring_policy_version": {"type": ["string", "null"]},
+        "scoring_policy_digest": {"anyOf": [{"$ref": "#/$defs/digest"}, {"type": "null"}]},
+        "formula_version": {"type": ["string", "null"]}
+      }
+    },
+    "healing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["count", "classification", "reason", "llm_calls", "claims"],
+      "properties": {
+        "count": {"type": "integer", "minimum": 0, "maximum": 1},
+        "classification": {"type": ["string", "null"]},
+        "reason": {"type": ["string", "null"]},
+        "llm_calls": {"const": 0},
+        "claims": {"const": 0}
+      }
+    },
+    "pr": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["count", "number", "url", "base_sha", "head_sha"],
+      "properties": {
+        "count": {"type": "integer", "minimum": 0, "maximum": 1},
+        "number": {"type": ["integer", "null"]},
+        "url": {"anyOf": [{"$ref": "#/$defs/url"}, {"type": "null"}]},
+        "base_sha": {"anyOf": [{"$ref": "#/$defs/sha"}, {"type": "null"}]},
+        "head_sha": {"anyOf": [{"$ref": "#/$defs/sha"}, {"type": "null"}]}
+      }
+    },
+    "fault_injection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "comparison_completed", "local_git_metadata_hidden", "restored"],
+      "properties": {
+        "kind": {"const": "bound_objects_unavailable_after_comparison"},
+        "comparison_completed": {"const": true},
+        "local_git_metadata_hidden": {"const": true},
+        "restored": {"const": true}
+      }
+    },
+    "case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "result",
+        "run",
+        "branch",
+        "correlation_id",
+        "verifier_dispatches",
+        "terminal",
+        "subject",
+        "gate_results",
+        "acceptance_evidence",
+        "score_observation",
+        "healing",
+        "candidate_process_events",
+        "fault_injection",
+        "pr"
+      ],
+      "properties": {
+        "id": {
+          "enum": [
+            "success",
+            "scope_fail",
+            "syntax_fail",
+            "freshness_unknown",
+            "subject_unavailable",
+            "gate11_healable"
+          ]
+        },
+        "result": {"const": "passed"},
+        "run": {"$ref": "#/$defs/run"},
+        "branch": {"type": "string", "minLength": 1},
+        "correlation_id": {"type": "string", "minLength": 1},
+        "verifier_dispatches": {"type": "integer", "minimum": 0, "maximum": 1},
+        "terminal": {"$ref": "#/$defs/terminal"},
+        "subject": {"anyOf": [{"$ref": "#/$defs/subject"}, {"type": "null"}]},
+        "gate_results": {"type": "array", "items": {"$ref": "#/$defs/gate_result"}},
+        "acceptance_evidence": {"type": ["object", "null"]},
+        "score_observation": {"$ref": "#/$defs/score_observation"},
+        "healing": {"$ref": "#/$defs/healing"},
+        "candidate_process_events": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["test_run_completed"],
+          "properties": {"test_run_completed": {"type": "integer", "minimum": 0}}
+        },
+        "fault_injection": {"anyOf": [{"$ref": "#/$defs/fault_injection"}, {"type": "null"}]},
+        "pr": {"$ref": "#/$defs/pr"}
+      }
+    }
+  }
+}

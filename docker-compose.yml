@@ -1,0 +1,22 @@
+services:
+  samuel:
+    image: ${SAMUEL_IMAGE:-samuel:local}
+    build:
+      context: .
+      args:
+        SAMUEL_VERSION: ${SAMUEL_BUILD_VERSION:-0+unknown}
+        SAMUEL_REVISION: ${SAMUEL_BUILD_REVISION:-}
+        SAMUEL_SOURCE_URL: ${SAMUEL_BUILD_SOURCE_URL:-}
+    ports:
+      - "${SAMUEL_DASHBOARD_BIND:-0.0.0.0}:${SAMUEL_DASHBOARD_PORT:-7777}:7777"
+    env_file:
+      - ${SAMUEL_ENV_FILE:-.env}
+    volumes:
+      # Compose imports the durable environment source at container start.
+      # It is mounted only by the explicit setup override, which needs to
+      # persist a reviewed configuration change.
+      - ${SAMUEL_CONFIG_DIR:-./config}:/app/config:ro
+      - ${SAMUEL_DATA_DIR:-./data}:/app/data
+      - ${SAMUEL_WORK_DIR:-./workspaces}:/samuel-workspaces
+    restart: unless-stopped
+    command: ["dashboard", "--configuration-mode", "production"]
