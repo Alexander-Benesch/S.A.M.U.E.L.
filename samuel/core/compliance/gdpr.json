@@ -1,0 +1,39 @@
+{
+  "framework": "eu-gdpr",
+  "version": "2016/679",
+  "mapping_version": "1.0.0",
+  "source": "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+  "effect": "advisory",
+  "note": "Descriptive mappings to existing privacy controls. Activation here never disables privacy protection or retention authority.",
+  "controls": [
+    {
+      "id": "data-minimisation",
+      "reference": "Art. 5(1)(c)",
+      "description": "Datenminimierung; bestehende Privacy-Sanitizer",
+      "primitives": [
+        "samuel/slices/privacy"
+      ]
+    },
+    {
+      "id": "security-of-processing",
+      "reference": "Art. 32",
+      "description": "Schutz der Verarbeitung; vorhandene Security- und Auditgrenzen",
+      "primitives": [
+        "samuel/core/security_policy.py"
+      ]
+    }
+  ],
+  "mappings": [
+    {
+      "cat": "llm",
+      "evt": "llm_call",
+      "control": "data-minimisation"
+    },
+    {
+      "cat": "guard",
+      "evt": "quality_check",
+      "control": "security-of-processing"
+    }
+  ],
+  "fallbacks": {}
+}

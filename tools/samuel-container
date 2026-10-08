@@ -1,0 +1,234 @@
+#!/usr/bin/env bash
+# Official manifest-bound OCI operator installer (#970/#971). Host Python not required.
+set -euo pipefail
+umask 077
+installer_dir="$(cd -- "$(dirname -- "$0")/.." && pwd -P)"
+usage() {
+  cat <<'HELP'
+Usage: samuel-container install|setup|start|init|toolchain|doctor --manifest FILE --manifest-sha256 SHA256
+       [--installer-archive FILE] [--compose-dir DIR] [--image REFERENCE]
+       [--root /absolute/prefix] [--port 7777] [--project samuel]
+install: initialize empty paths, generate missing keys with samuel setup, start setup dashboard.
+setup: explicitly resume setup on the same existing installation; production must be stopped.
+start: switch a prepared installation to production after operator-reviewed setup.
+init: only initialize/verify paths; supports the separately checked historical repair toolkit.
+toolchain: prepare/register an offline Python/Pytest artifact for an existing stopped installation.
+          Requires --requirements-lock FILE --lock-sha256 SHA256 --wheelhouse DIR.
+doctor: one-off diagnosis of an existing installation; optional --branch-protection-token-file FILE.
+Requires Linux/amd64, Bash, Docker Engine >=26, Compose >=2.26 (v2 or v5), sha256sum, realpath.
+install/setup/start require the published, manifest-bound installer archive. No updates or migrations.
+HELP
+}
+fail() { echo "container installer failed: $*" >&2; exit 1; }
+[[ "${1:-}" != --help && "${1:-}" != -h ]] || { usage; exit 0; }
+operation=${1:-}
+case "$operation" in install|setup|start|init|toolchain|doctor) ;; *) usage >&2; exit 1 ;; esac
+shift
+manifest=""; manifest_sha=""; image=""; archive=""; compose_dir="$installer_dir"
+install_root=/; port=7777; project=samuel
+requirements_lock=""; lock_sha=""; wheelhouse=""; toolchain_root=""
+branch_token_file=""
+while (($#)); do
+  [[ $# -ge 2 ]] || fail "missing option value"
+  case "$1" in
+    --manifest) manifest=$2 ;;
+    --manifest-sha256) manifest_sha=$2 ;;
+    --image) image=$2 ;;
+    --installer-archive) archive=$2 ;;
+    --compose-dir) compose_dir=$2 ;;
+    --root) install_root=$2 ;;
+    --port) port=$2 ;;
+    --project) project=$2 ;;
+    --requirements-lock) requirements_lock=$2 ;;
+    --lock-sha256) lock_sha=$2 ;;
+    --wheelhouse) wheelhouse=$2 ;;
+    --branch-protection-token-file) branch_token_file=$2 ;;
+    *) fail "unknown option" ;;
+  esac
+  shift 2
+done
+if [[ "$operation" != toolchain && -n "$requirements_lock$lock_sha$wheelhouse" ]]; then fail "toolchain options require the toolchain operation"; fi
+if [[ "$operation" != doctor && -n "$branch_token_file" ]]; then fail "temporary credential requires the doctor operation"; fi
+[[ -f "$manifest" && ! -L "$manifest" ]] || fail "manifest must be a regular file"
+[[ "$manifest_sha" =~ ^[0-9a-f]{64}$ ]] || fail "invalid expected manifest SHA-256"
+[[ "$install_root" =~ ^/[A-Za-z0-9/._-]*$ && "/$install_root/" != */../* && "/$install_root/" != */./* ]] || fail "invalid absolute installation root"
+[[ "$port" =~ ^[0-9]{1,5}$ ]] && ((10#$port >= 1 && 10#$port <= 65535)) || fail "invalid dashboard port"
+[[ "$project" =~ ^[a-z0-9][a-z0-9_-]*$ ]] || fail "invalid Compose project name"
+for executable in docker sha256sum realpath; do command -v "$executable" >/dev/null || fail "$executable missing"; done
+actual_sha="$(sha256sum -- "$manifest")"; actual_sha=${actual_sha%% *}
+[[ "$actual_sha" == "$manifest_sha" ]] || fail "manifest SHA-256 mismatch"
+# This selects only an immutable pull candidate. The image-side JSON parser
+# checks that it is exactly container.reference before any operator paths exist.
+if [[ -z "$image" ]]; then
+  image=$(sed -nE 's/.*"reference"[[:space:]]*:[[:space:]]*"([^"[:space:]]+@sha256:[0-9a-f]{64})".*/\1/p' "$manifest")
+fi
+[[ "$image" =~ ^[A-Za-z0-9][A-Za-z0-9._:/-]*@sha256:[0-9a-f]{64}$ ]] || fail "manifest must supply one immutable container.reference"
+[[ "$(uname -s)/$(uname -m)" == Linux/x86_64 ]] || fail "supported host platform is Linux/amd64"
+server=$(docker version --format '{{.Server.Version}}' 2>/dev/null) || fail "Docker daemon inaccessible; check service and permissions"
+[[ "$server" =~ ^([0-9]+)\. ]] && (( BASH_REMATCH[1] >= 26 )) || fail "Docker Engine >=26 required"
+server_platform=$(docker info --format '{{.OSType}}/{{.Architecture}}' 2>/dev/null) || fail "Docker daemon info unavailable"
+[[ "$server_platform" == linux/x86_64 || "$server_platform" == linux/amd64 ]] || fail "Docker daemon platform must be Linux/amd64"
+compose_version=$(docker compose version --short 2>/dev/null) || fail "Docker Compose plugin missing"
+[[ "$compose_version" =~ ^v?([0-9]+)\.([0-9]+)\. ]] || fail "unrecognized Compose version"
+compose_major=${BASH_REMATCH[1]}; compose_minor=${BASH_REMATCH[2]}
+(( (compose_major == 2 && compose_minor >= 26) || compose_major == 5 )) || fail "Compose >=2.26 (v2 or v5) required"
+echo "Docker/Compose and Linux/amd64 prerequisites verified"
+manifest=$(realpath -e -- "$manifest"); compose_dir=$(realpath -e -- "$compose_dir")
+[[ "$manifest" != *,* && "$installer_dir" != *,* && "$compose_dir" != *,* ]] || fail "Docker mount source must not contain commas"
+if [[ "$operation" != init ]]; then
+  [[ -f "$archive" && ! -L "$archive" ]] || fail "published --installer-archive required"
+fi
+snapshot_dir=$(mktemp -d)
+trap 'rm -rf -- "$snapshot_dir"' EXIT
+cp -- "$manifest" "$snapshot_dir/release-manifest.json"; chmod 0444 "$snapshot_dir/release-manifest.json"
+bootstrap=(--mount "type=bind,src=$snapshot_dir/release-manifest.json,dst=/bootstrap/release-manifest.json,readonly"
+           --mount "type=bind,src=$installer_dir/tools/container_init.py,dst=/bootstrap/container_init.py,readonly")
+identity=(--manifest /bootstrap/release-manifest.json --manifest-sha256 "$manifest_sha" --image "$image")
+if [[ -n "$archive" ]]; then
+  archive=$(realpath -e -- "$archive")
+  [[ "$archive" != *,* ]] || fail "Docker mount source must not contain commas"
+  cp -- "$archive" "$snapshot_dir/installer.tar.gz"; chmod 0444 "$snapshot_dir/installer.tar.gz"
+  bootstrap+=(--mount "type=bind,src=$snapshot_dir/installer.tar.gz,dst=/bootstrap/installer.tar.gz,readonly"
+              --mount "type=bind,src=$installer_dir,dst=/bootstrap/source,readonly")
+  identity+=(--installer-archive /bootstrap/installer.tar.gz)
+  # The selected Compose directory must contain the same release-bound files.
+  cmp -s "$compose_dir/docker-compose.yml" "$installer_dir/docker-compose.yml" &&
+    cmp -s "$compose_dir/docker-compose.setup.yml" "$installer_dir/docker-compose.setup.yml" || fail "compose-dir differs from release installer"
+fi
+docker pull --platform linux/amd64 "$image" >"$snapshot_dir/pull.log" 2>&1 || fail "image unavailable; verify registry access and existing docker login (use --password-stdin)"
+docker image inspect "$image" | docker run --rm -i --network none --entrypoint python \
+  "${bootstrap[@]}" "$image" /bootstrap/container_init.py verify "${identity[@]}"
+echo "Manifest, immutable image identity and release assets verified"
+expected_version=$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.version"}}' "$image")
+expected_revision=$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' "$image")
+prefix=${install_root%/}
+config_root="$prefix/etc/samuel"; data_root="$prefix/var/lib/samuel"; work_root="$prefix/srv/samuel/workspaces"
+log_root="$prefix/var/log/samuel"; backup_root="$prefix/srv/samuel/backups"
+for directory in "$config_root" "$data_root" "$work_root" "$log_root" "$backup_root"; do
+  cursor="$directory"
+  while [[ "$cursor" != / ]]; do
+    [[ ! -L "$cursor" ]] || fail "installation paths must not contain symlinks"
+    cursor=$(dirname -- "$cursor")
+  done
+  [[ ! -e "$directory" || -d "$directory" ]] || fail "installation path is not a directory"
+done
+receipt="$config_root/.container-install.json"
+compose=(env -u SAMUEL_IMAGE -u SAMUEL_ENV_FILE -u SAMUEL_CONFIG_DIR -u SAMUEL_DATA_DIR
+         -u SAMUEL_WORK_DIR -u SAMUEL_LOG_DIR -u SAMUEL_BACKUP_DIR -u SAMUEL_DASHBOARD_BIND
+         -u SAMUEL_DASHBOARD_PORT -u COMPOSE_PROJECT_NAME -u COMPOSE_FILE -u COMPOSE_PROFILES
+         docker compose --env-file "$config_root/compose.env" -f "$config_root/compose/docker-compose.yml")
+if [[ "$operation" == install && -e "$receipt" ]]; then
+  fail "installation already prepared; use explicit setup or start with the same manifest; existing sources preserved"
+fi
+if [[ "$operation" == setup || "$operation" == start || "$operation" == toolchain || "$operation" == doctor ]]; then
+  [[ -f "$receipt" && ! -L "$receipt" ]] || fail "existing initialized installation required"
+fi
+toolchain_args=(); toolchain_identity=(); init_command=init
+if [[ "$operation" == toolchain ]]; then
+  [[ "$lock_sha" =~ ^[0-9a-f]{64}$ ]] || fail "invalid toolchain lock SHA-256"
+  [[ -f "$requirements_lock" && ! -L "$requirements_lock" && -d "$wheelhouse" && ! -L "$wheelhouse" ]] || fail "toolchain lock and wheelhouse required"
+  requirements_lock=$(realpath -e -- "$requirements_lock"); wheelhouse=$(realpath -e -- "$wheelhouse")
+  [[ "$requirements_lock" != *,* && "$wheelhouse" != *,* ]] || fail "mount source must not contain commas"
+  [[ ! -e "$config_root/.verifier-toolchain.json" && ! -e "$config_root/compose/docker-compose.toolchain.yml" ]] || fail "toolchain already registered"
+  [[ -z "$("${compose[@]}" ps -q samuel)" ]] || fail "stop runtime before toolchain preparation"
+  toolchain_root="$prefix/srv/samuel/toolchains/sha256-$lock_sha"
+  cursor="$toolchain_root"
+  while [[ "$cursor" != / ]]; do
+    [[ ! -L "$cursor" ]] || fail "toolchain paths must not contain symlinks"
+    cursor=$(dirname -- "$cursor")
+  done
+  [[ ! -e "$toolchain_root" && ! -L "$toolchain_root" ]] || fail "toolchain destination already exists; preserve failed attempts"
+  mkdir -p -- "$toolchain_root"
+  toolchain_args=(--mount "type=bind,src=$requirements_lock,dst=/bootstrap/requirements.lock,readonly"
+                  --mount "type=bind,src=$wheelhouse,dst=/bootstrap/wheelhouse,readonly"
+                  --mount "type=bind,src=$toolchain_root,dst=/opt/samuel-verifier")
+  init_command=prepare-toolchain
+  toolchain_identity=(--requirements-lock /bootstrap/requirements.lock --lock-sha256 "$lock_sha"
+                      --wheelhouse /bootstrap/wheelhouse --host-toolchain-root "$toolchain_root")
+fi
+mkdir -p -- "$config_root" "$data_root" "$work_root" "$log_root" "$backup_root"
+docker run --rm --network none --read-only --tmpfs /tmp:rw,nosuid,nodev --user 0:0 --entrypoint python \
+  "${toolchain_args[@]}" \
+  "${bootstrap[@]}" \
+  --mount "type=bind,src=$compose_dir/docker-compose.yml,dst=/bootstrap/docker-compose.yml,readonly" \
+  --mount "type=bind,src=$compose_dir/docker-compose.setup.yml,dst=/bootstrap/docker-compose.setup.yml,readonly" \
+  --mount "type=bind,src=$config_root,dst=/prepare/config-root" \
+  --mount "type=bind,src=$data_root,dst=/prepare/data" \
+  --mount "type=bind,src=$work_root,dst=/prepare/workspaces" \
+  --mount "type=bind,src=$log_root,dst=/prepare/logs" \
+  --mount "type=bind,src=$backup_root,dst=/prepare/backups" \
+  "$image" /bootstrap/container_init.py "$init_command" "${identity[@]}" \
+  --config-root "$config_root" --data-root "$data_root" --work-root "$work_root" \
+  --log-root "$log_root" --backup-root "$backup_root" --port "$port" --project "$project" \
+  "${toolchain_identity[@]}"
+if [[ "$operation" == toolchain ]]; then
+  echo "Toolchain registered; runtime image unchanged. Start with the same manifest-bound installer."
+  exit 0
+fi
+if [[ "$operation" == init ]]; then
+  echo "Operator paths initialized/verified; no runtime started. Use the documented CLI setup before the dashboard."
+  exit 0
+fi
+# Extend the same canonical Compose command only after registration verification.
+if [[ -f "$config_root/.verifier-toolchain.json" ]]; then
+  compose+=(-f "$config_root/compose/docker-compose.toolchain.yml")
+fi
+if [[ "$operation" == doctor ]]; then
+  doctor_args=(run --rm --no-deps)
+  if [[ -n "$branch_token_file" ]]; then
+    [[ -f "$branch_token_file" && ! -L "$branch_token_file" ]] || fail "temporary token must be a regular file"
+    branch_token_file=$(realpath -e -- "$branch_token_file")
+    [[ "$branch_token_file" != *:* ]] || fail "temporary token mount source must not contain colons"
+    doctor_args+=(--volume "$branch_token_file:/run/secrets/branch-protection:ro")
+  fi
+  doctor_args+=(samuel doctor)
+  if [[ -n "$branch_token_file" ]]; then doctor_args+=(--branch-protection-token-file /run/secrets/branch-protection); fi
+  "${compose[@]}" "${doctor_args[@]}"
+  exit $?
+fi
+mode=production
+if [[ "$operation" != start ]]; then
+  if [[ "$operation" == setup && -n "$("${compose[@]}" ps -q samuel)" ]]; then
+    fail "stop the existing runtime before explicitly opening writable setup"
+  fi
+  compose+=(-f "$config_root/compose/docker-compose.setup.yml")
+  "${compose[@]}" run --rm --no-deps samuel setup --non-interactive >"$snapshot_dir/setup.log" 2>&1 || fail "CLI setup failed; initialized sources preserved; runtime not ready"
+  mode=setup
+fi
+"${compose[@]}" up -d --no-build --pull never --force-recreate samuel >"$snapshot_dir/start.log" 2>&1 || fail "runtime start failed; initialized sources preserved; runtime not ready"
+# Authenticated readiness checks run inside the actual service, using its imported key.
+probe='import json,os,sys,urllib.request
+h={"X-API-Key":os.environ["SAMUEL_API_KEY"]}
+def get(p):
+ with urllib.request.urlopen(urllib.request.Request("http://127.0.0.1:7777"+p,headers=h),timeout=5) as r:return json.load(r)
+s=get("/api/v1/setup/status"); b=get("/api/v1/dashboard/status")["build"]
+if s["configuration"]["mode"]!=os.environ["SAMUEL_INSTALL_EXPECTED_MODE"] or b["product_version"]!=os.environ["SAMUEL_INSTALL_EXPECTED_VERSION"] or b["revision"]!=os.environ["SAMUEL_INSTALL_EXPECTED_REVISION"]:sys.exit(42)
+health=get("/api/v1/dashboard/health")
+if os.environ["SAMUEL_INSTALL_EXPECTED_MODE"]=="setup":
+ assert all(health.get("checks",{}).get(k) is True for k in ("python","git","config","state","authority"))
+else:assert health["healthy"] is True'
+# Compare running identity with the manifest-verified labels, never operator overrides.
+for attempt in {1..60}; do
+  if "${compose[@]}" exec -T -e "SAMUEL_INSTALL_EXPECTED_MODE=$mode" \
+     -e "SAMUEL_INSTALL_EXPECTED_VERSION=$expected_version" \
+     -e "SAMUEL_INSTALL_EXPECTED_REVISION=$expected_revision" \
+     samuel python -c "$probe" >"$snapshot_dir/ready.log" 2>&1; then
+    cid=$("${compose[@]}" ps -q samuel)
+    [[ "$(docker inspect --format '{{.Config.Image}}' "$cid")" == "$image" ]] || fail "running image differs from manifest"
+    if [[ "$mode" == setup ]]; then
+      echo "setup runtime ready; version/revision and local startup checks verified; complete SCM/provider settings before production"
+    else
+      echo "production runtime ready; version/revision and technical health verified"
+    fi
+    echo "Open: http://127.0.0.1:$port (remote hosts: use an SSH tunnel)"
+    if [[ "$mode" == setup ]]; then
+      echo "Authenticate using the protected /etc/samuel/.env operator source, complete and review setup, then run this installer with start and the same options."
+    fi
+    exit 0
+  else
+    probe_exit=$?
+    (( probe_exit != 42 )) || fail "running version, revision or mode differs from manifest-bound installation"
+  fi
+  sleep 1
+done
+fail "runtime readiness failed; initialized sources preserved; no successful installation claimed"
