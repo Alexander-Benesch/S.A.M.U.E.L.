@@ -1,0 +1,129 @@
+{
+  "framework": "eu-cra",
+  "version": "2024/2847",
+  "mapping_version": "1.0.0",
+  "source": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj",
+  "effect": "advisory",
+  "note": "Technical cross-reference only. Event annotation is not evidence acceptance, legal applicability, conformity assessment or gate authority. External evidence requirements are descriptive and are not collected by this pack.",
+  "controls": [
+    {
+      "id": "risk-assessment",
+      "reference": "Art. 13(2); Annex I, Part I(1)",
+      "description": "Risikoanalyse und gebundene technische Bewertung",
+      "primitives": [
+        "samuel/core/evaluation_subject.py"
+      ],
+      "evidence_types": [
+        "evaluation_subject",
+        "risk_assessment"
+      ]
+    },
+    {
+      "id": "secure-development",
+      "reference": "Annex I, Part I(2)",
+      "description": "Sichere Entwicklungs- und Ausführungsgrenzen",
+      "primitives": [
+        "samuel/core/security_policy.py"
+      ],
+      "evidence_types": [
+        "gate_result",
+        "review_decision"
+      ]
+    },
+    {
+      "id": "vulnerability-handling",
+      "reference": "Annex I, Part II(2),(4),(5),(6)",
+      "description": "Schwachstellenbehandlung und koordinierte Offenlegung",
+      "primitives": [
+        "samuel/core/external_evidence.py"
+      ],
+      "evidence_types": [
+        "external_security_check",
+        "vulnerability_handling_record"
+      ]
+    },
+    {
+      "id": "security-tests",
+      "reference": "Annex I, Part II(3)",
+      "description": "Sicherheitstests und Reviews",
+      "primitives": [
+        "samuel/core/evaluation_observation.py"
+      ],
+      "evidence_types": [
+        "gate_result",
+        "review_decision"
+      ]
+    },
+    {
+      "id": "dependency-inventory",
+      "reference": "Annex I, Part II(1)",
+      "description": "Komponenten- und Abhängigkeitsinventar einschließlich SBOM",
+      "primitives": [
+        "samuel/core/external_evidence.py"
+      ],
+      "evidence_types": [
+        "external_sbom",
+        "external_security_check"
+      ]
+    },
+    {
+      "id": "security-updates",
+      "reference": "Annex I, Part II(7),(8)",
+      "description": "Sicherheitsupdates und gebundene Release-Herkunft",
+      "primitives": [
+        "samuel/local_release.py"
+      ],
+      "evidence_types": [
+        "release_manifest",
+        "update_process_record"
+      ]
+    },
+    {
+      "id": "technical-documentation",
+      "reference": "Art. 31; Annex VII",
+      "description": "Technische Dokumentation und Versionsnachweis",
+      "primitives": [
+        "samuel/documentation_capability.py"
+      ],
+      "evidence_types": [
+        "technical_documentation",
+        "release_manifest"
+      ]
+    },
+    {
+      "id": "vulnerability-reporting",
+      "reference": "Art. 14",
+      "description": "Meldung von Schwachstellen und Sicherheitsvorfällen",
+      "primitives": [
+        "samuel/core/external_evidence.py"
+      ],
+      "evidence_types": [
+        "incident_record",
+        "reporting_record"
+      ]
+    }
+  ],
+  "mappings": [
+    {
+      "cat": "eval",
+      "evt": "test_run",
+      "control": "security-tests"
+    },
+    {
+      "cat": "eval",
+      "evt": "test_passed",
+      "control": "security-tests"
+    },
+    {
+      "cat": "scm",
+      "evt": "pr_merge",
+      "control": "security-updates"
+    },
+    {
+      "cat": "guard",
+      "evt": "quality_check",
+      "control": "secure-development"
+    }
+  ],
+  "fallbacks": {}
+}

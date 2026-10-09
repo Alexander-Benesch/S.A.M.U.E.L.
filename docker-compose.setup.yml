@@ -1,0 +1,11 @@
+# Explicit, short-lived override for an operator-led configuration change.
+# Use only together with docker-compose.yml after the production service stopped.
+services:
+  samuel:
+    volumes:
+      - ${SAMUEL_ENV_FILE:-.env}:/app/.env:rw
+      - ${SAMUEL_CONFIG_DIR:-./config}:/app/config:rw
+      - ${SAMUEL_DATA_DIR:-./data}:/app/data
+      - ${SAMUEL_WORK_DIR:-./workspaces}:/samuel-workspaces
+    restart: "no"
+    command: ["dashboard", "--host", "0.0.0.0", "--port", "7777", "--configuration-mode", "setup"]

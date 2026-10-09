@@ -1,0 +1,28 @@
+{
+  "classes": [
+    {
+      "name": "secrets",
+      "level": "block",
+      "owasp": "A01:2021",
+      "patterns": [".env", "secrets", "credentials", "*.pem", "id_rsa"]
+    },
+    {
+      "name": "workflow-permissions",
+      "level": "warn",
+      "owasp": "A05:2021",
+      "patterns": [".github/workflows/", ".gitea/", ".gitea/workflows/"]
+    },
+    {
+      "name": "container-config",
+      "level": "warn",
+      "owasp": "A05:2021",
+      "patterns": ["Dockerfile", "docker-compose", "*.dockerfile"]
+    },
+    {
+      "name": "iac",
+      "level": "warn",
+      "owasp": "A05:2021",
+      "patterns": ["*.tf", "*.tfvars", "k8s/", "helm/"]
+    }
+  ]
+}
