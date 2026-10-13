@@ -1,0 +1,3745 @@
+{
+  "schema_version": "1.0",
+  "generator_version": "1.0",
+  "issue": 572,
+  "principle": "Formal existence does not grant authority without subject, context and policy binding.",
+  "active_document_status": "active",
+  "section_defaults": {
+    "owner": "repository-maintainers",
+    "review_status": "reviewed",
+    "review_rule": "Generated sections must be regenerated; manual sections require source-aware review and an explicit digest update. Listed proofs remain mandatory."
+  },
+  "documents": [
+    {
+      "path": ".claude/CLAUDE.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "MANIFESTO.md",
+      "class": "target_architecture",
+      "mode": "manual"
+    },
+    {
+      "path": "README.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "SECURITY.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/AI_ACT_COMPLIANCE.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/AI_ACT_TECHNICAL_DOC.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/CAPABILITY_MATRIX.md",
+      "class": "runtime_reference",
+      "mode": "generated"
+    },
+    {
+      "path": "docs/CI_RUNNER_OPERATIONS.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/COMPLIANCE_FRAMEWORK_MAPPINGS.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/CONTAINER_RELEASE_OPERATIONS.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/DASHBOARD.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/DSGVO_VVT.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/EXTENSION_CONTRACT.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/GATE_COMPLIANCE_MATRIX.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/INSTALL.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/OPERATING_RULES.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/PRODUCT_BOUNDARY_HANDOVER_PROMPT.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/PRODUCT_VALUE_AND_EVIDENCE.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/PROMPT_CONTRACT_AUDIT.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/README.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/README_technical.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/RUNTIME_REFERENCE.md",
+      "class": "runtime_reference",
+      "mode": "generated"
+    },
+    {
+      "path": "docs/SAMUEL_ARCHITECTURE_V2.1.md",
+      "class": "target_architecture",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/SAMUEL_DESIGN_DECISIONS.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/STATE_STORE.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/TECHNICAL_OVERVIEW.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/VERSIONING.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0399-score-authority.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0422-local-dashboard-identity.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0482-runtime-state-store.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0583-installed-cli-entrypoint.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0618-worktree-manager.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0619-candidate-sandbox.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0620-preflight-gate-state.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0635-wiki-pilot.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0643-repository-wiki-materialization.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0649-wiki-content-projection.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0678-product-boundary-and-integration-profile.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0693-health-readiness-qualification.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/0706-atomic-release-layout.md",
+      "class": "adr",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/adr/README.md",
+      "class": "adr",
+      "mode": "generated"
+    },
+    {
+      "path": "docs/agents/AGENT_CONFIGURATION_REFERENCE.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/agents/AGENT_PROMPTS_AND_INSTRUCTIONS.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/INDEX.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/completed/BACKLOG_STORY_MATERIALIZATION.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/completed/EXTERNAL_CHALLENGE_RECONCILIATION.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/completed/ISSUE_COMMENT_RECONCILIATION.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/completed/P4_CHALLENGE_RECONCILIATION.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/completed/SAMUEL_AUDIT_ERRATA_2026-09-27.json.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/completed/SAMUEL_AUDIT_INTEGRITY_RECONCILIATION_2026-09-27.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/completed/SAMUEL_AUDIT_SOURCE_INDEX_2026-09-26.json.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/completed/SAMUEL_TARGETED_FALSIFICATION_CHALLENGE_2026-09-28.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/completed/SAMUEL_TARGETED_FALSIFICATION_RESULTS_2026-09-28.json.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/BACKLOG_AUDIT_INDEX.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/BACKLOG_CHALLENGE_BUNDLE.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/P1_CHALLENGE_PACKAGE.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/P2_AUDIT_PACKAGE.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/P2_CHALLENGE_PACKAGE.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/P3_CHALLENGE_PACKAGE.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/P4_CHALLENGE_PACKAGE.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/P5_CHALLENGE_PACKAGE.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/P6_CHALLENGE_PACKAGE.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/P7_CHALLENGE_PACKAGE.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/P8_CHALLENGE_PACKAGE.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/RELEASE_LINEAGE_DRIFT_AUDIT.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/checkpoint.json.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/historical/verification-ledger.jsonl.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/partial/D0_BOOTSTRAP_CONTRACT_AUDIT.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/partial/EXECUTION_CONFORMANCE_AUDIT.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/partial/OPERATIONAL_CONTRACTS.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/partial/POST_AUDIT_CONSOLIDATION.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/partial/REMEDIATION_MATRIX.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/partial/SAMUEL_FULL_AUTHORITY_HISTORY_DRIFT_AUDIT_2026-09-26.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/partial/SAMUEL_GOLDEN_PREPARATION_ISSUE_LEDGER.json.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/partial/SAMUEL_GOLDEN_PREPARATION_RECONCILIATION.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/audits/partial/SAMUEL_WORKING_DECISIONS_v8.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/github/GITHUB_SYNC_READINESS.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/governance/CURRENT_ENGINEERING_WORKFLOW.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/governance/DRIFT_HISTORY_AND_LESSONS.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/governance/PROCESS_DEVIATIONS_AND_SHORTCUTS.md",
+      "class": "history",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/runbooks/TEST_AND_QUALIFICATION_RUNBOOK.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/status/CURRENT_PRODUCT_STATUS.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/status/ISSUE_IMPLEMENTATION_MATRIX.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "docs/status/ISSUE_WORKSTREAM_MAP.md",
+      "class": "operations",
+      "mode": "manual"
+    },
+    {
+      "path": "technische Beschreibungen/README.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "technische Beschreibungen/pipeline_evaluation.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "technische Beschreibungen/pipeline_issue_to_llm.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "technische Beschreibungen/pipeline_planning.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    },
+    {
+      "path": "technische Beschreibungen/pipeline_pr_gates.md",
+      "class": "runtime_reference",
+      "mode": "manual"
+    }
+  ],
+  "sections": [
+    {
+      "id": "runtime-reference",
+      "document": "docs/RUNTIME_REFERENCE.md",
+      "mode": "generated",
+      "generator": "runtime_reference",
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered",
+        "tests/test_document_contract.py::test_runtime_reference_changes_with_shipped_eval_config",
+        "tests/test_document_contract.py::test_runtime_reference_changes_with_shipped_retention_config",
+        "tests/test_document_contract.py::test_runtime_reference_generates_exact_verifier_environment_allowlist",
+        "tests/test_document_contract.py::test_runtime_reference_binds_preflight_and_evidence_schema_truth"
+      ],
+      "sources": [
+        {
+          "path": "samuel/core/commands.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/events.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/ports.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/workspaces.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/config.py",
+          "kind": "python_symbol",
+          "symbol": "EvalSchema"
+        },
+        {
+          "path": "samuel/core/config.py",
+          "kind": "python_symbol",
+          "symbol": "GatesConfigSchema"
+        },
+        {
+          "path": "samuel/core/config.py",
+          "kind": "python_symbol",
+          "symbol": "resolve_gate_profile"
+        },
+        {
+          "path": "samuel/core/config.py",
+          "kind": "python_symbol",
+          "symbol": "resolve_watch_parallelism"
+        },
+        {
+          "path": "samuel/slices/*/__init__.py",
+          "kind": "glob"
+        },
+        {
+          "path": "samuel/adapters/*/__init__.py",
+          "kind": "glob"
+        },
+        {
+          "path": "samuel/slices/ac_verification/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/acceptance.py",
+          "kind": "python_symbol",
+          "symbol": "parse_grep_criterion_argument"
+        },
+        {
+          "path": "samuel/core/acceptance.py",
+          "kind": "python_symbol",
+          "symbol": "parse_test_criterion_argument"
+        },
+        {
+          "path": "samuel/core/process_environment.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/test_runner.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/planning/handler.py",
+          "kind": "python_symbol",
+          "symbol": "_VALID_AC_TAGS"
+        },
+        {
+          "path": "samuel/slices/planning/handler.py",
+          "kind": "python_symbol",
+          "symbol": "_COMPLEXITY_PFLICHT_TAGS"
+        },
+        {
+          "path": "samuel/slices/scoring/handler.py",
+          "kind": "python_symbol",
+          "symbol": "_TAG_FAMILIES"
+        },
+        {
+          "path": "samuel/slices/scoring/handler.py",
+          "kind": "python_symbol",
+          "symbol": "_HALLUCINATION_TAGS"
+        },
+        {
+          "path": "samuel/slices/evaluation/bound_scoring.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/pr_gates/gates.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/gate_metadata.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/pr_gates/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "config/gates*.json",
+          "kind": "glob"
+        },
+        {
+          "path": "config/workflows/*.json",
+          "kind": "glob"
+        },
+        {
+          "path": "config/eval.json",
+          "kind": "file"
+        },
+        {
+          "path": "config/agent.json",
+          "kind": "file"
+        },
+        {
+          "path": "config/audit.json",
+          "kind": "file"
+        },
+        {
+          "path": "config/privacy.json",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/retention.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/bootstrap.py",
+          "kind": "python_symbol",
+          "symbol": "bootstrap"
+        },
+        {
+          "path": "samuel/slices/resume/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/state/sqlite.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/state/legacy.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/workspace/git.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/git.py",
+          "kind": "python_symbol",
+          "symbol": "commit_tree_transaction"
+        },
+        {
+          "path": "samuel/slices/evaluation/handler.py",
+          "kind": "python_symbol",
+          "symbol": "EvaluationHandler.observe"
+        },
+        {
+          "path": "samuel/slices/run_projection/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/healing/bound.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/quality_metrics/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/dashboard/data.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/watch/handler.py",
+          "kind": "python_symbol",
+          "symbol": "WatchHandler._poll_scm_activity"
+        }
+      ],
+      "source_digest": "sha256:518dbb344cc15161552a7d12136cd1a725ac67dac250bbbd23812dd47dce16e9"
+    },
+    {
+      "id": "architecture-watch-concurrency",
+      "document": "docs/SAMUEL_ARCHITECTURE_V2.1.md",
+      "mode": "generated",
+      "generator": "watch_concurrency",
+      "proofs": [
+        "tests/test_document_contract.py::test_watch_concurrency_reference_is_bound_to_sync_try_finally",
+        "tests/test_core_config.py::test_resolve_watch_parallelism_rejects_unsupported_sources",
+        "samuel/slices/watch/tests/test_handler.py::TestWatchHandler::test_dispatches_all_issues_sequentially_and_releases_slot"
+      ],
+      "sources": [
+        {
+          "path": "samuel/slices/watch/handler.py",
+          "kind": "python_symbol",
+          "symbol": "WatchHandler.handle"
+        },
+        {
+          "path": "samuel/slices/watch/handler.py",
+          "kind": "python_symbol",
+          "symbol": "WatchHandler._try_acquire"
+        },
+        {
+          "path": "samuel/slices/watch/handler.py",
+          "kind": "python_symbol",
+          "symbol": "WatchHandler._release"
+        },
+        {
+          "path": "samuel/core/bus.py",
+          "kind": "python_symbol",
+          "symbol": "Bus.publish"
+        },
+        {
+          "path": "samuel/core/bootstrap.py",
+          "kind": "python_symbol",
+          "symbol": "bootstrap"
+        },
+        {
+          "path": "samuel/core/config.py",
+          "kind": "python_symbol",
+          "symbol": "resolve_watch_parallelism"
+        },
+        {
+          "path": "config/agent.json",
+          "kind": "json_pointer",
+          "pointer": "/max_parallel"
+        },
+        {
+          "path": "config/workflows/*.json",
+          "kind": "glob"
+        }
+      ],
+      "source_digest": "sha256:7e5f164db0159101c79561ff6a49b7449702bf01fdf7e4d24f354326e19dd349"
+    },
+    {
+      "id": "technical-ac-tags",
+      "document": "docs/README_technical.md",
+      "mode": "generated",
+      "generator": "ac_tags",
+      "proofs": [
+        "tests/test_document_contract.py::test_ac_registry_and_generated_table_are_exact"
+      ],
+      "sources": [
+        {
+          "path": "samuel/slices/ac_verification/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/test_runner.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/acceptance.py",
+          "kind": "python_symbol",
+          "symbol": "parse_grep_criterion_argument"
+        },
+        {
+          "path": "samuel/core/acceptance.py",
+          "kind": "python_symbol",
+          "symbol": "parse_test_criterion_argument"
+        },
+        {
+          "path": "samuel/slices/planning/handler.py",
+          "kind": "python_symbol",
+          "symbol": "_VALID_AC_TAGS"
+        }
+      ],
+      "source_digest": "sha256:471595e91bf596c9b7af854b38e9f6932309692e7fead9a636746b704098c6af"
+    },
+    {
+      "id": "operating-plan-complexity",
+      "document": "docs/OPERATING_RULES.md",
+      "mode": "generated",
+      "generator": "plan_complexity",
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered"
+      ],
+      "sources": [
+        {
+          "path": "samuel/slices/planning/handler.py",
+          "kind": "python_symbol",
+          "symbol": "_COMPLEXITY_DEFAULTS"
+        },
+        {
+          "path": "samuel/slices/planning/handler.py",
+          "kind": "python_symbol",
+          "symbol": "_COMPLEXITY_PFLICHT_TAGS"
+        },
+        {
+          "path": "config/eval.json",
+          "kind": "file"
+        }
+      ],
+      "source_digest": "sha256:fe1b54444dea7f1d3cca530c3586ed7ef6094a8c244449a4532b9a8c2437c582"
+    },
+    {
+      "id": "technical-persistence-artifacts",
+      "document": "docs/README_technical.md",
+      "mode": "generated",
+      "generator": "persistence_artifacts",
+      "proofs": [
+        "tests/test_document_contract.py::test_persistence_reference_names_config_and_code_provenance",
+        "samuel/adapters/state/tests/test_sqlite.py::test_fresh_schema_is_local_versioned_wal_and_idempotent",
+        "samuel/adapters/state/tests/test_sqlite.py::test_backup_api_copies_active_wal_database_and_refuses_overwrite",
+        "tests/test_workspace_manager.py::test_run_and_verification_profiles_share_registry_and_stay_outside_repo"
+      ],
+      "sources": [
+        {
+          "path": "config/agent.json",
+          "kind": "json_pointer",
+          "pointer": "/data_dir"
+        },
+        {
+          "path": "config/agent.json",
+          "kind": "json_pointer",
+          "pointer": "/workspace"
+        },
+        {
+          "path": "config/audit.json",
+          "kind": "file"
+        },
+        {
+          "path": "config/privacy.json",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/bootstrap.py",
+          "kind": "python_symbol",
+          "symbol": "bootstrap"
+        },
+        {
+          "path": "samuel/slices/resume/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/state/sqlite.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/state/legacy.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/workspace/git.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/evaluation/handler.py",
+          "kind": "python_symbol",
+          "symbol": "EvaluationHandler.observe"
+        },
+        {
+          "path": "samuel/slices/run_projection/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/healing/bound.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/quality_metrics/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/dashboard/data.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/watch/handler.py",
+          "kind": "python_symbol",
+          "symbol": "WatchHandler._poll_scm_activity"
+        }
+      ],
+      "source_digest": "sha256:8badd5b9d7dbf0805852cdff43a1a4b52bd59996b2170976c6ece456e9a1f11f"
+    },
+    {
+      "id": "adr-index",
+      "document": "docs/adr/README.md",
+      "mode": "generated",
+      "generator": "adr_index",
+      "proofs": [
+        "tests/test_document_contract.py::test_superseded_adr_requires_known_successor"
+      ],
+      "sources": [
+        {
+          "path": "docs/adr/[0-9]*.md",
+          "kind": "glob"
+        }
+      ],
+      "source_digest": "sha256:017c165aaa7cb3f1ecd8edb84fb102d7ae889d38f9ce7c6164cf160045ee0ea9"
+    },
+    {
+      "id": "design-claims-to-code",
+      "document": "docs/SAMUEL_DESIGN_DECISIONS.md",
+      "mode": "manual",
+      "heading": "## E9 — Claims-to-Code-Audit als Release-Gate",
+      "source_digest": "sha256:b1f53a8c3bedb99befbdf96933c1336ff2bd87885ac6c652e4a23b3b8f1a9f85",
+      "proofs": [
+        "tests/test_document_contract.py::test_stale_manual_section_binding_is_rejected",
+        "tests/test_control_matrix.py::test_checked_in_capability_matrix_is_valid_and_fresh"
+      ],
+      "sources": [
+        {
+          "path": "tools/control_matrix.py",
+          "kind": "file"
+        },
+        {
+          "path": "docs/capabilities/control-matrix.json",
+          "kind": "json_pointer",
+          "pointer": "/observed_workflows"
+        },
+        {
+          "path": "docs/capabilities/control-matrix.json",
+          "kind": "json_pointer",
+          "pointer": "/release_baseline"
+        },
+        {
+          "path": "docs/capabilities/control-matrix.json",
+          "kind": "json_pointer",
+          "pointer": "/controls"
+        },
+        {
+          "path": ".gitea/workflows/ci.yml",
+          "kind": "text_range",
+          "start": "- name: Capability and documentation contract drift check",
+          "end": "run: python3 tools/control_matrix.py check"
+        }
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "id": "technical-state-store-observation-projection",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "### Versionierter State-Store (Stufen 3/4/5a/5b/5c-Fundament, #629/#633/#666/#667/#673)",
+      "source_digest": "sha256:f92dd20d71c59579c45d94897fbc42d82087aaadd4960a18967b8f8e0be846ff",
+      "proofs": [
+        "samuel/adapters/state/tests/test_sqlite.py::test_fresh_schema_is_local_versioned_wal_and_idempotent",
+        "samuel/adapters/state/tests/test_sqlite.py::test_network_filesystems_are_rejected",
+        "tests/test_cli_state.py::test_installed_state_status_and_dump_are_deterministic_and_payload_free",
+        "tests/test_runtime_state_migration.py::test_legacy_import_is_one_way_checksum_bound_and_series_safe",
+        "tests/test_runtime_state_migration.py::test_dashboard_history_treats_observation_schema_change_as_series_cut",
+        "tests/test_runtime_state_migration.py::test_run_projection_survives_audit_removal_and_replay_is_idempotent",
+        "tests/test_runtime_state_migration.py::test_projection_materializes_real_failure_terminals_as_blocked",
+        "tests/test_runtime_state_migration.py::test_projection_reduction_is_idempotent_and_independent_of_delivery_order",
+        "tests/test_runtime_state_migration.py::test_existing_projection_reconciliation_separates_blocked_and_unbound",
+        "tests/test_runtime_state_migration.py::test_projection_subscriber_failure_is_dlq_visible_and_does_not_block",
+        "tests/test_cli_state.py::test_state_cli_reprojects_run_outcomes_without_printing_payloads",
+        "tests/test_runtime_state_migration.py::test_healing_claim_import_is_atomic_one_way_and_preserves_at_most_once",
+        "samuel/adapters/state/tests/test_sqlite.py::test_checkpoint_intent_and_lease_contracts_survive_restart",
+        "samuel/adapters/state/tests/test_sqlite.py::test_witness_write_failure_commits_claim_but_raises_before_external_effect",
+        "tests/test_retention.py::test_shipped_catalog_is_complete_and_dry_run_is_non_deleting",
+        "tests/test_retention.py::test_unknown_schema_object_is_visible_and_unknown_config_category_blocks",
+        "tests/test_score_replay.py::test_score_replay_is_idempotent_multi_formula_and_side_effect_free",
+        "tests/test_cli_retention.py::test_retention_cli_dry_run_approval_and_managed_backup",
+        "tests/test_retention.py::test_score_derivation_canary_is_bound_atomic_restart_safe_and_idempotent",
+        "tests/test_retention.py::test_retention_activation_rejects_cutoff_that_is_not_yet_eligible",
+        "tests/test_retention.py::test_bound_cutoff_remains_valid_and_receipt_replays_after_policy_stop_and_time",
+        "tests/test_retention.py::test_legacy_unbound_enforcement_grant_requires_reactivation",
+        "tests/test_retention.py::test_execution_revalidates_classification_inside_delete_transaction",
+        "tests/test_retention.py::test_score_derivation_plan_drift_blocks_and_suspends_category",
+        "tests/test_retention.py::test_score_derivation_delete_failure_rolls_back_and_suspends",
+        "tests/test_retention.py::test_restore_revokes_retention_execution_authority",
+        "tests/test_retention.py::test_run_projection_retention_never_selects_non_terminal_state",
+        "tests/test_cli_retention.py::test_retention_cli_requires_explicit_review_plan_and_stop_release",
+        "samuel/slices/healing/tests/test_bound.py::test_reconcile_blocks_before_claim_and_llm",
+        "tests/test_bound_resume.py::test_hard_crash_resume_is_effect_idempotent_across_real_processes",
+        "tests/test_bound_resume.py::test_live_os_lock_blocks_takeover_before_lease_or_git_mutation",
+        "samuel/adapters/state/tests/test_sqlite.py::test_workflow_budget_admission_attempts_and_plan_binding_survive_restart",
+        "samuel/adapters/state/tests/test_sqlite.py::test_restore_preserves_budget_admission_and_unknown_reservation",
+        "samuel/slices/health/tests/test_handler.py::TestHealthHandler::test_passive_health_does_not_erase_current_self_check_readiness"
+      ],
+      "sources": [
+        {
+          "path": "samuel/core/state.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/ports.py",
+          "kind": "python_symbol",
+          "symbol": "IObservationStore"
+        },
+        {
+          "path": "samuel/core/ports.py",
+          "kind": "python_symbol",
+          "symbol": "IRunProjectionStore"
+        },
+        {
+          "path": "samuel/core/ports.py",
+          "kind": "python_symbol",
+          "symbol": "IAuthorityStateStore"
+        },
+        {
+          "path": "samuel/core/ports.py",
+          "kind": "python_symbol",
+          "symbol": "IStateDiagnostics"
+        },
+        {
+          "path": "samuel/core/ports.py",
+          "kind": "python_symbol",
+          "symbol": "IRetentionStateStore"
+        },
+        {
+          "path": "samuel/core/ports.py",
+          "kind": "python_symbol",
+          "symbol": "IRetentionExecutionStore"
+        },
+        {
+          "path": "samuel/adapters/state/sqlite.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/state/legacy.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/evaluation/handler.py",
+          "kind": "python_symbol",
+          "symbol": "EvaluationHandler.observe"
+        },
+        {
+          "path": "samuel/slices/evaluation/replay.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/privacy/retention.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/retention.py",
+          "kind": "file"
+        },
+        {
+          "path": "config/privacy.json",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/quality_metrics/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/run_projection/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/workflow_outcome.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/dashboard/data.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/bootstrap.py",
+          "kind": "python_symbol",
+          "symbol": "bootstrap"
+        },
+        {
+          "path": "samuel/slices/resume/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/cli.py",
+          "kind": "python_symbol",
+          "symbol": "_cmd_state"
+        },
+        {
+          "path": "samuel/cli.py",
+          "kind": "python_symbol",
+          "symbol": "_cmd_retention"
+        },
+        {
+          "path": "samuel/slices/health/handler.py",
+          "kind": "python_symbol",
+          "symbol": "HealthHandler"
+        },
+        {
+          "path": "samuel/slices/healing/bound.py",
+          "kind": "python_symbol",
+          "symbol": "BoundHealingCoordinator"
+        },
+        {
+          "path": "samuel/slices/implementation/handler.py",
+          "kind": "python_symbol",
+          "symbol": "ImplementationHandler"
+        },
+        {
+          "path": "samuel/slices/pr_gates/handler.py",
+          "kind": "python_symbol",
+          "symbol": "PRGatesHandler"
+        },
+        {
+          "path": "samuel/slices/session/handler.py",
+          "kind": "python_symbol",
+          "symbol": "SessionHandler"
+        },
+        {
+          "path": "samuel/core/llm_budget.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/llm/workflow_budget.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/planning/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/watch/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/acceptance.py",
+          "kind": "file"
+        }
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "id": "pipeline-end-to-end-authority",
+      "document": "technische Beschreibungen/README.md",
+      "mode": "manual",
+      "heading": "## End-to-End-Ablauf, Authority und Sichtbarkeit",
+      "source_digest": "sha256:e1f363eb1e77515c1c9e7a769e65e76118aa319756776e13309d47a0edbb7ecf",
+      "proofs": [
+        "tests/test_integration_e2e.py::TestEventFlowE2E::test_workflow_event_chain",
+        "tests/test_workflow_outcome.py::test_declared_terminal_events_have_their_workflow_semantics",
+        "samuel/slices/planning/tests/test_handler.py::TestPlanningHandler::test_persists_budget_admission_before_llm_and_binds_posted_plan",
+        "tests/test_core_workflow.py::test_unattended_workflows_require_approval_only_for_clarified_plans"
+      ],
+      "sources": [
+        {
+          "path": "config/workflows/*.json",
+          "kind": "glob"
+        },
+        {
+          "path": "samuel/core/commands.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/events.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/workflow_outcome.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/test_runner.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/planning/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/implementation/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/pr_gates/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/evaluation/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/healing/bound.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/resume/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/llm_budget.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/llm/workflow_budget.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/watch/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/planning/clarification.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/acceptance.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/workflow.py",
+          "kind": "file"
+        },
+        {
+          "path": "docs/OPERATING_RULES.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/agents/AGENT_PROMPTS_AND_INSTRUCTIONS.md",
+          "kind": "file"
+        }
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "id": "pipeline-reference-qualification",
+      "document": "technische Beschreibungen/README.md",
+      "mode": "manual",
+      "heading": "## Belegreife der realen Referenzstrecke",
+      "source_digest": "sha256:d442b2398cb09be2415e2f9af500d3e4c9c65c6ddacd46da08b24cfab97dcd28",
+      "proofs": [
+        "tests/test_control_matrix.py::test_real_reference_qualification_cannot_claim_success_with_missing_evidence",
+        "tests/test_control_matrix.py::test_checked_in_capability_matrix_is_valid_and_fresh"
+      ],
+      "sources": [
+        {
+          "path": "docs/capabilities/control-matrix.json",
+          "kind": "json_pointer",
+          "pointer": "/reference_qualification"
+        }
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "id": "pipeline-planning-context",
+      "document": "technische Beschreibungen/pipeline_planning.md",
+      "mode": "manual",
+      "heading": "## Kontextaktualität, Werkzeuge und Grenzen",
+      "source_digest": "sha256:e267e2af5de4ba8b67b84fac246b8e77194852ae07d36aa0656f878c7dfec3dc",
+      "proofs": [
+        "tests/test_planning_skeleton_integration.py::test_real_python_builder_populates_planning_context",
+        "samuel/slices/planning/tests/test_handler.py::TestPlanContext::test_plan_skeleton_reuses_data_for_pre_check",
+        "samuel/slices/planning/tests/test_handler.py::TestPlanContext::test_scoped_new_file_reaches_human_approval_with_nonempty_skeleton",
+        "tests/test_workspace_manager.py::test_planning_context_and_contract_are_bound_to_remote_base",
+        "tests/test_workspace_manager.py::test_planning_blocks_before_llm_when_repository_has_no_base_commit",
+        "tests/test_workspace_manager.py::test_planning_blocks_before_llm_when_scm_ref_resolution_is_unavailable",
+        "tests/test_workspace_manager.py::test_implementation_blocks_before_llm_when_planned_base_moved",
+        "samuel/slices/planning/tests/test_handler.py::TestPlanningHandler::test_persists_budget_admission_before_llm_and_binds_posted_plan",
+        "tests/test_planning_clarification.py::test_source_drift_requires_explicit_run_before_new_series"
+      ],
+      "sources": [
+        {
+          "path": "samuel/slices/planning/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/acceptance.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/test_runner.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/workspace/git.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/skeleton/registry.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/project_files.py",
+          "kind": "file"
+        },
+        {
+          "path": "config/agent.json",
+          "kind": "json_pointer",
+          "pointer": "/context"
+        },
+        {
+          "path": "config/agent.json",
+          "kind": "json_pointer",
+          "pointer": "/default_branch"
+        },
+        {
+          "path": "config/architecture.json",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/llm_budget.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/llm/workflow_budget.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/state/sqlite.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/watch/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/planning/clarification.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/workflow.py",
+          "kind": "file"
+        },
+        {
+          "path": "docs/OPERATING_RULES.md",
+          "kind": "file"
+        }
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "id": "pipeline-implementation-context",
+      "document": "technische Beschreibungen/pipeline_issue_to_llm.md",
+      "mode": "manual",
+      "heading": "## Kontextlebenszyklus und Werkzeuggrenzen",
+      "source_digest": "sha256:c5b0f8f62e8c5e011ff645c7709f71144b5180a9bd3aa188f3707acf44cc3e16",
+      "proofs": [
+        "samuel/slices/implementation/tests/test_context_builder.py::TestBuildFullContext::test_end_to_end",
+        "samuel/slices/implementation/tests/test_context_builder.py::TestTocAndSlice::test_toc_mode_renders_signatures_not_blind_dump",
+        "tests/test_workspace_manager.py::test_implementation_blocks_before_llm_when_planned_base_moved",
+        "samuel/adapters/llm/tests/test_workflow_budget.py::test_retry_reserves_each_physical_attempt_and_holds_unknown_usage"
+      ],
+      "sources": [
+        {
+          "path": "samuel/slices/implementation/context_builder.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/implementation/context_validator.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/implementation/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/skeleton/registry.py",
+          "kind": "file"
+        },
+        {
+          "path": "config/agent.json",
+          "kind": "json_pointer",
+          "pointer": "/context"
+        },
+        {
+          "path": "config/architecture.json",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/llm/workflow_budget.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/issue_context.py",
+          "kind": "file"
+        }
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "id": "pipeline-gates-and-acceptance",
+      "document": "technische Beschreibungen/pipeline_pr_gates.md",
+      "mode": "manual",
+      "heading": "## Gate-Ausführungsmodell und Status",
+      "source_digest": "sha256:13cedb6e2a61d1242e941e732af8ebdb30ed64d4a13075b7e9622869f320ac05",
+      "proofs": [
+        "samuel/slices/pr_gates/tests/test_handler.py::TestPreflightGateOrdering::test_scope_preflight_skips_candidate_and_every_post_candidate_gate",
+        "tests/test_acceptance_gate_integration.py::test_gate_11_consumes_bound_verifier_evidence_not_checkbox_state"
+      ],
+      "sources": [
+        {
+          "path": "samuel/core/gate_metadata.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/acceptance.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/test_runner.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/pr_gates/gates.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/pr_gates/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/ac_verification/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/security/gate.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/path_risk/gate.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/symbol_resolution/gate.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/coverage_gate/gate.py",
+          "kind": "file"
+        },
+        {
+          "path": "config/gates*.json",
+          "kind": "glob"
+        },
+        {
+          "path": "config/eval.json",
+          "kind": "file"
+        },
+        {
+          "path": "config/path_risk.json",
+          "kind": "file"
+        }
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "id": "technical-cli-reference",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "## 16. CLI-Reference",
+      "source_digest": "sha256:1f610c3213b9589d1bdac2e5c8e405c4065442bf2c23ca58fa52911fc430320c",
+      "proofs": [
+        "tests/test_cli_help.py::test_root_help_lists_commands_syntax_notation_and_examples",
+        "tests/test_cli_help.py::test_every_subcommand_help_contains_an_example",
+        "tests/test_document_contract.py::test_technical_reference_names_every_installed_console_script",
+        "tests/test_cli_replay.py",
+        "tests/test_cli_dlq.py",
+        "tests/test_cli_state.py",
+        "tests/test_cli_retention.py",
+        "tests/test_cli_workspace.py",
+        "tests/test_core_workflow.py::test_unattended_workflows_require_approval_only_for_clarified_plans",
+        "tests/test_cli_replan.py",
+        "samuel/slices/planning/tests/test_handler.py::TestPlanningHandler::test_explicit_replan_revokes_exact_plan_and_approval_before_replacement"
+      ],
+      "sources": [
+        {
+          "path": "samuel/cli.py",
+          "kind": "file"
+        },
+        {
+          "path": "tests/test_cli*.py",
+          "kind": "glob"
+        },
+        {
+          "kind": "file",
+          "path": "pyproject.toml"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/local_release.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/documentation_cli.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/documentation_capability.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/extensions/cli.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/git_transport/askpass.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/build_info.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/verifier_toolchain.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/__init__.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/__main__.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/__init__.py"
+        },
+        {
+          "kind": "python_symbol",
+          "path": "samuel/core/workflow.py",
+          "symbol": "plan_approval_required"
+        },
+        {
+          "kind": "python_symbol",
+          "path": "samuel/slices/planning/handler.py",
+          "symbol": "PlanningHandler._handle_replan"
+        },
+        {
+          "kind": "python_symbol",
+          "path": "samuel/slices/planning/handler.py",
+          "symbol": "PlanningHandler._handle_bound"
+        },
+        {
+          "kind": "glob",
+          "path": "config/workflows/*.json"
+        },
+        {
+          "kind": "file",
+          "path": "docs/OPERATING_RULES.md"
+        }
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "id": "technical-wiki-build",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "## 23. Deterministischer Wiki-Build",
+      "source_digest": "sha256:ea6796d9281546902b94bc842571db88a2ff4588f4287444fe0e119d053ac254",
+      "proofs": [
+        "tests/test_wiki.py::test_checked_in_wiki_impact_is_empty",
+        "tests/test_wiki.py::test_wiki_impact_maps_stale_source_section_to_page",
+        "tests/test_wiki.py::test_wiki_impact_maps_stale_resolved_fact_to_page",
+        "tests/test_wiki.py::test_wiki_impact_maps_document_contract_section_to_primary_page",
+        "tests/test_wiki.py::test_wiki_impact_keeps_unresolvable_binding_visible",
+        "tests/test_wiki.py::test_impact_cli_is_read_only_and_does_not_require_clean_repository",
+        "tests/test_wiki.py::test_checked_in_manifest_covers_contract_and_renders_useful_pages",
+        "tests/test_wiki.py::test_wall_clock_changes_only_receipt_created_at",
+        "tests/test_wiki.py::test_manifest_mutations_fail_closed",
+        "tests/test_wiki.py::test_generated_links_resolve_to_page_or_repository_source",
+        "tests/test_wiki.py::test_source_section_rewrites_links_and_preserves_markdown",
+        "tests/test_wiki.py::test_source_section_rejects_ambiguous_heading",
+        "tests/test_wiki.py::test_source_section_rejects_unresolvable_local_link",
+        "tests/test_wiki.py::test_resolved_fact_change_requires_new_binding"
+      ],
+      "sources": [
+        {
+          "path": "docs/adr/0635-wiki-pilot.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/adr/0643-repository-wiki-materialization.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/adr/0649-wiki-content-projection.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/capabilities/wiki-manifest.json",
+          "kind": "file"
+        },
+        {
+          "path": "tools/wiki.py",
+          "kind": "file"
+        },
+        {
+          "path": ".gitea/workflows/ci.yml",
+          "kind": "file"
+        },
+        {
+          "path": ".gitignore",
+          "kind": "file"
+        },
+        {
+          "path": "install.sh",
+          "kind": "file"
+        }
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "id": "technical-wiki-publisher",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "## 24. Providerneutraler Git-Wiki-Publisher",
+      "source_digest": "sha256:6c2dcc02bd34f9a71bb513693ef3efc4e0647157731d0c40fba3cc54d804a2a4",
+      "proofs": [
+        "tests/test_wiki_publish.py::test_projection_maps_home_sidebar_and_bound_source_links",
+        "tests/test_wiki_publish.py::test_publish_and_idempotent_noop_on_local_git_remote",
+        "tests/test_wiki_publish.py::test_unmanaged_or_tampered_remote_blocks",
+        "tests/test_wiki_publish.py::test_concurrent_remote_progress_blocks_without_force_push",
+        "tests/test_wiki_publish.py::test_unsafe_receipt_staging_blocks_before_remote_effect"
+      ],
+      "sources": [
+        {
+          "path": "docs/adr/0643-repository-wiki-materialization.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/capabilities/wiki-manifest.json",
+          "kind": "file"
+        },
+        {
+          "path": "tools/wiki_publish.py",
+          "kind": "file"
+        },
+        {
+          "path": "tests/test_wiki_publish.py",
+          "kind": "file"
+        }
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "id": "technical-health-readiness-qualification",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "### Health-, Readiness- und Qualification-Projektion (#693)",
+      "source_digest": "sha256:c92bd3d0d0bd7799a26a25896991fb39e0be23bffd594ed816c4020747bb6cff",
+      "proofs": [
+        "tests/test_health_projection.py::test_projection_survives_reopen_and_requires_current_instance",
+        "tests/test_health_projection.py::test_expired_and_missing_projections_never_pass",
+        "tests/test_health_projection.py::test_missing_audit_data_does_not_erase_current_failure",
+        "tests/test_server_dashboard.py::TestSelfCheckRoute::test_health_endpoint_matches_real_health_handler_contract",
+        "samuel/slices/dashboard/tests/test_handler.py::TestDashboardHandler::test_health_exposes_bounded_retention_authority",
+        "tests/test_cli_audit.py::test_audit_verify_persists_instance_bound_projection",
+        "tests/test_cli_version.py::test_doctor_persists_bounded_qualification_in_existing_state",
+        "tests/test_health_projection.py::test_projection_read_failure_returns_not_checked",
+        "samuel/slices/dashboard/tests/test_handler.py::TestSelfCheck::test_self_check_runs_active_probes_for_configured_task_routes",
+        "samuel/slices/health/tests/test_handler.py::TestHealthHandler::test_self_check_provider_probe_makes_readiness_ready",
+        "samuel/slices/health/tests/test_handler.py::TestHealthHandler::test_failed_self_check_provider_probe_blocks_without_provider_detail",
+        "samuel/slices/health/tests/test_handler.py::TestHealthHandler::test_passive_health_does_not_erase_current_self_check_readiness"
+      ],
+      "sources": [
+        {
+          "path": "samuel/core/health_projection.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/health/handler.py",
+          "kind": "python_symbol",
+          "symbol": "HealthHandler"
+        },
+        {
+          "path": "samuel/slices/dashboard/handler.py",
+          "kind": "python_symbol",
+          "symbol": "DashboardHandler._passive_readiness"
+        },
+        {
+          "path": "samuel/slices/dashboard/handler.py",
+          "kind": "python_symbol",
+          "symbol": "DashboardHandler.get_health"
+        },
+        {
+          "path": "samuel/cli.py",
+          "kind": "python_symbol",
+          "symbol": "_cmd_audit"
+        },
+        {
+          "path": "samuel/cli.py",
+          "kind": "python_symbol",
+          "symbol": "_cmd_doctor"
+        },
+        {
+          "path": "samuel/core/state.py",
+          "kind": "python_symbol",
+          "symbol": "StateStoreStatus.as_dict"
+        },
+        {
+          "path": "samuel/slices/dashboard/handler.py",
+          "kind": "python_symbol",
+          "symbol": "DashboardHandler.get_self_check"
+        },
+        {
+          "path": "samuel/slices/dashboard/handler.py",
+          "kind": "python_symbol",
+          "symbol": "DashboardHandler._run_active_provider_probes"
+        }
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "id": "install-local-project-binding",
+      "document": "docs/INSTALL.md",
+      "mode": "manual",
+      "heading": "### Registrierter lokaler OCI-Projektbestand (#988)",
+      "sources": [
+        {
+          "kind": "file",
+          "path": "samuel/core/project_binding.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/git_remote.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/project_binding.py"
+        },
+        {
+          "kind": "file",
+          "path": "tools/container_init.py"
+        },
+        {
+          "kind": "file",
+          "path": "tools/samuel-container"
+        },
+        {
+          "kind": "file",
+          "path": "Dockerfile"
+        }
+      ],
+      "proofs": [
+        "tests/test_project_binding.py::test_registration_preserves_source_and_secrets_and_is_idempotent",
+        "tests/test_project_binding.py::test_invalid_project_never_registers_or_changes_environment",
+        "tests/test_container_init.py::test_project_operator_path_uses_registered_overlay_only",
+        "tests/test_server_dashboard.py::test_setup_and_dashboard_share_passive_missing_project_status"
+      ],
+      "source_digest": "sha256:9aae7d3bafffb7dffe197700d0ea9c1a3702a3c166b99c538eb6a8527b1c5d36",
+      "review_status": "reviewed"
+    },
+    {
+      "id": "technical-shared-contract-families",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "### Gemeinsame Verträge und interne Hilfsmodule",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "glob",
+          "path": "samuel/core/*.py"
+        },
+        {
+          "kind": "glob",
+          "path": "samuel/core/compliance/*.json"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered",
+        "tests/test_architecture_v2.py"
+      ],
+      "source_digest": "sha256:a7773e39a11f79b7114d84df7d62b24886d4473073f937fa1d9b9305959a668e"
+    },
+    {
+      "id": "technical-bus-and-bootstrap",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "## 3. Bootstrap (12-Step Startup-Sequenz)",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "file",
+          "path": "samuel/core/bootstrap.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/bus.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/logging.py"
+        },
+        {
+          "kind": "glob",
+          "path": "config/workflows/*.json"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered"
+      ],
+      "source_digest": "sha256:3dcf95a5d2f8c995f5534c845981ac359e487398e1017293fd29ee0ec3ca1121"
+    },
+    {
+      "id": "technical-current-slice-catalog",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "## 6. Slice-Katalog (31 Slices)",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "glob",
+          "path": "samuel/slices/*/*.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/bootstrap.py"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_technical_slice_catalog_covers_every_shipped_slice",
+        "tests/test_architecture_v2.py"
+      ],
+      "source_digest": "sha256:9214f51af0e2d046d809b5d376f45043fd3593b3aceb59f1b7f9e783f2aa62d0"
+    },
+    {
+      "id": "technical-current-adapter-catalog",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "## 7. Adapter-Katalog",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "glob",
+          "path": "samuel/adapters/*/*.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/ports.py"
+        },
+        {
+          "kind": "file",
+          "path": "config/hooks.json"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/git_compare.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/git_publication.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/__init__.py"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered",
+        "tests/test_architecture_v2.py"
+      ],
+      "source_digest": "sha256:da09cca8b2fc674c7c77481bbfdf891e0afdd4a2ec6cd216eb1b3944491244ff"
+    },
+    {
+      "id": "technical-provider-routing-contract",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "## 8. LLM-Stack",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "glob",
+          "path": "samuel/adapters/llm/*.py"
+        },
+        {
+          "kind": "glob",
+          "path": "config/llm/*.json"
+        },
+        {
+          "kind": "file",
+          "path": "config/llm.json"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/quality_params.py"
+        }
+      ],
+      "proofs": [
+        "samuel/adapters/llm/tests/test_factory.py",
+        "tests/test_task_routing.py"
+      ],
+      "source_digest": "sha256:f924d5530085910e3c532c1334b690136208c5fd95a01c66b13a3e869fc528d8"
+    },
+    {
+      "id": "technical-current-security-boundaries",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "## 13. Security-Model",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "file",
+          "path": "samuel/core/security_policy.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/command_safety.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/process_environment.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/git.py"
+        },
+        {
+          "kind": "glob",
+          "path": "samuel/slices/security/*.py"
+        },
+        {
+          "kind": "glob",
+          "path": "samuel/adapters/git_transport/*.py"
+        }
+      ],
+      "proofs": [
+        "tests/test_security_runtime.py",
+        "tests/test_git_transport_auth.py"
+      ],
+      "source_digest": "sha256:5fcf9ac0d2d0e1e59b0d3a6cda5047b0fcba2ee85fe1af69283dabb525b81e1d"
+    },
+    {
+      "id": "technical-audit-durability-boundaries",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "## 14. Audit-Trail",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "glob",
+          "path": "samuel/adapters/audit/*.py"
+        },
+        {
+          "kind": "glob",
+          "path": "samuel/slices/audit_trail/*.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/external_evidence.py"
+        },
+        {
+          "kind": "file",
+          "path": "config/audit.json"
+        }
+      ],
+      "proofs": [
+        "tests/test_cli_audit.py",
+        "tests/test_audit_async.py"
+      ],
+      "source_digest": "sha256:ba958dff25d5a75778bbd9bd540cf8eaf13b5c55d6e9825ffc2d06d5eaf9b862"
+    },
+    {
+      "id": "technical-http-api-and-permissions",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "## 18. API-Endpoints",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "file",
+          "path": "samuel/server.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/api/rest.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/api/auth.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/identity.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/auth/local.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/state/identity.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/dashboard/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/dashboard/data.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/setup/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/configuration_mode.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/api/webhooks.py"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_api_reference_covers_http_dispatch_and_exact_permissions",
+        "tests/test_server_identity.py",
+        "samuel/adapters/api/tests/test_rest.py",
+        "tests/test_server_dashboard.py"
+      ],
+      "source_digest": "sha256:a5ed44e0d47f8ab5dfbdeaf5c00b79b843443966b0c3dfa64ff296c8d6d79fcd"
+    },
+    {
+      "id": "technical-shipped-config-files",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "## 19. Konfigurations-Dateien",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "glob",
+          "path": "config/**/*.json"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/config.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/configuration_mode.py"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered",
+        "tests/test_core_config.py"
+      ],
+      "source_digest": "sha256:66eec75b7280311f89048c8cc37571af60844e8d25fefa8d3e95979119b53958"
+    },
+    {
+      "id": "technical-repository-tools",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "## 25. Repositorywerkzeuge und zusätzliche Projektdateien",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "glob",
+          "path": "tools/*"
+        },
+        {
+          "kind": "file",
+          "path": "install.sh"
+        },
+        {
+          "kind": "file",
+          "path": "pyproject.toml"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered",
+        "tests/test_release_contract.py",
+        "tests/test_container_release.py",
+        "tests/test_document_contract.py::test_technical_reference_documents_every_tracked_repository_tool"
+      ],
+      "source_digest": "sha256:de1ac8c5c26308a4e8cd09e1888646a52536326d820c88e1822d4973e0bbd0e3"
+    },
+    {
+      "id": "technical-public-extension-boundary",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "## 22. Erweiterung",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "glob",
+          "path": "samuel/extensions/*.py"
+        },
+        {
+          "kind": "glob",
+          "path": "samuel/extensions/schemas/*.json"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/documentation_capability.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/documentation_cli.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/git_publication.py"
+        },
+        {
+          "kind": "file",
+          "path": "docs/EXTENSION_CONTRACT.md"
+        }
+      ],
+      "proofs": [
+        "tests/test_extension_contract.py",
+        "tests/test_documentation_capability.py"
+      ],
+      "source_digest": "sha256:9ac0fbdb4b5c277ded4c45d2cbe24bcbfb1af00041bbfa677d9fbc8225362bb5"
+    },
+    {
+      "id": "pipeline-passive-evaluation-current",
+      "document": "technische Beschreibungen/pipeline_evaluation.md",
+      "mode": "manual",
+      "heading": "## Verantwortungsgrenze",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "glob",
+          "path": "samuel/slices/evaluation/*.py"
+        },
+        {
+          "kind": "glob",
+          "path": "samuel/slices/healing/*.py"
+        },
+        {
+          "kind": "glob",
+          "path": "samuel/slices/scoring/*.py"
+        },
+        {
+          "kind": "glob",
+          "path": "samuel/slices/quality_metrics/*.py"
+        },
+        {
+          "kind": "glob",
+          "path": "samuel/slices/run_projection/*.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/evaluation_observation.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/workflow_outcome.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/bootstrap.py"
+        },
+        {
+          "path": "samuel/slices/pr_gates/handler.py",
+          "kind": "file"
+        }
+      ],
+      "proofs": [
+        "tests/test_evaluation_observation.py",
+        "tests/test_workflow_outcome.py"
+      ],
+      "source_digest": "sha256:dde6fd23d5c046c0f06a9e4f098c0d8458c433efbb99cdbb2f11242fe58fda12"
+    },
+    {
+      "id": "agents-effective-configuration",
+      "document": "docs/agents/AGENT_CONFIGURATION_REFERENCE.md",
+      "mode": "manual",
+      "heading": "# Agent Configuration Reference",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "glob",
+          "path": "config/llm/*.json"
+        },
+        {
+          "kind": "file",
+          "path": "config/agent.json"
+        },
+        {
+          "kind": "file",
+          "path": "config/llm.json"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/llm/factory.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/llm/scheduled_routing.py"
+        }
+      ],
+      "proofs": [
+        "samuel/adapters/llm/tests/test_factory.py",
+        "samuel/adapters/llm/tests/test_scheduled_routing.py"
+      ],
+      "source_digest": "sha256:cf11441baba577dc036fd3fb79e27066738b1ec37ad0bc3b9d8b9d3f3db8230e"
+    },
+    {
+      "id": "agents-current-prompt-resolution",
+      "document": "docs/agents/AGENT_PROMPTS_AND_INSTRUCTIONS.md",
+      "mode": "manual",
+      "heading": "# Agent Prompts and Instructions",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "glob",
+          "path": "samuel/core/prompts/*.md"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/llm/prompts.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/llm/system_prompt.py"
+        },
+        {
+          "kind": "file",
+          "path": "config/llm/defaults.json"
+        },
+        {
+          "kind": "file",
+          "path": ".claude/CLAUDE.md"
+        },
+        {
+          "kind": "file",
+          "path": "CONTRIBUTING.md"
+        },
+        {
+          "kind": "file",
+          "path": "MANIFESTO.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/OPERATING_RULES.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/governance/CURRENT_ENGINEERING_WORKFLOW.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/PRODUCT_BOUNDARY_HANDOVER_PROMPT.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/audits/INDEX.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/audits/partial/SAMUEL_WORKING_DECISIONS_v8.md"
+        }
+      ],
+      "proofs": [
+        "samuel/adapters/llm/tests/test_prompts.py"
+      ],
+      "source_digest": "sha256:c60ffc2c81647eac71e1cc63a3dfab596eebc4bcb8d9b2aaa6f36050979305df"
+    },
+    {
+      "id": "compliance-framework-advisory-contract",
+      "document": "docs/COMPLIANCE_FRAMEWORK_MAPPINGS.md",
+      "mode": "manual",
+      "heading": "# Compliance-Framework-Mappings und CRA",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "glob",
+          "path": "samuel/core/compliance/*.json"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/compliance_mapping.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/owasp.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/ai_act.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/privacy/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/dashboard/data.py"
+        }
+      ],
+      "proofs": [
+        "tests/test_compliance_mapping.py",
+        "tests/test_compliance_loading.py"
+      ],
+      "source_digest": "sha256:cbe84498e5684d5ee80615b5f0037970cbd1291bd9113c2c0efe548e551d20b9"
+    },
+    {
+      "id": "technical-current-deployment-contract",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "## 20. Deployment",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "file",
+          "path": "Dockerfile"
+        },
+        {
+          "kind": "file",
+          "path": "docker-compose.yml"
+        },
+        {
+          "kind": "file",
+          "path": "docker-compose.setup.yml"
+        },
+        {
+          "kind": "file",
+          "path": ".dockerignore"
+        },
+        {
+          "kind": "file",
+          "path": "samuel.service"
+        },
+        {
+          "kind": "file",
+          "path": "containers/lock-policy.json"
+        },
+        {
+          "kind": "file",
+          "path": "containers/verifier-pytest.lock"
+        },
+        {
+          "kind": "file",
+          "path": "requirements-container.lock"
+        },
+        {
+          "kind": "file",
+          "path": "requirements-container-build.lock"
+        },
+        {
+          "kind": "file",
+          "path": "pyproject.toml"
+        },
+        {
+          "kind": "file",
+          "path": "MANIFEST.in"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/local_release.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/build_info.py"
+        },
+        {
+          "kind": "file",
+          "path": "tools/samuel-container"
+        },
+        {
+          "kind": "file",
+          "path": "tools/container_init.py"
+        },
+        {
+          "kind": "file",
+          "path": "tools/container_install_smoke.py"
+        },
+        {
+          "kind": "file",
+          "path": "docs/INSTALL.md"
+        }
+      ],
+      "proofs": [
+        "tests/test_container_release.py",
+        "tests/test_local_release.py",
+        "tests/test_release_contract.py"
+      ],
+      "source_digest": "sha256:b63f0819b5efdda72197cf19b3e8e8266021e6d778c71697764160e1fe76e3af"
+    },
+    {
+      "id": "technical-current-development-contract",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "## 21. Entwicklung",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "file",
+          "path": ".gitea/workflows/ci.yml"
+        },
+        {
+          "kind": "file",
+          "path": ".pre-commit-config.yaml"
+        },
+        {
+          "kind": "file",
+          "path": "mypy-tests.ini"
+        },
+        {
+          "kind": "file",
+          "path": "requirements.lock"
+        },
+        {
+          "kind": "file",
+          "path": "pyproject.toml"
+        },
+        {
+          "kind": "file",
+          "path": "install.sh"
+        },
+        {
+          "kind": "file",
+          "path": ".env.example"
+        },
+        {
+          "kind": "file",
+          "path": ".envrc"
+        },
+        {
+          "kind": "file",
+          "path": ".gitignore"
+        },
+        {
+          "kind": "file",
+          "path": "LICENSE"
+        }
+      ],
+      "proofs": [
+        "tests/test_architecture_v2.py",
+        "tests/test_document_contract.py",
+        "tests/test_release_contract.py"
+      ],
+      "source_digest": "sha256:38ba51fbeba201856ea4276d7ac89442b2cd3b3c8da487b7bb37595fe3b20745"
+    },
+    {
+      "id": "sqlite-schema",
+      "document": "docs/STATE_STORE.md",
+      "heading": "Exakte SQL-Struktur",
+      "class": "runtime_reference",
+      "mode": "generated",
+      "generator": "sqlite_schema",
+      "sources": [
+        {
+          "path": "samuel/adapters/state/sqlite.py",
+          "kind": "python_symbol",
+          "symbol": "SQLiteStateStore._create_schema"
+        }
+      ],
+      "source_digest": "sha256:95ddb2331fcfe8bcd5a67281e0339166777092da4b6aea5b645cbcb03d8f3996",
+      "proofs": [
+        "tests/test_document_contract.py::test_sqlite_document_schema_matches_created_store"
+      ]
+    },
+    {
+      "id": "dashboard-function-reference",
+      "document": "docs/DASHBOARD.md",
+      "mode": "manual",
+      "heading": "# Dashboard: Funktionen, Einstellungen und Datenquellen",
+      "sources": [
+        {
+          "path": "samuel/server.py",
+          "kind": "file"
+        },
+        {
+          "path": "config/agent.json",
+          "kind": "file"
+        },
+        {
+          "path": "config/llm.json",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/dashboard/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/dashboard/data.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/slices/setup/handler.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/llm/factory.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/api/auth.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/configuration_mode.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/identity.py",
+          "kind": "file"
+        },
+        {
+          "path": "config/auth.json",
+          "kind": "file"
+        },
+        {
+          "path": "config/features.json",
+          "kind": "file"
+        },
+        {
+          "path": "config/extensions.json",
+          "kind": "file"
+        },
+        {
+          "path": "config/llm/defaults.json",
+          "kind": "file"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/cli.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/config.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/ai_act.py"
+        },
+        {
+          "kind": "file",
+          "path": "config/compliance.json"
+        },
+        {
+          "kind": "file",
+          "path": "config/privacy.json"
+        },
+        {
+          "kind": "file",
+          "path": "docs/INSTALL.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/CONTAINER_RELEASE_OPERATIONS.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/CI_RUNNER_OPERATIONS.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/VERSIONING.md"
+        },
+        {
+          "path": "Dockerfile",
+          "kind": "file"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/llm/costs.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/llm/scheduled_routing.py"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered",
+        "tests/test_cli_help.py",
+        "tests/test_server_dashboard.py"
+      ],
+      "source_digest": "sha256:d77317de3be9018fb211b04c8c5275de39a02f7828e2e61b72ef7f1d59e06315",
+      "review_status": "reviewed"
+    },
+    {
+      "id": "sqlite-data-purpose-and-operation",
+      "document": "docs/STATE_STORE.md",
+      "mode": "manual",
+      "heading": "# SQLite-State: Zweck, Datenmodell und Betrieb",
+      "sources": [
+        {
+          "path": "samuel/adapters/state/sqlite.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/state/identity.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/state.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/identity.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/adapters/workspace/git.py",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/workspaces.py",
+          "kind": "file"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/cli.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/ports.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/retention.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/run_projection/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/state_reconcile/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/resume/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/privacy/retention.py"
+        },
+        {
+          "kind": "file",
+          "path": "docs/INSTALL.md"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_sqlite_document_schema_matches_created_store",
+        "tests/test_cli_state.py",
+        "tests/test_cli_retention.py",
+        "tests/test_cli_workspace.py",
+        "tests/test_bound_resume.py",
+        "tests/test_runtime_state_migration.py",
+        "tests/test_state_reconcile.py"
+      ],
+      "source_digest": "sha256:fac68d8ca883814cd7e42936c4309467fd508fd513c974ffcdf4fe6b1aa28cbd",
+      "review_status": "reviewed"
+    },
+    {
+      "id": "all-document-inventory",
+      "document": "docs/README.md",
+      "mode": "manual",
+      "heading": "# Dokumentation: Funktionswege und vollständiger Bestand",
+      "sources": [
+        {
+          "path": "docs/capabilities/document-contract.json",
+          "kind": "json_pointer",
+          "pointer": "/documents"
+        },
+        {
+          "path": "docs/archive/**/*.md",
+          "kind": "glob"
+        },
+        {
+          "path": "samuel/core/prompts/*.md",
+          "kind": "glob"
+        },
+        {
+          "kind": "file",
+          "path": "PUBLIC_SNAPSHOT.md"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_document_index_lists_every_project_markdown"
+      ],
+      "source_digest": "sha256:85110e59c93e86135051a1e4b0e838ee4ceefb219d36af0f08e5b06f8c3edb31",
+      "review_status": "reviewed"
+    },
+    {
+      "id": "workspace-schema",
+      "document": "docs/STATE_STORE.md",
+      "heading": "Exakte Workspace-Struktur",
+      "mode": "generated",
+      "generator": "workspace_schema",
+      "sources": [
+        {
+          "path": "samuel/adapters/workspace/git.py",
+          "kind": "python_symbol",
+          "symbol": "GitWorktreeManager._initialize_registry"
+        }
+      ],
+      "source_digest": "sha256:871911ebce38de4368bdfea7660435e16c1f7386423ac5741660a94af667d4b8",
+      "proofs": [
+        "tests/test_document_contract.py::test_sqlite_document_schema_matches_created_store"
+      ]
+    },
+    {
+      "id": "contributing-documentation-impact",
+      "document": "CONTRIBUTING.md",
+      "mode": "manual",
+      "heading": "### Documentation acceptance",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "file",
+          "path": "tools/control_matrix.py"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_change_impact_finds_new_unbound_cli_api_and_config_without_importing",
+        "tests/test_document_contract.py::test_unchanged_surface_does_not_waive_semantic_review",
+        "tests/test_document_contract.py::test_change_impact_cli_preserves_legacy_mode_and_rejects_check_arguments"
+      ],
+      "source_digest": "sha256:c863d0ba12a6b1d0ea7549b4af05fccbd2a4cbcb85fedceab73ee6562d94c75f"
+    },
+    {
+      "id": "technical-overview-current-architecture",
+      "document": "docs/TECHNICAL_OVERVIEW.md",
+      "mode": "manual",
+      "heading": "# Technischer Überblick",
+      "sources": [
+        {
+          "path": "docs/adr/0678-product-boundary-and-integration-profile.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/README_technical.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/EXTENSION_CONTRACT.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/STATE_STORE.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/DASHBOARD.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/agents/AGENT_PROMPTS_AND_INSTRUCTIONS.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/OPERATING_RULES.md",
+          "kind": "file"
+        },
+        {
+          "path": "SECURITY.md",
+          "kind": "file"
+        },
+        {
+          "path": "technische Beschreibungen/README.md",
+          "kind": "file"
+        },
+        {
+          "path": "technische Beschreibungen/pipeline_pr_gates.md",
+          "kind": "file"
+        },
+        {
+          "path": "samuel/core/workflow.py",
+          "kind": "file"
+        },
+        {
+          "path": "CONTRIBUTING.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/INSTALL.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/DSGVO_VVT.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/AI_ACT_COMPLIANCE.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/COMPLIANCE_FRAMEWORK_MAPPINGS.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/capabilities/control-matrix.json",
+          "kind": "json_pointer",
+          "pointer": "/controls"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered",
+        "tests/test_wiki.py"
+      ],
+      "source_digest": "sha256:9dcc6ec39d81d77cba41088e99fc4f03e1afce891e4aa857fc59794f748d459a",
+      "review_status": "reviewed"
+    },
+    {
+      "id": "root-product-purpose-and-boundaries",
+      "document": "README.md",
+      "mode": "manual",
+      "heading": "# S.A.M.U.E.L.",
+      "sources": [
+        {
+          "path": "MANIFESTO.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/TECHNICAL_OVERVIEW.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/adr/0678-product-boundary-and-integration-profile.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/README_technical.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/agents/AGENT_PROMPTS_AND_INSTRUCTIONS.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/status/CURRENT_PRODUCT_STATUS.md",
+          "kind": "file"
+        },
+        {
+          "path": "docs/EXTENSION_CONTRACT.md",
+          "kind": "file"
+        },
+        {
+          "path": "CONTRIBUTING.md",
+          "kind": "file"
+        },
+        {
+          "kind": "file",
+          "path": "docs/PRODUCT_VALUE_AND_EVIDENCE.md"
+        },
+        {
+          "kind": "file",
+          "path": "LICENSE"
+        },
+        {
+          "kind": "text_range",
+          "path": "docs/SAMUEL_DESIGN_DECISIONS.md",
+          "start": "## E6 — Premium entfernen, in zwei getrennten Schritten",
+          "end": "## E7 — Prompt-Injection-Erkennung als Signal"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/pr_gates/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/evaluation/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/watch/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/workflow.py"
+        },
+        {
+          "kind": "file",
+          "path": "config/gates.json"
+        },
+        {
+          "kind": "file",
+          "path": "config/gates.self.json"
+        },
+        {
+          "kind": "file",
+          "path": "config/gates.audit.json"
+        },
+        {
+          "kind": "file",
+          "path": "config/workflows/standard.json"
+        },
+        {
+          "kind": "file",
+          "path": "config/workflows/autonomous.json"
+        },
+        {
+          "kind": "file",
+          "path": "docs/OPERATING_RULES.md"
+        },
+        {
+          "kind": "file",
+          "path": "technische Beschreibungen/README.md"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered",
+        "tests/test_wiki.py"
+      ],
+      "source_digest": "sha256:9e1b1cfde242cf4b6f5acc9d91c8ddcfde2cd4b79bf5d61444ddb37074cc3014",
+      "review_status": "reviewed"
+    },
+    {
+      "id": "product-value-and-evidence",
+      "document": "docs/PRODUCT_VALUE_AND_EVIDENCE.md",
+      "mode": "manual",
+      "heading": "# Entwicklungsproblem, Nutzen und offene Nachweise",
+      "sources": [
+        {
+          "kind": "file",
+          "path": "docs/adr/0678-product-boundary-and-integration-profile.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/README_technical.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/INSTALL.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/STATE_STORE.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/DASHBOARD.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/runbooks/TEST_AND_QUALIFICATION_RUNBOOK.md"
+        },
+        {
+          "kind": "file",
+          "path": "CONTRIBUTING.md"
+        },
+        {
+          "kind": "json_pointer",
+          "path": "docs/capabilities/control-matrix.json",
+          "pointer": "/controls"
+        },
+        {
+          "kind": "json_pointer",
+          "path": "docs/capabilities/control-matrix.json",
+          "pointer": "/reference_qualification"
+        },
+        {
+          "kind": "file",
+          "path": "docs/TECHNICAL_OVERVIEW.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/COMPLIANCE_FRAMEWORK_MAPPINGS.md"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered",
+        "tests/test_wiki.py"
+      ],
+      "source_digest": "sha256:c60d14c1c782573e99d39612b872b820dff11fbc47a7738688bd516cb7d9fc63",
+      "review_status": "reviewed"
+    },
+    {
+      "id": "dashboard-historical-images",
+      "document": "docs/DASHBOARD.md",
+      "heading": "## Historische Dashboardbilder",
+      "mode": "manual",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "file",
+          "path": "docs/demo/dashboard-tour.gif"
+        },
+        {
+          "kind": "file",
+          "path": "docs/demo/workflow-drilldown.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/demo/llm-routing-night.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/demo/settings-llm-config.png"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered",
+        "tests/test_wiki.py"
+      ],
+      "source_digest": "sha256:ad211d0f6f17c5d6f3c22d7a78a66eef7357382e4c6f6921deb455b9b06b23a7"
+    },
+    {
+      "id": "contributing-image-bindings",
+      "document": "CONTRIBUTING.md",
+      "heading": "### Fachliche Bilder und Diagramme",
+      "mode": "manual",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "file",
+          "path": "tools/control_matrix.py"
+        },
+        {
+          "kind": "file",
+          "path": "tools/wiki.py"
+        },
+        {
+          "kind": "file",
+          "path": "tools/wiki_publish.py"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_unchanged_surface_does_not_waive_semantic_review",
+        "tests/test_document_contract.py::test_change_impact_finds_new_unbound_cli_api_and_config_without_importing",
+        "tests/test_wiki_publish.py"
+      ],
+      "source_digest": "sha256:4794bc4b219944ef01b6a5fdf76031833cbae6edeed4e31dfa91bdcfc69958ea"
+    },
+    {
+      "id": "current-product-status-reader-guide",
+      "document": "docs/status/CURRENT_PRODUCT_STATUS.md",
+      "heading": "## Gegenwärtige Einordnung — 11.10.2026",
+      "mode": "manual",
+      "sources": [
+        {
+          "kind": "file",
+          "path": "docs/README_technical.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/runbooks/TEST_AND_QUALIFICATION_RUNBOOK.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/adr/0678-product-boundary-and-integration-profile.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/archive/CURRENT_PRODUCT_STATUS_2026-10-11.md"
+        },
+        {
+          "kind": "json_pointer",
+          "path": "docs/capabilities/control-matrix.json",
+          "pointer": "/reference_qualification"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered",
+        "tests/test_wiki.py"
+      ],
+      "source_digest": "sha256:a990c02e5d9ceb3199b300729dd3fa720ab064d3fcddf053350736cb617d4080",
+      "review_status": "reviewed"
+    },
+    {
+      "id": "reader-issue-implementation-matrix",
+      "document": "docs/status/ISSUE_IMPLEMENTATION_MATRIX.md",
+      "heading": "## Aktuelle Verwendung",
+      "mode": "manual",
+      "sources": [
+        {
+          "kind": "file",
+          "path": ".claude/CLAUDE.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/OPERATING_RULES.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/runbooks/TEST_AND_QUALIFICATION_RUNBOOK.md"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered"
+      ],
+      "source_digest": "sha256:78d697c022731f07425808a8b700d4d2e36f8977c4445f478682077ecb795989",
+      "review_status": "reviewed"
+    },
+    {
+      "id": "reader-issue-workstream-map",
+      "document": "docs/status/ISSUE_WORKSTREAM_MAP.md",
+      "heading": "## Aktuelle Verwendung",
+      "mode": "manual",
+      "sources": [
+        {
+          "kind": "file",
+          "path": ".claude/CLAUDE.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/OPERATING_RULES.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/runbooks/TEST_AND_QUALIFICATION_RUNBOOK.md"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered"
+      ],
+      "source_digest": "sha256:78d697c022731f07425808a8b700d4d2e36f8977c4445f478682077ecb795989",
+      "review_status": "reviewed"
+    },
+    {
+      "id": "architecture-history-reader-guide",
+      "document": "docs/SAMUEL_ARCHITECTURE_V2.1.md",
+      "heading": "## Aktuelle Architektur und Entwurfshistorie",
+      "mode": "manual",
+      "sources": [
+        {
+          "kind": "file",
+          "path": "docs/archive/reader-history-2026-10-11/SAMUEL_ARCHITECTURE_V2.1.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/README_technical.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/adr/0678-product-boundary-and-integration-profile.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/adr/0422-local-dashboard-identity.md"
+        },
+        {
+          "kind": "file",
+          "path": "config/workflows/standard.json"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered",
+        "tests/test_active_docs.py::test_documented_runtime_inventory_matches_source",
+        "tests/test_wiki.py"
+      ],
+      "source_digest": "sha256:9a22faa38d9c443a43fb664a64362ec1596b577908fba998e6b2df1074fce2a4",
+      "review_status": "reviewed"
+    },
+    {
+      "id": "technical-workflow-diagram",
+      "document": "docs/TECHNICAL_OVERVIEW.md",
+      "heading": "### Visueller Prüfzusammenhang",
+      "mode": "manual",
+      "sources": [
+        {
+          "kind": "file",
+          "path": "docs/images/issue-to-human-merge.svg"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/workflow.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/pr_gates/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/ac_verification/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/review/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/evaluation/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "docs/OPERATING_RULES.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/README_technical.md"
+        },
+        {
+          "kind": "file",
+          "path": "CONTRIBUTING.md"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered",
+        "tests/test_wiki.py",
+        "tests/test_wiki_publish.py"
+      ],
+      "source_digest": "sha256:0672970630dcaa0c140911676d474119b359ff62ddfed21ca7b197b1a603a809",
+      "review_status": "reviewed"
+    },
+    {
+      "id": "dashboard-dated-real-images",
+      "document": "docs/DASHBOARD.md",
+      "heading": "## Datierte reale Dashboardaufnahmen",
+      "mode": "manual",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "file",
+          "path": "docs/images/dashboard-settings-2026-10-10.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/dashboard-status-2026-10-10.png"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/server.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/dashboard/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/dashboard/data.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/llm/factory.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/bus.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/bootstrap.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/configuration_mode.py"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered",
+        "tests/test_server_dashboard.py",
+        "tests/test_wiki.py",
+        "tests/test_wiki_publish.py"
+      ],
+      "source_digest": "sha256:2d32840c39afaec7e8b310a33717b5f94a49850e4b642360acf0c5b3b04ab89e"
+    },
+    {
+      "id": "root-existing-feature-offering",
+      "document": "README.md",
+      "heading": "## Was S.A.M.U.E.L. bereits mitbringt",
+      "mode": "manual",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "file",
+          "path": "docs/TECHNICAL_OVERVIEW.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/README_technical.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/DASHBOARD.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/STATE_STORE.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/INSTALL.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/EXTENSION_CONTRACT.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/COMPLIANCE_FRAMEWORK_MAPPINGS.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/DSGVO_VVT.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/AI_ACT_COMPLIANCE.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/agents/AGENT_CONFIGURATION_REFERENCE.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/agents/AGENT_PROMPTS_AND_INSTRUCTIONS.md"
+        },
+        {
+          "kind": "file",
+          "path": "technische Beschreibungen/pipeline_issue_to_llm.md"
+        },
+        {
+          "kind": "file",
+          "path": "technische Beschreibungen/pipeline_planning.md"
+        },
+        {
+          "kind": "file",
+          "path": "technische Beschreibungen/pipeline_pr_gates.md"
+        },
+        {
+          "kind": "file",
+          "path": "technische Beschreibungen/pipeline_evaluation.md"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/workflow.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/schedule.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/llm/factory.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/llm/scheduled_routing.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/skeleton/registry.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/skeleton/python_ast.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/implementation/context_builder.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/context/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "config/llm/defaults.json"
+        },
+        {
+          "kind": "file",
+          "path": "config/extensions.json"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/llm/prompts.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/llm/system_prompt.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/compliance_mapping.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/compliance/cra.json"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered",
+        "tests/test_control_matrix.py",
+        "tests/test_wiki.py",
+        "tests/test_wiki_publish.py"
+      ],
+      "source_digest": "sha256:8b3a9603ca87e85694a0531672b2b879e3b64b6d7170676955eb589d564eee89"
+    },
+    {
+      "id": "dashboard-maintainer-captures",
+      "document": "docs/DASHBOARD.md",
+      "heading": "## Reale Aufnahmen aus dem bereitgestellten Bildbestand",
+      "mode": "manual",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "file",
+          "path": "samuel/server.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/dashboard/data.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/dashboard/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/workflow_outcome.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/health_projection.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/configuration_mode.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/retention.py"
+        },
+        {
+          "kind": "file",
+          "path": "docs/COMPLIANCE_FRAMEWORK_MAPPINGS.md"
+        },
+        {
+          "kind": "file",
+          "path": "CONTRIBUTING.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/dashboard-status-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/llm-runtime-idle-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/llm-task-routes-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/llm-model-cache-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/llm-quality-unattributed-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/llm-empty-metering-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/runtime-event-counts-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/runtime-empty-observations-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/scm-activity-empty-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/workflow-plan-blocked-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/workflow-blocked-evidence-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/workflow-blocked-audit-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/problems-empty-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/audit-log-details-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/security-branch-read-denied-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/security-empty-events-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/compliance-owasp-legend-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/compliance-ai-act-ui-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/compliance-framework-mappings-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/compliance-attribution-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/setup-readonly-project-summary-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/setup-project-fields-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/setup-llm-fields-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/setup-save-fields-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/settings-production-freeze-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/settings-documentation-extension-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/settings-feature-flags-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/settings-label-sync-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/settings-dlq-empty-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/settings-default-fallback-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/settings-task-prompts-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/settings-legacy-identity-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/provider-key-presence-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/provider-transfer-warnings-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/retention-report-only-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/health-checks-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/self-check-summary-a29.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/self-check-details-a29.png"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered",
+        "tests/test_wiki.py",
+        "tests/test_wiki_publish.py"
+      ],
+      "source_digest": "sha256:48dbe28c3e0b6dc0eb145452fbfe2baf8595a1b713dfb6cce478f98f7d2d18dc"
+    },
+    {
+      "id": "pipeline-maintainer-captures",
+      "document": "technische Beschreibungen/README.md",
+      "heading": "## Reale SCM-Aufnahmen des Änderungsablaufs",
+      "mode": "manual",
+      "review_status": "reviewed",
+      "sources": [
+        {
+          "kind": "file",
+          "path": "samuel/slices/planning/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/pr_gates/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/review/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/evaluation/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/workflow_outcome.py"
+        },
+        {
+          "kind": "json_pointer",
+          "path": "docs/capabilities/control-matrix.json",
+          "pointer": "/controls"
+        },
+        {
+          "kind": "file",
+          "path": "CONTRIBUTING.md"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/gitea-issue-request.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/gitea-plan-contract.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/gitea-bound-review.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/gitea-development-completion.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/gitea-human-merge-header.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/gitea-pr-request-and-diff.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/gitea-evidence-binding.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/gitea-gate-results.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/gitea-acceptance-results.png"
+        },
+        {
+          "kind": "file",
+          "path": "docs/images/product-captures/gitea-passive-score.png"
+        }
+      ],
+      "proofs": [
+        "tests/test_document_contract.py::test_checked_in_document_contract_is_valid_and_rendered",
+        "tests/test_wiki.py",
+        "tests/test_wiki_publish.py"
+      ],
+      "source_digest": "sha256:31ffbaa4880ba9961eab3cd578fc8676984cce8335059c32aad4bc56cc93ee49"
+    },
+    {
+      "id": "technical-review-original-input",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "### Review und erwarteter Head",
+      "sources": [
+        {
+          "kind": "file",
+          "path": "samuel/slices/review/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/review.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/evaluation_subject.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/ports.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/git_compare.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/bootstrap.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/pr_gates/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/review/tests/test_original_input.py"
+        },
+        {
+          "kind": "file",
+          "path": "tests/test_review_original_git.py"
+        }
+      ],
+      "proofs": [
+        "samuel/slices/review/tests/test_original_input.py::test_missing_original_does_not_fall_back_to_supplied_report",
+        "samuel/slices/review/tests/test_original_input.py::test_scrubbed_projection_has_separate_identity_and_is_rejected",
+        "samuel/slices/review/tests/test_original_input.py::test_actual_original_with_redaction_words_is_not_a_projection",
+        "tests/test_review_original_git.py::test_review_uses_immutable_git_not_current_worktree"
+      ],
+      "review_status": "reviewed",
+      "source_digest": "sha256:5566ec9fa48696da74b7324fe19f94f9f3c922cedac657d11fdc118a8929def6"
+    },
+    {
+      "id": "technical-audit-writer-diagnostic",
+      "document": "docs/README_technical.md",
+      "mode": "manual",
+      "heading": "### Audit-Schreibdiagnose (#986)",
+      "sources": [
+        {
+          "kind": "file",
+          "path": "samuel/adapters/audit/async_sink.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/audit/fanout.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/health_projection.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/bootstrap.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/ports.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/adapters/state/sqlite.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/core/logging.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/health/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/slices/dashboard/handler.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/cli.py"
+        },
+        {
+          "kind": "file",
+          "path": "samuel/server.py"
+        },
+        {
+          "kind": "file",
+          "path": "tests/test_audit_writer_diagnostics.py"
+        },
+        {
+          "kind": "file",
+          "path": "tests/test_server_dashboard.py"
+        }
+      ],
+      "proofs": [
+        "tests/test_audit_writer_diagnostics.py::test_wrong_key_preserves_primary_bytes_and_exposes_real_fallback",
+        "tests/test_audit_writer_diagnostics.py::test_restart_preserves_failure_and_success_resolves_only_writer_degradation",
+        "tests/test_audit_writer_diagnostics.py::test_concurrent_process_readbacks_do_not_lose_loss_counts",
+        "tests/test_server_dashboard.py::test_passive_http_exposes_persisted_writer_failure_without_probe"
+      ],
+      "review_status": "reviewed",
+      "source_digest": "sha256:7cead0480835082054ed844788031d65815f61faf0d7d5d96dbb0975f66f9fca"
+    }
+  ]
+}

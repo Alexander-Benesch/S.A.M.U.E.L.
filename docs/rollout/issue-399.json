@@ -1,0 +1,272 @@
+{
+  "schema_version": "1.0",
+  "schema": "issue-399.schema.json",
+  "schema_digest": "sha256:fc17d21719cb8c9b0babd1d72d897999d59d01b0385dd46be208d689e2beb037",
+  "decision_issue": 399,
+  "rollout_issue": 577,
+  "generated_at": "2026-08-28T15:38:35Z",
+  "cases": [
+    {
+      "id": "success",
+      "result": "passed",
+      "run": {
+        "issue_number": 6,
+        "issue_url": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture/issues/6",
+        "evidence_comment_id": 39169,
+        "evidence_comment_url": "https://scm.example.invalid/Alexander-Benesch/S.A.M.U.E.L./issues/577#issuecomment-39169"
+      },
+      "subject": {
+        "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+        "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+        "head_sha": "05ce76c07ac9aad747494c3d95cd19c4e83031f5",
+        "contract_hash": "sha256:60b2805d2a41ddf4cc3fe546a3d76e0a4b31353ff54a1a73d61e513c065753c6",
+        "policy_version": "2026-08-28.bound.v1",
+        "policy_digest": "sha256:25948b2fd2de41dc94017f6865c723e51e99327b4c47ad8b8df17eba8e85974b",
+        "observation_key": "sha256:eca5b525961401809ac6c36b05b69a17d1c42fd8b53944af1ad1f1d95ba017d9",
+        "correlation_id": "164af6eb-ebc6-46f8-8c83-0e6dbce8cb32",
+        "observed_at": "2026-08-28T14:08:53.539208Z"
+      },
+      "evidence": {
+        "gate_evaluation_completed": {"count": 1, "blocked": false, "gate_results": 17},
+        "score_observed": {"count": 1, "non_binding": true},
+        "gates_passed": 1,
+        "pr_created": {
+          "count": 1,
+          "number": 7,
+          "url": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture/pulls/7",
+          "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+          "head_sha": "05ce76c07ac9aad747494c3d95cd19c4e83031f5"
+        }
+      }
+    },
+    {
+      "id": "required_gate_block",
+      "result": "passed",
+      "run": {
+        "issue_number": 3,
+        "issue_url": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture/issues/3",
+        "evidence_comment_id": 39181,
+        "evidence_comment_url": "https://scm.example.invalid/Alexander-Benesch/S.A.M.U.E.L./issues/577#issuecomment-39181"
+      },
+      "subject": {
+        "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+        "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+        "head_sha": "c35ce8f336a31e60e5b9c096052d51b79f216fa3",
+        "contract_hash": "sha256:f16d5d702c8c3a942bae8e3bf8d994d954531ec288a9dc60b49071f92431313e",
+        "policy_version": "2026-08-28.bound.v1",
+        "policy_digest": "sha256:25948b2fd2de41dc94017f6865c723e51e99327b4c47ad8b8df17eba8e85974b",
+        "observation_key": "sha256:c3e94291a3dbc09bcce14da97a0bea287bc1f1123fce1d443dab721f44e5808d",
+        "correlation_id": "850d1d7e-1271-47e7-81fd-06e54b0f9846",
+        "observed_at": "2026-08-28T13:59:04.755418Z"
+      },
+      "evidence": {
+        "gate_evaluation_completed": {"count": 1, "blocked": true, "gate_results": 17},
+        "score_observed": {"count": 1, "non_binding": true},
+        "healing_classified": {
+          "count": 1,
+          "classification": "not_healable",
+          "reason": "ambiguous_failed_criteria"
+        },
+        "healing_attempts_started": 0,
+        "workflow_blocked": {
+          "count": 1,
+          "reason": "bound_healing:ambiguous_failed_criteria"
+        },
+        "pr_created": {"count": 0}
+      }
+    },
+    {
+      "id": "evidence_healing_new_head",
+      "result": "passed",
+      "run": {
+        "issue_number": 6,
+        "issue_url": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture/issues/6",
+        "evidence_comment_id": 39169,
+        "evidence_comment_url": "https://scm.example.invalid/Alexander-Benesch/S.A.M.U.E.L./issues/577#issuecomment-39169"
+      },
+      "subject": {
+        "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+        "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+        "head_sha": "2b8fe1de93b234c6060364a4ae545d7ebe9a0b96",
+        "contract_hash": "sha256:60b2805d2a41ddf4cc3fe546a3d76e0a4b31353ff54a1a73d61e513c065753c6",
+        "policy_version": "2026-08-28.bound.v1",
+        "policy_digest": "sha256:25948b2fd2de41dc94017f6865c723e51e99327b4c47ad8b8df17eba8e85974b",
+        "observation_key": "sha256:d29dc374c40520141fc8e0c8c833babb1291bd56855a95f31feec342ae9b8c0d",
+        "correlation_id": "164af6eb-ebc6-46f8-8c83-0e6dbce8cb32",
+        "observed_at": "2026-08-28T14:08:18.243178Z"
+      },
+      "evidence": {
+        "healed_subject": {
+          "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+          "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+          "head_sha": "05ce76c07ac9aad747494c3d95cd19c4e83031f5",
+          "contract_hash": "sha256:60b2805d2a41ddf4cc3fe546a3d76e0a4b31353ff54a1a73d61e513c065753c6",
+          "policy_version": "2026-08-28.bound.v1",
+          "policy_digest": "sha256:25948b2fd2de41dc94017f6865c723e51e99327b4c47ad8b8df17eba8e85974b",
+          "observation_key": "sha256:eca5b525961401809ac6c36b05b69a17d1c42fd8b53944af1ad1f1d95ba017d9",
+          "correlation_id": "164af6eb-ebc6-46f8-8c83-0e6dbce8cb32",
+          "observed_at": "2026-08-28T14:08:53.539208Z"
+        },
+        "gate_evaluation_completed": {
+          "count": 2,
+          "initial_blocked": true,
+          "healed_blocked": false,
+          "gate_results_each": 17
+        },
+        "score_observed": {"count": 2, "non_binding": true},
+        "healing": {
+          "classified": 2,
+          "attempts_started": 1,
+          "attempts_completed": 1,
+          "max_attempts": 1,
+          "second_attempts": 0,
+          "failed_head": "2b8fe1de93b234c6060364a4ae545d7ebe9a0b96",
+          "healed_parent_sha": "2b8fe1de93b234c6060364a4ae545d7ebe9a0b96",
+          "healed_head": "05ce76c07ac9aad747494c3d95cd19c4e83031f5"
+        },
+        "gates_passed": 1,
+        "pr_created": {
+          "count": 1,
+          "number": 7,
+          "url": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture/pulls/7",
+          "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+          "head_sha": "05ce76c07ac9aad747494c3d95cd19c4e83031f5"
+        }
+      }
+    },
+    {
+      "id": "terminal_refail",
+      "result": "passed",
+      "run": {
+        "issue_number": 12,
+        "issue_url": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture/issues/12",
+        "evidence_comment_id": 39247,
+        "evidence_comment_url": "https://scm.example.invalid/Alexander-Benesch/S.A.M.U.E.L./issues/577#issuecomment-39247"
+      },
+      "subject": {
+        "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+        "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+        "head_sha": "16f29567d753b4edbf97e5640ca7ca20b556d6f9",
+        "contract_hash": "sha256:690dfd69f83388ac7e496bb9ae797b9872cf709b0bde96dcb5a7c4889949d016",
+        "policy_version": "2026-08-28.bound.v1",
+        "policy_digest": "sha256:25948b2fd2de41dc94017f6865c723e51e99327b4c47ad8b8df17eba8e85974b",
+        "observation_key": "sha256:e6d81ed12cd82b46eaa56d63f18483b786cf2f790d167170bc439774c66f2e2e",
+        "correlation_id": "a5d127c5-3505-4398-a905-d9d09f96af4b",
+        "observed_at": "2026-08-28T14:32:18.891582Z"
+      },
+      "evidence": {
+        "healed_subject": {
+          "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+          "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+          "head_sha": "952721cc0185e27a4be998ff14b556c3a75a4820",
+          "contract_hash": "sha256:690dfd69f83388ac7e496bb9ae797b9872cf709b0bde96dcb5a7c4889949d016",
+          "policy_version": "2026-08-28.bound.v1",
+          "policy_digest": "sha256:25948b2fd2de41dc94017f6865c723e51e99327b4c47ad8b8df17eba8e85974b",
+          "observation_key": "sha256:763c142396bd1935caf641fd287400bf31d033a01743d6342bae642e7f24a67a",
+          "correlation_id": "a5d127c5-3505-4398-a905-d9d09f96af4b",
+          "observed_at": "2026-08-28T14:33:21.673506Z"
+        },
+        "gate_evaluation_completed": {
+          "count": 2,
+          "initial_blocked": true,
+          "healed_blocked": true,
+          "gate_results_each": 17
+        },
+        "score_observed": {"count": 2, "non_binding": true},
+        "healing": {
+          "classified": 2,
+          "attempts_started": 1,
+          "attempts_completed": 1,
+          "max_attempts": 1,
+          "second_attempts": 0,
+          "failed_head": "16f29567d753b4edbf97e5640ca7ca20b556d6f9",
+          "healed_parent_sha": "16f29567d753b4edbf97e5640ca7ca20b556d6f9",
+          "healed_head": "952721cc0185e27a4be998ff14b556c3a75a4820"
+        },
+        "workflow_blocked": {"count": 1, "reason": "bound_healing:repeated_failure"},
+        "pr_created": {"count": 0}
+      }
+    },
+    {
+      "id": "legacy_rollback",
+      "result": "passed",
+      "run": {
+        "issue_number": 6,
+        "issue_url": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture/issues/6",
+        "evidence_comment_id": 39339,
+        "evidence_comment_url": "https://scm.example.invalid/Alexander-Benesch/S.A.M.U.E.L./issues/577#issuecomment-39339"
+      },
+      "subject": {
+        "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+        "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+        "head_sha": "05ce76c07ac9aad747494c3d95cd19c4e83031f5",
+        "contract_hash": "sha256:60b2805d2a41ddf4cc3fe546a3d76e0a4b31353ff54a1a73d61e513c065753c6",
+        "policy_version": "2026-08-28.bound.v1",
+        "policy_digest": "sha256:25948b2fd2de41dc94017f6865c723e51e99327b4c47ad8b8df17eba8e85974b",
+        "observation_key": "sha256:eca5b525961401809ac6c36b05b69a17d1c42fd8b53944af1ad1f1d95ba017d9",
+        "correlation_id": "164af6eb-ebc6-46f8-8c83-0e6dbce8cb32",
+        "observed_at": "2026-08-28T14:08:53.539208Z"
+      },
+      "evidence": {
+        "drill_observed_at": "2026-08-28T15:38:11.313179Z",
+        "runtime_revision": "02fbf8e289084493211e01a0355b272150f81595",
+        "transitions": [
+          {
+            "authority_mode": "bound_gate_authority",
+            "gate_profile": "default",
+            "policy_version": "2026-08-28.bound.v1",
+            "policy_digest": "sha256:25948b2fd2de41dc94017f6865c723e51e99327b4c47ad8b8df17eba8e85974b",
+            "bound_healing_active": true,
+            "gate_10_required": false,
+            "legacy_steps_active": false
+          },
+          {
+            "authority_mode": "legacy_score_authority",
+            "gate_profile": "legacy",
+            "policy_version": "2026-08-25.legacy.v4",
+            "policy_digest": "sha256:a97f6f48f7a99f71587d81c8ae4ba10e9c17054e4f7c219eeee4df868f33381d",
+            "bound_healing_active": false,
+            "gate_10_required": true,
+            "legacy_steps_active": true
+          },
+          {
+            "authority_mode": "bound_gate_authority",
+            "gate_profile": "default",
+            "policy_version": "2026-08-28.bound.v1",
+            "policy_digest": "sha256:25948b2fd2de41dc94017f6865c723e51e99327b4c47ad8b8df17eba8e85974b",
+            "bound_healing_active": true,
+            "gate_10_required": false,
+            "legacy_steps_active": false
+          }
+        ],
+        "data_migration": false,
+        "mixed_state": false,
+        "state_hashes": {
+          "before": {
+            "evaluation_observations.json": "sha256:62b7d874fea1bd9dee29bab98fa6a6e15d52b3f928a933d7c71d93b1e5beac45",
+            "bound_healing_attempts.json": "sha256:13e172475d821ec1bb50658aeafc2ecea84d0cff1e369fe47a12c6b27e9a21b7",
+            "quality_metrics.json": "sha256:51717c6fff1a363d83e0db75809592bfe0ad5a9df6166b70b2cb961e5c77acf2"
+          },
+          "legacy": {
+            "evaluation_observations.json": "sha256:62b7d874fea1bd9dee29bab98fa6a6e15d52b3f928a933d7c71d93b1e5beac45",
+            "bound_healing_attempts.json": "sha256:13e172475d821ec1bb50658aeafc2ecea84d0cff1e369fe47a12c6b27e9a21b7",
+            "quality_metrics.json": "sha256:51717c6fff1a363d83e0db75809592bfe0ad5a9df6166b70b2cb961e5c77acf2"
+          },
+          "after": {
+            "evaluation_observations.json": "sha256:62b7d874fea1bd9dee29bab98fa6a6e15d52b3f928a933d7c71d93b1e5beac45",
+            "bound_healing_attempts.json": "sha256:13e172475d821ec1bb50658aeafc2ecea84d0cff1e369fe47a12c6b27e9a21b7",
+            "quality_metrics.json": "sha256:51717c6fff1a363d83e0db75809592bfe0ad5a9df6166b70b2cb961e5c77acf2"
+          }
+        },
+        "implementation": {
+          "issue": 579,
+          "pr": 590,
+          "source_sha": "83c8cba56faff65158bbdae1daf1090a1d303676",
+          "merge_sha": "5b88cec1b46c02f0fb3c4b277ab1995d86c67329",
+          "pr_ci_run": 540,
+          "push_ci_run": 541
+        }
+      }
+    }
+  ]
+}

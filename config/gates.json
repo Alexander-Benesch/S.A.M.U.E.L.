@@ -1,0 +1,11 @@
+{
+  "policy_version": "2026-10-08.preflight.v4",
+  "required": [1, 2, 3, 7, "7b", 8, 9, 11, "13b"],
+  "optional": [5, 6, 12, "13a"],
+  "disabled": [],
+  "custom": [],
+  "parameters": {
+    "max_diff_bytes": 2000000,
+    "max_quality_file_bytes": 1000000
+  }
+}

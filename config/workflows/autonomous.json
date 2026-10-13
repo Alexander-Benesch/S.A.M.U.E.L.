@@ -1,0 +1,13 @@
+{
+  "name": "autonomous",
+  "steps": [
+    {"on": "IssueReady", "send": "PlanIssue"},
+    {"on": "PlanValidated", "send": "Implement", "condition": "plan_without_clarification"},
+    {"on": "PlanApproved", "send": "Implement", "condition": "plan_with_clarification"},
+    {"on": "CodeGenerated", "send": "CreatePR"},
+    {"on": "HealingSuggested", "send": "Implement"},
+    {"on": "PRCreated", "send": "Review"}
+  ],
+  "max_risk": 2,
+  "max_parallel": 1
+}

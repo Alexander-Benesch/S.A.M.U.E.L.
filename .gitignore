@@ -1,0 +1,20 @@
+.venv/
+.direnv/
+data/
+__pycache__/
+*.pyc
+.env
+.env.agent
+*.egg-info/
+
+# Legacy entitlement files are no longer read, but may still contain secrets.
+config/license.json
+config/license.local.json
+*.license.json
+license-private.key
+
+# Operator prompt overrides (#351): per-deployment user data, not code
+config/llm/prompts/
+dist/
+/build/
+/wiki/

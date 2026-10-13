@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "capabilities": {
+    "documentation.static_claims": {
+      "enabled": false,
+      "required": false,
+      "contract_version": "1.0",
+      "manifest_path": null
+    }
+  }
+}

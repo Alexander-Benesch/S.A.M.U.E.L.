@@ -1,0 +1,15 @@
+**
+!pyproject.toml
+!LICENSE
+!requirements-container.lock
+!requirements-container-build.lock
+!samuel/
+!samuel/**
+!config/
+!config/*.json
+!config/llm/
+!config/llm/*.json
+!config/workflows/
+!config/workflows/*.json
+config/license.json
+config/license.local.json

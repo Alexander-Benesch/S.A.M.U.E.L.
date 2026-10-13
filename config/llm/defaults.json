@@ -1,0 +1,82 @@
+{
+  "default": {
+    "max_tokens": 4096,
+    "reasoning_reserve": 0,
+    "temperature": 0.2,
+    "timeout": 60
+  },
+  "tasks": {
+    "planning": {
+      "max_tokens": 4096,
+      "temperature": 0.3,
+      "provider": "openrouter",
+      "model": "nvidia/nemotron-3-super-120b-a12b:free",
+      "cost_advisory_enabled": true,
+      "overqualification_margin_ratio": 0.2,
+      "timeout": 60,
+      "system_prompt": "planner.md"
+    },
+    "implementation": {
+      "max_tokens": 8192,
+      "temperature": 0.1,
+      "system_prompt": "senior_python.md",
+      "provider": "openrouter",
+      "model": "z-ai/glm-5.2:free",
+      "cost_advisory_enabled": true,
+      "overqualification_margin_ratio": 0.2,
+      "timeout": 60
+    },
+    "review": {
+      "max_tokens": 4096,
+      "temperature": 0.2,
+      "system_prompt": "reviewer.md",
+      "provider": "openrouter",
+      "model": "openai/gpt-oss-20b:free",
+      "cost_advisory_enabled": true,
+      "overqualification_margin_ratio": 0.2,
+      "timeout": 60
+    },
+    "healing": {
+      "max_tokens": 4096,
+      "temperature": 0.2,
+      "system_prompt": "healer.md",
+      "provider": "openrouter",
+      "model": "z-ai/glm-5.2:free",
+      "cost_advisory_enabled": true,
+      "overqualification_margin_ratio": 0.2,
+      "timeout": 60
+    },
+    "evaluation": {
+      "max_tokens": 2048,
+      "system_prompt": "log_analyst.md",
+      "provider": "openrouter",
+      "model": "nvidia/nemotron-nano-9b-v2:free",
+      "cost_advisory_enabled": true,
+      "overqualification_margin_ratio": 0.2,
+      "timeout": 60
+    }
+  },
+  "circuit_breaker": {
+    "failure_threshold": 3,
+    "cooldown_seconds": 120
+  },
+  "retry": {
+    "enabled": true,
+    "max_attempts": 3,
+    "base_delay_s": 1.0
+  },
+  "workflow_budget": {
+    "token_limit": 500000
+  },
+  "pricing_cache_hours": 24,
+  "benchmark_thresholds": {
+    "default": 50,
+    "planning": 50,
+    "implementation": 50,
+    "review": 50,
+    "healing": 50,
+    "evaluation": 50
+  },
+  "response_size_limit_bytes": 10485760,
+  "_note": "Static per-task routing, scheduled time-window routing, and runtime parameters are applied by samuel/adapters/llm/factory.py. reasoning_reserve is opt-in and adds a separate reasoning budget for detected reasoning models while max_tokens remains the visible-content budget. workflow_budget.token_limit is the mandatory cumulative token admission for issue-bound workflows; pricing remains advisory metering. Benchmark suitability uses cached OpenRouter task indices only; missing data stays explicit. cost_advisory_enabled only controls an advisory strict-Pareto hint; overqualification_margin_ratio is relative to the explicit task threshold and never changes routing. Per-task system_prompt resolves via the model > provider > generic > package cascade."
+}

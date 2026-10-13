@@ -1,0 +1,25 @@
+{
+  "fixture": "secret-reduced native Gitea 1.27.2 issue_label delivery derived from NON-GOLDEN issue 145",
+  "headers": {
+    "Content-Type": "application/json",
+    "X-Gitea-Delivery": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+    "X-Gitea-Event": "issues",
+    "X-Gitea-Event-Type": "issue_label",
+    "X-Gitea-Signature-Format": "lowercase-unprefixed-hex64"
+  },
+  "payload": {
+    "action": "label_updated",
+    "commit_id": "",
+    "issue": {
+      "number": 16,
+      "updated_at": "2026-08-25T10:00:00Z",
+      "labels": [
+        {"id": 4, "name": "status:approved"},
+        {"id": 3, "name": "status:plan"}
+      ]
+    },
+    "number": 16,
+    "repository": {"full_name": "owner/repo"},
+    "sender": {"login": "operator"}
+  }
+}

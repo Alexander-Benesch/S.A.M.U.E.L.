@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="830" viewBox="0 0 1260 830" role="img" aria-labelledby="title desc">
+<title id="title">Issue bis menschlicher Merge: Verantwortungs- und Nachweisgrenzen</title>
+<desc id="desc">Erklärdiagramm – Quellenreview auf Main 200c34c. Kein Nachweis eines ausgeführten Laufs. Pflichtfehler blockieren; MANUAL benötigt menschliche Evidence; passiver Score erlaubt keinen Merge.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#34516c"/></marker></defs>
+<rect width="1260" height="830" fill="#f6f8fa"/>
+<g font-family="sans-serif" fill="#172e46"><text x="30" y="40" font-size="25">Vom Auftrag zur menschlichen Mergeentscheidung</text><text x="30" y="72" font-size="16">Erklärdiagramm – Quellenreview · Main 200c34c · Prüfzusammenhang, keine exakte Eventfolge</text>
+<rect x="30" y="100" width="380" height="110" rx="10" fill="white" stroke="#34516c" stroke-width="2"/>
+<text x="46" y="136" font-size="21">1 · Auftrag</text>
+<text x="46" y="173" font-size="15">Issue + erlaubter Umfang</text>
+<rect x="440" y="100" width="380" height="110" rx="10" fill="white" stroke="#34516c" stroke-width="2"/>
+<text x="456" y="136" font-size="21">2 · Plan / Freigabe</text>
+<text x="456" y="173" font-size="15">Freigabe gemäß aktivem Workflowvertrag</text>
+<rect x="850" y="100" width="380" height="110" rx="10" fill="white" stroke="#34516c" stroke-width="2"/>
+<text x="866" y="136" font-size="21">3 · Candidate</text>
+<text x="866" y="173" font-size="15">vollständiger Diff; Base-/Head-SHA</text>
+<rect x="850" y="280" width="380" height="110" rx="10" fill="white" stroke="#34516c" stroke-width="2"/>
+<text x="866" y="316" font-size="21">4 · Gebunden prüfen</text>
+<text x="866" y="353" font-size="15">Preflight · Acceptance · Required Gates</text>
+<rect x="440" y="280" width="380" height="110" rx="10" fill="white" stroke="#34516c" stroke-width="2"/>
+<text x="456" y="316" font-size="21">5 · Ergebnisse nachvollziehen</text>
+<text x="456" y="353" font-size="15">Subject · Contract · Policy · Herkunft</text>
+<rect x="30" y="280" width="380" height="110" rx="10" fill="white" stroke="#34516c" stroke-width="2"/>
+<text x="46" y="316" font-size="21">6 · PR und Review</text>
+<text x="46" y="353" font-size="15">gebundene Ergebnisse + offene Kriterien</text>
+<rect x="30" y="510" width="380" height="110" rx="10" fill="white" stroke="#34516c" stroke-width="2"/>
+<text x="46" y="546" font-size="21">7 · Mensch entscheidet</text>
+<text x="46" y="583" font-size="15">Human Merge; keine Freigabe durch Score</text>
+<rect x="440" y="510" width="380" height="110" rx="10" fill="white" stroke="#34516c" stroke-width="2"/>
+<text x="456" y="546" font-size="21">8 · Integrierten Main prüfen</text>
+<text x="456" y="583" font-size="15">Main / Contracts; hier zusätzlich Wiki</text>
+<path d="M410 155 H435" fill="none" stroke="#34516c" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M820 155 H845" fill="none" stroke="#34516c" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M1040 210 V275" fill="none" stroke="#34516c" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M850 335 H825" fill="none" stroke="#34516c" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M440 335 H415" fill="none" stroke="#34516c" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M220 390 V505" fill="none" stroke="#34516c" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M410 565 H435" fill="none" stroke="#34516c" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="850" y="490" width="380" height="140" rx="10" fill="#fff4da" stroke="#926814"/>
+<text x="867" y="521" font-size="19">MANUAL und passiver Score</text>
+<text x="867" y="552" font-size="16">MANUAL: passender menschlicher Receipt.</text>
+<text x="867" y="578" font-size="16">Score: Information, keine Authority.</text>
+<text x="867" y="604" font-size="16">Offen ist kein automatischer PASS.</text>
+<rect x="30" y="670" width="1200" height="115" rx="10" fill="#fcecec" stroke="#923d3d"/>
+<text x="48" y="704" font-size="20">Pflichtfehler → Block / begrenzte Korrektur</text>
+<text x="48" y="735" font-size="17">Ein anderer Head übernimmt alte Nachweise nicht ungeprüft. Producerurteile erteilen keine Freigabe.</text>
+<text x="48" y="763" font-size="17">Die Details bestimmt der aktive Vertrag. Dieses Diagramm ersetzt keine tatsächliche Qualification.</text>
+</g></svg>

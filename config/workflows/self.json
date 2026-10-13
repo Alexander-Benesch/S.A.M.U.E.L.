@@ -1,0 +1,11 @@
+{
+  "name": "self",
+  "steps": [
+    {"on": "IssueReady", "send": "PlanIssue"},
+    {"on": "PlanApproved", "send": "Implement"},
+    {"on": "CodeGenerated", "send": "CreatePR"},
+    {"on": "HealingSuggested", "send": "Implement"}
+  ],
+  "max_risk": 2,
+  "max_parallel": 1
+}

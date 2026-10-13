@@ -1,0 +1,876 @@
+{
+  "schema_version": "1.1",
+  "generator_version": "1.1",
+  "repository": "example-owner/S.A.M.U.E.L",
+  "output_dir": "wiki",
+  "authority": "non_authoritative_projection",
+  "personas": {
+    "developer": [
+      "wiki.architecture",
+      "wiki.components",
+      "wiki.pipeline"
+    ],
+    "maintainer": [
+      "wiki.decisions",
+      "wiki.assurance",
+      "wiki.document-status"
+    ],
+    "operator": [
+      "wiki.operations",
+      "wiki.configuration",
+      "wiki.security"
+    ],
+    "reviewer": [
+      "wiki.pipeline",
+      "wiki.assurance",
+      "wiki.decisions"
+    ]
+  },
+  "pages": [
+    {
+      "id": "wiki.home",
+      "path": "index.md",
+      "publication_path": "Home.md",
+      "title": "Start und Systemüberblick",
+      "purpose": "Einstieg, Produktgrenze und aufgabenorientierte Wege durch die technische Dokumentation.",
+      "audiences": [
+        "developer",
+        "maintainer",
+        "operator",
+        "reviewer"
+      ],
+      "related_pages": [
+        "wiki.architecture",
+        "wiki.operations",
+        "wiki.document-status"
+      ],
+      "content_blocks": [
+        {
+          "id": "wiki.home.product-purpose",
+          "type": "source_section",
+          "source": "README.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "S.A.M.U.E.L."
+          },
+          "source_digest": "sha256:0974f605d24d3d3d8e8acaaf63e3d0849b79dbefb640a7edba7c2ce3a54dfb95"
+        },
+        {
+          "id": "wiki.home.product-value-and-evidence",
+          "type": "source_section",
+          "source": "docs/PRODUCT_VALUE_AND_EVIDENCE.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Entwicklungsproblem, Nutzen und offene Nachweise"
+          },
+          "source_digest": "sha256:7bd5a0870606b1097378d156c8f38fd89998482cc398b2adf7c05197427f9152"
+        },
+        {
+          "id": "wiki.home.manifesto-thesis",
+          "type": "source_section",
+          "source": "MANIFESTO.md",
+          "document_class": "target_architecture",
+          "selector": {
+            "heading": "Unsere These"
+          },
+          "source_digest": "sha256:56540aede6dc9d029313a9a03c503f39f1e82902c2d65946ac49b0e75387526c"
+        },
+        {
+          "id": "wiki.home.runtime-inventory",
+          "type": "resolved_fact",
+          "source": "tools/control_matrix.py::_runtime_inventory_truth",
+          "document_class": "runtime_reference",
+          "selector": "runtime_inventory",
+          "source_digest": "sha256:a71951c39898938ec757dfc5fcc13d61a723f23afbc7ec7911d87cbb46c7f6ee"
+        },
+        {
+          "id": "wiki.home.system-flow",
+          "type": "source_section",
+          "source": "technische Beschreibungen/README.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Pipeline-Übersicht"
+          },
+          "source_digest": "sha256:6343bb3276a3895076c2d40048950c7aa754f8b5419c811f0f5b21a4381de840"
+        },
+        {
+          "id": "wiki.home.complete-document-inventory",
+          "type": "source_section",
+          "source": "docs/README.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Dokumentation: Funktionswege und vollständiger Bestand"
+          },
+          "source_digest": "sha256:389dda08945bc6fc74979d5825383233b7dfdfa68cd0bde87bb16ae29fc7bded"
+        }
+      ],
+      "sources": [
+        "MANIFESTO.md",
+        "README.md",
+        "CONTRIBUTING.md",
+        "docs/README.md",
+        "docs/PRODUCT_VALUE_AND_EVIDENCE.md"
+      ]
+    },
+    {
+      "id": "wiki.architecture",
+      "path": "architecture.md",
+      "publication_path": "Architecture.md",
+      "title": "Architektur und Verantwortungsgrenzen",
+      "purpose": "Gesamtarchitektur und Governance-Produktzweck verstehen; Core, Referenz-Worker, Integrations- und Verantwortungsgrenzen einordnen.",
+      "audiences": [
+        "developer",
+        "maintainer",
+        "reviewer"
+      ],
+      "related_pages": [
+        "wiki.components",
+        "wiki.pipeline",
+        "wiki.decisions",
+        "wiki.home"
+      ],
+      "content_blocks": [
+        {
+          "id": "wiki.architecture.technical-overview",
+          "type": "source_section",
+          "source": "docs/TECHNICAL_OVERVIEW.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Technischer Überblick"
+          },
+          "source_digest": "sha256:fd64f2e16095b0efd3442a5861c6b156bbf6a302cea93ad49fa96348744bb1e9"
+        },
+        {
+          "id": "wiki.architecture.runtime-principles",
+          "type": "source_section",
+          "source": "docs/README_technical.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "1. Architektur-Prinzipien"
+          },
+          "source_digest": "sha256:70ad371873232f3ca772a72dc0e02589a6229d01b94b62db8fa279579bc1fc78"
+        },
+        {
+          "id": "wiki.architecture.target-overview",
+          "type": "source_section",
+          "source": "docs/SAMUEL_ARCHITECTURE_V2.1.md",
+          "document_class": "target_architecture",
+          "selector": {
+            "heading": "3. Architektur-Übersicht"
+          },
+          "source_digest": "sha256:5552c8c487096ab32758d44379a1419f68263cb6f28f22287e54aaa6062b0b48"
+        },
+        {
+          "id": "wiki.architecture.runtime-trust-boundaries",
+          "type": "source_section",
+          "source": "docs/README_technical.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "13. Security-Model"
+          },
+          "source_digest": "sha256:50f9d2dd11c5952e99b7105d9940c9870b70b8a9b8312d99af8f1fbf9314277d"
+        }
+      ],
+      "sources": [
+        "docs/SAMUEL_ARCHITECTURE_V2.1.md",
+        "docs/PROMPT_CONTRACT_AUDIT.md",
+        "docs/TECHNICAL_OVERVIEW.md"
+      ]
+    },
+    {
+      "id": "wiki.pipeline",
+      "path": "pipeline.md",
+      "publication_path": "Pipeline.md",
+      "title": "Pipeline von Issue bis PR",
+      "purpose": "Planungs-, Implementierungs-, Gate-, Evaluation- und Healingpfade in ihrer realen Reihenfolge verfolgen.",
+      "audiences": [
+        "developer",
+        "maintainer",
+        "reviewer"
+      ],
+      "related_pages": [
+        "wiki.architecture",
+        "wiki.assurance",
+        "wiki.components",
+        "wiki.home"
+      ],
+      "content_blocks": [
+        {
+          "id": "wiki.pipeline.end-to-end-flow",
+          "type": "source_section",
+          "source": "technische Beschreibungen/README.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Pipeline-Übersicht"
+          },
+          "source_digest": "sha256:6343bb3276a3895076c2d40048950c7aa754f8b5419c811f0f5b21a4381de840"
+        },
+        {
+          "id": "wiki.pipeline.authority-flow",
+          "type": "source_section",
+          "source": "technische Beschreibungen/README.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "End-to-End-Ablauf, Authority und Sichtbarkeit"
+          },
+          "source_digest": "sha256:2e04b75bf14ff783ef4cfb4c0909b9fb1d9083dec25326439103f4aa38371342"
+        },
+        {
+          "id": "wiki.pipeline.reference-qualification",
+          "type": "source_section",
+          "source": "technische Beschreibungen/README.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Belegreife der realen Referenzstrecke"
+          },
+          "source_digest": "sha256:42b8b15c9713a7614390398214a11e0a398085a31d68865720b28c14bcf52a62"
+        },
+        {
+          "id": "wiki.pipeline.planning-context",
+          "type": "source_section",
+          "source": "technische Beschreibungen/pipeline_planning.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Kontextaktualität, Werkzeuge und Grenzen"
+          },
+          "source_digest": "sha256:92e19da7b08de0f8cb6d0f4b4c7eee420f1973ac457c076ec495d8b45f907716"
+        },
+        {
+          "id": "wiki.pipeline.implementation-context",
+          "type": "source_section",
+          "source": "technische Beschreibungen/pipeline_issue_to_llm.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Kontextlebenszyklus und Werkzeuggrenzen"
+          },
+          "source_digest": "sha256:23b3696f84db4ca8e5c2a3efe486d4a8bf75ae44834b577713fdd420123ff6f9"
+        },
+        {
+          "id": "wiki.pipeline.workflow-steps",
+          "type": "resolved_fact",
+          "source": "tools/control_matrix.py::_workflow_steps_truth",
+          "document_class": "runtime_reference",
+          "selector": "workflow_steps",
+          "source_digest": "sha256:e9785312fbf0b1056654a266ceba4aeb057ecca8d724bb1d25019a507b23375b"
+        },
+        {
+          "id": "wiki.pipeline.real-scm-captures",
+          "type": "source_section",
+          "source": "technische Beschreibungen/README.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Reale SCM-Aufnahmen des Änderungsablaufs"
+          },
+          "source_digest": "sha256:08645b5dfc1808ffcffdd9e64b91e42e703100f5e5dbe172a04c8ee9550a5fec"
+        }
+      ],
+      "sources": [
+        "technische Beschreibungen/README.md",
+        "technische Beschreibungen/pipeline_evaluation.md",
+        "technische Beschreibungen/pipeline_issue_to_llm.md",
+        "technische Beschreibungen/pipeline_planning.md",
+        "technische Beschreibungen/pipeline_pr_gates.md"
+      ]
+    },
+    {
+      "id": "wiki.components",
+      "path": "components.md",
+      "publication_path": "Components.md",
+      "title": "Komponentenreferenz",
+      "purpose": "Commands, Events, Slices, Ports, Adapter, CLI und APIs an einer technischen Einstiegsstelle auffinden.",
+      "audiences": [
+        "developer",
+        "maintainer"
+      ],
+      "related_pages": [
+        "wiki.architecture",
+        "wiki.pipeline",
+        "wiki.configuration",
+        "wiki.home"
+      ],
+      "content_blocks": [
+        {
+          "id": "wiki.components.command-event-reference",
+          "type": "source_section",
+          "source": "docs/README_technical.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "4. Events (104) und Commands (20)"
+          },
+          "source_digest": "sha256:0e33b2d809c1686cc0ac615af1ca534e08e78d709d7a6e17a488f1ff5a6f69e5"
+        },
+        {
+          "id": "wiki.components.slice-catalog",
+          "type": "source_section",
+          "source": "docs/README_technical.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "6. Slice-Katalog (31 Slices)"
+          },
+          "source_digest": "sha256:692e670d0a1bf62249bc013b2996c2cc9206ef08a67be1ba2891c6fa41fc508c"
+        },
+        {
+          "id": "wiki.components.runtime-inventory",
+          "type": "resolved_fact",
+          "source": "tools/control_matrix.py::_runtime_inventory_truth",
+          "document_class": "runtime_reference",
+          "selector": "runtime_inventory",
+          "source_digest": "sha256:a71951c39898938ec757dfc5fcc13d61a723f23afbc7ec7911d87cbb46c7f6ee"
+        },
+        {
+          "id": "wiki.components.adapters-and-ports",
+          "type": "source_section",
+          "source": "docs/README_technical.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "7. Adapter-Katalog"
+          },
+          "source_digest": "sha256:642e0a0392ae8b95548bb59c214fba115bf10ef55b44d433ebe9ad132cc8aafd"
+        },
+        {
+          "id": "wiki.components.sqlite-data-and-schema",
+          "type": "source_section",
+          "source": "docs/STATE_STORE.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "SQLite-State: Zweck, Datenmodell und Betrieb"
+          },
+          "source_digest": "sha256:40adff82db86d09d02ce2b3f4b7e6fae26a81142ef693eb14bc42a48da97f8ee"
+        }
+      ],
+      "sources": [
+        "docs/README_technical.md",
+        "docs/EXTENSION_CONTRACT.md",
+        "docs/STATE_STORE.md"
+      ]
+    },
+    {
+      "id": "wiki.assurance",
+      "path": "assurance.md",
+      "publication_path": "Assurance.md",
+      "title": "Gates, Controls und Evidence",
+      "purpose": "Wirkung, Profile, Evidence, bekannte Grenzen und offene Restpunkte ohne Autoritätsüberzeichnung prüfen.",
+      "audiences": [
+        "maintainer",
+        "reviewer",
+        "operator"
+      ],
+      "related_pages": [
+        "wiki.pipeline",
+        "wiki.security",
+        "wiki.document-status",
+        "wiki.home",
+        "wiki.architecture"
+      ],
+      "content_blocks": [
+        {
+          "id": "wiki.assurance.pr-gates",
+          "type": "source_section",
+          "source": "docs/README_technical.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "9. PR-Gates (13)"
+          },
+          "source_digest": "sha256:640dd83ed0dabfd8e6359a1ec94b13671512bc174fe2407a031d6f4be3f40083"
+        },
+        {
+          "id": "wiki.assurance.gate-status",
+          "type": "source_section",
+          "source": "technische Beschreibungen/pipeline_pr_gates.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Gate-Ausführungsmodell und Status"
+          },
+          "source_digest": "sha256:c0abed77dcddac279795ce76b764d82b1d2200e87a2170f72bf920d90963e8f2"
+        },
+        {
+          "id": "wiki.assurance.acceptance-tags",
+          "type": "source_section",
+          "source": "technische Beschreibungen/pipeline_pr_gates.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Acceptance-Tags im Detail"
+          },
+          "source_digest": "sha256:4c98d7e008869826d7792477226e08d259e2539161fb80dd1852258b5edab526"
+        },
+        {
+          "id": "wiki.assurance.external-gates",
+          "type": "source_section",
+          "source": "technische Beschreibungen/pipeline_pr_gates.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "External Gates im Detail"
+          },
+          "source_digest": "sha256:19aa1283412c5a3e83df45f317ee1b7f56c68700d23b4f0a7d46a4948e9aa921"
+        },
+        {
+          "id": "wiki.assurance.gate-profiles",
+          "type": "resolved_fact",
+          "source": "tools/control_matrix.py::_gate_truth+_threshold_truth",
+          "document_class": "runtime_reference",
+          "selector": "gate_profiles",
+          "source_digest": "sha256:91e37d5d47f4c5d38d0404d327d4607fe7be7da4a82501a584022561cbde818e"
+        }
+      ],
+      "sources": [
+        "docs/CAPABILITY_MATRIX.md",
+        "docs/GATE_COMPLIANCE_MATRIX.md"
+      ]
+    },
+    {
+      "id": "wiki.configuration",
+      "path": "configuration.md",
+      "publication_path": "Configuration.md",
+      "title": "Konfiguration und effektive Prioritäten",
+      "purpose": "Verfügbare, ausgelieferte und effektiv aktive Werte samt ihrer Code- und Config-Herkunft unterscheiden.",
+      "audiences": [
+        "developer",
+        "operator",
+        "maintainer"
+      ],
+      "related_pages": [
+        "wiki.operations",
+        "wiki.assurance",
+        "wiki.security",
+        "wiki.home",
+        "wiki.architecture"
+      ],
+      "content_blocks": [
+        {
+          "id": "wiki.configuration.status-model",
+          "type": "source_section",
+          "source": "docs/RUNTIME_REFERENCE.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Quellen- und Statusmodell"
+          },
+          "source_digest": "sha256:bc7a3906e31601e8b9fee589860a0e4f9851784fbcaeed3829571e4eb6f7c9ad"
+        },
+        {
+          "id": "wiki.configuration.policy-thresholds",
+          "type": "resolved_fact",
+          "source": "tools/control_matrix.py::_threshold_truth",
+          "document_class": "runtime_reference",
+          "selector": "policy_thresholds",
+          "source_digest": "sha256:7a3c5fe224cb75893dd0bf810e366b7db4e62090d125422772e54bcaba1e8e1d"
+        },
+        {
+          "id": "wiki.configuration.llm-priority",
+          "type": "source_section",
+          "source": "docs/README_technical.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "LLM-Konfiguration: Zustaendigkeit und Prioritaet"
+          },
+          "source_digest": "sha256:3d2d8cac8c3f6ee9f7bcc7b5bd322e5c0100cb087e50738ccd4effb02e6d3c1e"
+        },
+        {
+          "id": "wiki.configuration.documentation-extension",
+          "type": "source_section",
+          "source": "docs/EXTENSION_CONTRACT.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Dashboard: Documentation Extension und Wiki"
+          },
+          "source_digest": "sha256:e326ec54931dfdaaeb747ddc8bbf25e08532960c9149f63b8d0e2cc644233f84"
+        },
+        {
+          "id": "wiki.configuration.real-settings-captures",
+          "type": "source_section",
+          "source": "docs/DASHBOARD.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Einrichtung und Settings in den Aufnahmen"
+          },
+          "source_digest": "sha256:3c258a4e6d48459536eb068cc0d3283b49c95cf6700032b0a4f79a8dea52857a"
+        }
+      ],
+      "sources": [
+        "docs/RUNTIME_REFERENCE.md"
+      ]
+    },
+    {
+      "id": "wiki.operations",
+      "path": "operations.md",
+      "publication_path": "Operations.md",
+      "title": "Betrieb und Diagnose",
+      "purpose": "Installation, Deployment, CLI, Runtime-State, CI und verbindliche Arbeitsregeln sicher anwenden.",
+      "audiences": [
+        "operator",
+        "maintainer",
+        "developer"
+      ],
+      "related_pages": [
+        "wiki.configuration",
+        "wiki.security",
+        "wiki.document-status",
+        "wiki.home",
+        "wiki.architecture"
+      ],
+      "content_blocks": [
+        {
+          "id": "wiki.operations.a27-installation-proof",
+          "type": "source_section",
+          "source": "docs/status/CURRENT_PRODUCT_STATUS.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Veröffentlichter Installationsstand v2.0.0a29 — 09.10.2026"
+          },
+          "source_digest": "sha256:a19698404c4fe782170ab40b186d0b2a3ee8f651f1f923e6420915bf8fc1d2d9"
+        },
+        {
+          "id": "wiki.operations.install-overview",
+          "type": "source_section",
+          "source": "docs/INSTALL.md",
+          "document_class": "operations",
+          "selector": {
+            "heading": "0. Überblick"
+          },
+          "source_digest": "sha256:3639a178d83fcc143695c65cb6803a6858eb9fbcab63ad1af46e195f4146cc54"
+        },
+        {
+          "id": "wiki.operations.release-status",
+          "type": "source_section",
+          "source": "docs/VERSIONING.md",
+          "document_class": "operations",
+          "selector": {
+            "heading": "Release ist kein einzelner Boolean"
+          },
+          "source_digest": "sha256:469ef023a5507bf4d099c8d05fa0394ee2ee99e0cfad357a80471d2cc8ea9c09"
+        },
+        {
+          "id": "wiki.operations.accounts-and-credentials",
+          "type": "source_section",
+          "source": "docs/INSTALL.md",
+          "document_class": "operations",
+          "selector": {
+            "heading": "1.2 Accounts, Credentials und kleinste Rechte"
+          },
+          "source_digest": "sha256:35cb0eba0e3282b9a9e11abc8a153064267002ed182d68beb621d3dd4e54d89c"
+        },
+        {
+          "id": "wiki.operations.quickstart",
+          "type": "source_section",
+          "source": "docs/INSTALL.md",
+          "document_class": "operations",
+          "selector": {
+            "heading": "3. Schnellweg (empfohlen)"
+          },
+          "source_digest": "sha256:cb441b7cc2e2762c3698a48174d853e73a9cc8f48dbea3587ba4a233df716422"
+        },
+        {
+          "id": "wiki.operations.verification",
+          "type": "source_section",
+          "source": "docs/INSTALL.md",
+          "document_class": "operations",
+          "selector": {
+            "heading": "6. Verifikation"
+          },
+          "source_digest": "sha256:f33596548322d99d8bb1aff85605edacd1ab9193b3d78724804c161468962ca2"
+        },
+        {
+          "id": "wiki.operations.start-stop",
+          "type": "source_section",
+          "source": "docs/INSTALL.md",
+          "document_class": "operations",
+          "selector": {
+            "heading": "9. Starten"
+          },
+          "source_digest": "sha256:c83e86d11b18f8e6e14af2702e1ffdc43fd19f186e97923c0664ec595dbfd13d"
+        },
+        {
+          "id": "wiki.operations.update-recovery",
+          "type": "source_section",
+          "source": "docs/INSTALL.md",
+          "document_class": "operations",
+          "selector": {
+            "heading": "12. Update / Troubleshooting / Deinstallation"
+          },
+          "source_digest": "sha256:752fd14fd2eeaf7a7e581038c32c1384f1cd4c24acc1c1fb904b111c6891e1ad"
+        },
+        {
+          "id": "wiki.operations.ci-contract",
+          "type": "source_section",
+          "source": "docs/CI_RUNNER_OPERATIONS.md",
+          "document_class": "operations",
+          "selector": {
+            "heading": "Freigegebener Vertrag"
+          },
+          "source_digest": "sha256:1320e4bbed83c24168c71a7ff5a9dd8e311e903a9b6bf0382ace9c2ba0128ded"
+        },
+        {
+          "id": "wiki.operations.persistence-recovery",
+          "type": "source_section",
+          "source": "docs/README_technical.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "15. Persistenz"
+          },
+          "source_digest": "sha256:2d6e2cca8cee7235dfc49fa6f715506d395b4b6a3860053aac2cc7b7bff0fb5f"
+        },
+        {
+          "id": "wiki.operations.provider-setup",
+          "type": "source_section",
+          "source": "docs/agents/AGENT_CONFIGURATION_REFERENCE.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Provider einrichten und gezielt wechseln"
+          },
+          "source_digest": "sha256:6f15eef8c6e138862d7f87512ad2e30f45649fd50f42ef24a912663b0439ac61"
+        },
+        {
+          "id": "wiki.operations.llm-effective-routing",
+          "type": "source_section",
+          "source": "docs/agents/AGENT_CONFIGURATION_REFERENCE.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Configquelle und tatsächlich gewählte Route"
+          },
+          "source_digest": "sha256:dfded2752e4a96284014c7f64875c9f43161ca2e572a7901b3a9be7dc78bf964"
+        },
+        {
+          "id": "wiki.operations.llm-benchmark",
+          "type": "source_section",
+          "source": "docs/agents/AGENT_CONFIGURATION_REFERENCE.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Benchmark, Katalog und Anzeige verstehen"
+          },
+          "source_digest": "sha256:6d7f97fbf0229ab4b5d4dd2b05e87b67074374248a7d5b25abcb6467bbcd224d"
+        },
+        {
+          "id": "wiki.operations.dashboard-functions-and-settings",
+          "type": "source_section",
+          "source": "docs/DASHBOARD.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Dashboard: Funktionen, Einstellungen und Datenquellen"
+          },
+          "source_digest": "sha256:933dfb2b8859a452591644e8d8987360c6079357ae9d6c5c6b6f1bce964ba2d2"
+        }
+      ],
+      "sources": [
+        ".claude/CLAUDE.md",
+        "docs/CI_RUNNER_OPERATIONS.md",
+        "docs/CONTAINER_RELEASE_OPERATIONS.md",
+        "docs/INSTALL.md",
+        "docs/OPERATING_RULES.md",
+        "docs/PRODUCT_BOUNDARY_HANDOVER_PROMPT.md",
+        "docs/VERSIONING.md",
+        "docs/agents/AGENT_CONFIGURATION_REFERENCE.md",
+        "docs/agents/AGENT_PROMPTS_AND_INSTRUCTIONS.md",
+        "docs/github/GITHUB_SYNC_READINESS.md",
+        "docs/governance/CURRENT_ENGINEERING_WORKFLOW.md",
+        "docs/runbooks/TEST_AND_QUALIFICATION_RUNBOOK.md",
+        "docs/status/CURRENT_PRODUCT_STATUS.md",
+        "docs/DASHBOARD.md"
+      ]
+    },
+    {
+      "id": "wiki.security",
+      "path": "security.md",
+      "publication_path": "Security.md",
+      "title": "Security, Evidence und Compliance-Grenzen",
+      "purpose": "Schutzmechanismen, Trust Boundaries, Datenschutzbezug und ausdrücklich nicht zugesagte Wirkung verstehen.",
+      "audiences": [
+        "operator",
+        "maintainer",
+        "reviewer"
+      ],
+      "related_pages": [
+        "wiki.assurance",
+        "wiki.operations",
+        "wiki.decisions",
+        "wiki.home",
+        "wiki.architecture"
+      ],
+      "content_blocks": [
+        {
+          "id": "wiki.security.measures-and-limits",
+          "type": "source_section",
+          "source": "SECURITY.md",
+          "document_class": "operations",
+          "selector": {
+            "heading": "Security Measures and Current Limits"
+          },
+          "source_digest": "sha256:19f8f8cc207636c60fd66a398ded8d4bdd5a50d0532a58fc08421c929c960779"
+        },
+        {
+          "id": "wiki.security.framework-mappings",
+          "type": "source_section",
+          "source": "docs/COMPLIANCE_FRAMEWORK_MAPPINGS.md",
+          "document_class": "operations",
+          "selector": {
+            "heading": "Implementierter Umfang"
+          },
+          "source_digest": "sha256:6e3892a3576ce2b1bfb906c30431cae5a8cd33edd53fba35d2546bb8bf733a02"
+        },
+        {
+          "id": "wiki.security.real-ui-captures",
+          "type": "source_section",
+          "source": "docs/DASHBOARD.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Security, Compliance und Retention in den Aufnahmen"
+          },
+          "source_digest": "sha256:04f643da0f0b23275b68714f0695e619659eae1fa3b41455b197ff19bfd4bd88"
+        }
+      ],
+      "sources": [
+        "SECURITY.md",
+        "docs/AI_ACT_COMPLIANCE.md",
+        "docs/AI_ACT_TECHNICAL_DOC.md",
+        "docs/DSGVO_VVT.md",
+        "docs/audits/INDEX.md",
+        "docs/governance/DRIFT_HISTORY_AND_LESSONS.md",
+        "docs/governance/PROCESS_DEVIATIONS_AND_SHORTCUTS.md",
+        "docs/COMPLIANCE_FRAMEWORK_MAPPINGS.md"
+      ]
+    },
+    {
+      "id": "wiki.decisions",
+      "path": "decisions.md",
+      "publication_path": "Decisions.md",
+      "title": "Entscheidungen und Issue-Navigation",
+      "purpose": "Architekturentscheidungen, Supersession, Herkunft und zugehörige Umsetzungsissues nachvollziehen.",
+      "audiences": [
+        "maintainer",
+        "reviewer",
+        "developer"
+      ],
+      "related_pages": [
+        "wiki.architecture",
+        "wiki.assurance",
+        "wiki.document-status",
+        "wiki.home"
+      ],
+      "content_blocks": [
+        {
+          "id": "wiki.decisions.setup-model-investigation",
+          "type": "source_section",
+          "source": "docs/status/CURRENT_PRODUCT_STATUS.md",
+          "document_class": "runtime_reference",
+          "selector": {
+            "heading": "Untersuchung #951 abgeschlossen — freie Modelleingabe nach #975"
+          },
+          "source_digest": "sha256:9092e5bf79d4d11031763b1c017c030b5f480a48367f16e5fa47b6ebf4f837da"
+        },
+        {
+          "id": "wiki.decisions.core-statement",
+          "type": "source_section",
+          "source": "docs/SAMUEL_DESIGN_DECISIONS.md",
+          "document_class": "adr",
+          "selector": {
+            "heading": "Kernaussage"
+          },
+          "source_digest": "sha256:518ce4c9cc3e67c4843619a027f043f6e4fc0afaf507040f9cb36225edc526c0"
+        },
+        {
+          "id": "wiki.decisions.overview",
+          "type": "source_section",
+          "source": "docs/SAMUEL_DESIGN_DECISIONS.md",
+          "document_class": "adr",
+          "selector": {
+            "heading": "Entscheidungsübersicht"
+          },
+          "source_digest": "sha256:689ad95a0b3f488f1f3d66444cdb9f35c19311d4f8ef79564c8ed0eebc0c7a97"
+        },
+        {
+          "id": "wiki.decisions.active-adrs",
+          "type": "source_section",
+          "source": "docs/adr/README.md",
+          "document_class": "adr",
+          "selector": {
+            "heading": "Architecture Decision Records"
+          },
+          "source_digest": "sha256:50e705634cdebc8e96a557b5c403bcff5c56d11d618acddc4f67de6409c89177"
+        }
+      ],
+      "sources": [
+        "docs/SAMUEL_DESIGN_DECISIONS.md",
+        "docs/adr/0422-local-dashboard-identity.md",
+        "docs/adr/0399-score-authority.md",
+        "docs/adr/0482-runtime-state-store.md",
+        "docs/adr/0583-installed-cli-entrypoint.md",
+        "docs/adr/0618-worktree-manager.md",
+        "docs/adr/0619-candidate-sandbox.md",
+        "docs/adr/0620-preflight-gate-state.md",
+        "docs/adr/0635-wiki-pilot.md",
+        "docs/adr/0643-repository-wiki-materialization.md",
+        "docs/adr/0649-wiki-content-projection.md",
+        "docs/adr/0678-product-boundary-and-integration-profile.md",
+        "docs/adr/0693-health-readiness-qualification.md",
+        "docs/adr/0706-atomic-release-layout.md",
+        "docs/adr/README.md",
+        "docs/status/ISSUE_IMPLEMENTATION_MATRIX.md",
+        "docs/status/ISSUE_WORKSTREAM_MAP.md"
+      ]
+    },
+    {
+      "id": "wiki.document-status",
+      "path": "document-status.md",
+      "publication_path": "Document-Status.md",
+      "title": "Dokumentstatus und Quellen",
+      "purpose": "Aktive Dokumente nach Klasse, Modus, Quellenrolle und zeitlicher Aussagekraft prüfen.",
+      "audiences": [
+        "maintainer",
+        "reviewer",
+        "operator",
+        "developer"
+      ],
+      "related_pages": [
+        "wiki.home",
+        "wiki.decisions",
+        "wiki.assurance",
+        "wiki.architecture"
+      ],
+      "content_blocks": [
+        {
+          "id": "wiki.document-status.authority-hierarchy",
+          "type": "source_section",
+          "source": "docs/adr/0635-wiki-pilot.md",
+          "document_class": "adr",
+          "selector": {
+            "heading": "Quellen- und Autoritätshierarchie"
+          },
+          "source_digest": "sha256:13d34eac8b4d91a500c0facb5fde46acf3c6bd56d290181fd9fb30b6bb1a113a"
+        }
+      ],
+      "sources": [
+        "CHANGELOG.md",
+        "docs/audits/completed/BACKLOG_STORY_MATERIALIZATION.md",
+        "docs/audits/completed/EXTERNAL_CHALLENGE_RECONCILIATION.md",
+        "docs/audits/completed/ISSUE_COMMENT_RECONCILIATION.md",
+        "docs/audits/completed/P4_CHALLENGE_RECONCILIATION.md",
+        "docs/audits/completed/SAMUEL_AUDIT_ERRATA_2026-09-27.json.md",
+        "docs/audits/completed/SAMUEL_AUDIT_INTEGRITY_RECONCILIATION_2026-09-27.md",
+        "docs/audits/completed/SAMUEL_AUDIT_SOURCE_INDEX_2026-09-26.json.md",
+        "docs/audits/completed/SAMUEL_TARGETED_FALSIFICATION_CHALLENGE_2026-09-28.md",
+        "docs/audits/completed/SAMUEL_TARGETED_FALSIFICATION_RESULTS_2026-09-28.json.md",
+        "docs/audits/historical/BACKLOG_AUDIT_INDEX.md",
+        "docs/audits/historical/BACKLOG_CHALLENGE_BUNDLE.md",
+        "docs/audits/historical/P1_CHALLENGE_PACKAGE.md",
+        "docs/audits/historical/P2_AUDIT_PACKAGE.md",
+        "docs/audits/historical/P2_CHALLENGE_PACKAGE.md",
+        "docs/audits/historical/P3_CHALLENGE_PACKAGE.md",
+        "docs/audits/historical/P4_CHALLENGE_PACKAGE.md",
+        "docs/audits/historical/P5_CHALLENGE_PACKAGE.md",
+        "docs/audits/historical/P6_CHALLENGE_PACKAGE.md",
+        "docs/audits/historical/P7_CHALLENGE_PACKAGE.md",
+        "docs/audits/historical/P8_CHALLENGE_PACKAGE.md",
+        "docs/audits/historical/RELEASE_LINEAGE_DRIFT_AUDIT.md",
+        "docs/audits/historical/checkpoint.json.md",
+        "docs/audits/historical/verification-ledger.jsonl.md",
+        "docs/audits/partial/D0_BOOTSTRAP_CONTRACT_AUDIT.md",
+        "docs/audits/partial/EXECUTION_CONFORMANCE_AUDIT.md",
+        "docs/audits/partial/OPERATIONAL_CONTRACTS.md",
+        "docs/audits/partial/POST_AUDIT_CONSOLIDATION.md",
+        "docs/audits/partial/REMEDIATION_MATRIX.md",
+        "docs/audits/partial/SAMUEL_FULL_AUTHORITY_HISTORY_DRIFT_AUDIT_2026-09-26.md",
+        "docs/audits/partial/SAMUEL_GOLDEN_PREPARATION_ISSUE_LEDGER.json.md",
+        "docs/audits/partial/SAMUEL_GOLDEN_PREPARATION_RECONCILIATION.md",
+        "docs/audits/partial/SAMUEL_WORKING_DECISIONS_v8.md"
+      ]
+    }
+  ]
+}
