@@ -1,0 +1,65 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "capability_id": {
+      "const": "documentation.static_claims",
+      "title": "Capability Id",
+      "type": "string"
+    },
+    "claim_families": {
+      "items": {
+        "const": "documentation.inventory.v1",
+        "type": "string"
+      },
+      "title": "Claim Families",
+      "type": "array"
+    },
+    "contract_version": {
+      "const": "1.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "credentials": {
+      "items": {
+        "const": "unsupported",
+        "type": "string"
+      },
+      "title": "Credentials",
+      "type": "array"
+    },
+    "effect": {
+      "const": "advisory",
+      "title": "Effect",
+      "type": "string"
+    },
+    "permissions": {
+      "items": {
+        "const": "repository:read",
+        "type": "string"
+      },
+      "title": "Permissions",
+      "type": "array"
+    },
+    "schema": {
+      "const": "samuel-extension-capability.v1",
+      "title": "Schema",
+      "type": "string"
+    },
+    "transport": {
+      "const": "filesystem-json",
+      "title": "Transport",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "capability_id",
+    "contract_version",
+    "transport",
+    "effect",
+    "claim_families",
+    "permissions"
+  ],
+  "title": "CapabilityManifest",
+  "type": "object"
+}

@@ -1,0 +1,125 @@
+{
+  "$defs": {
+    "ArtifactReference": {
+      "additionalProperties": false,
+      "properties": {
+        "digest": {
+          "title": "Digest",
+          "type": "string"
+        },
+        "media_type": {
+          "const": "application/json",
+          "title": "Media Type",
+          "type": "string"
+        },
+        "path": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        },
+        "size_bytes": {
+          "maximum": 8388608,
+          "minimum": 0,
+          "title": "Size Bytes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "path",
+        "digest",
+        "size_bytes",
+        "media_type"
+      ],
+      "title": "ArtifactReference",
+      "type": "object"
+    },
+    "ExtensionSubject": {
+      "additionalProperties": false,
+      "properties": {
+        "head_sha": {
+          "title": "Head Sha",
+          "type": "string"
+        },
+        "repository": {
+          "maxLength": 255,
+          "minLength": 3,
+          "title": "Repository",
+          "type": "string"
+        }
+      },
+      "required": [
+        "repository",
+        "head_sha"
+      ],
+      "title": "ExtensionSubject",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "capability_id": {
+      "const": "documentation.static_claims",
+      "title": "Capability Id",
+      "type": "string"
+    },
+    "claim_family": {
+      "const": "documentation.inventory.v1",
+      "title": "Claim Family",
+      "type": "string"
+    },
+    "contract_version": {
+      "const": "1.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "effect": {
+      "const": "advisory",
+      "title": "Effect",
+      "type": "string"
+    },
+    "output_artifact": {
+      "$ref": "#/$defs/ArtifactReference"
+    },
+    "request_digest": {
+      "title": "Request Digest",
+      "type": "string"
+    },
+    "request_id": {
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$",
+      "title": "Request Id",
+      "type": "string"
+    },
+    "schema": {
+      "const": "samuel-extension-result.v1",
+      "title": "Schema",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "passed",
+        "failed",
+        "indeterminate"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "subject": {
+      "$ref": "#/$defs/ExtensionSubject"
+    }
+  },
+  "required": [
+    "schema",
+    "capability_id",
+    "contract_version",
+    "request_id",
+    "request_digest",
+    "subject",
+    "claim_family",
+    "effect",
+    "status",
+    "output_artifact"
+  ],
+  "title": "ExtensionResult",
+  "type": "object"
+}

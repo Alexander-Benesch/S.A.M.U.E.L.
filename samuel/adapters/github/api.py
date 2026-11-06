@@ -1,0 +1,97 @@
+from __future__ import annotations
+
+import json
+import logging
+import time
+import urllib.error
+import urllib.parse
+import urllib.request
+
+from samuel.core.permission_diagnostics import (
+    PermissionActor,
+    PermissionOutcome,
+    log_scm_permission,
+)
+from samuel.core.ports import IAuthProvider
+
+log = logging.getLogger(__name__)
+
+_TRANSIENT_HTTP_CODES = (502, 503, 504)
+_MAX_RETRIES = 2
+
+
+class GitHubAPIError(Exception):
+    def __init__(self, status: int, method: str, path: str, body: str = ""):
+        self.status = status
+        self.method = method
+        self.path = path
+        self.body = body
+        super().__init__(f"GitHub API {method} {path} → {status}: {body[:200]}")
+
+
+class GitHubAPI:
+    def __init__(
+        self,
+        auth: IAuthProvider,
+        *,
+        base_url: str = "https://api.github.com",
+        timeout: float = 60.0,
+        opener: urllib.request.OpenerDirector | None = None,
+        diagnostic_actor: PermissionActor = PermissionActor.RUNTIME,
+    ):
+        self._base_url = base_url.rstrip("/")
+        self._auth = auth
+        self._timeout = max(0.1, float(timeout))
+        self._opener = opener
+        self._diagnostic_actor = diagnostic_actor
+
+    def request(self, method: str, path: str, data: dict | None = None) -> dict | list | None:
+        url = f"{self._base_url}{path}"
+        payload = json.dumps(data).encode() if data else None
+        headers = {
+            "Authorization": f"Bearer {self._auth.get_token()}",
+            "Content-Type": "application/json",
+            "Accept": "application/vnd.github+json",
+            "X-GitHub-Api-Version": "2022-11-28",
+        }
+
+        log.debug("%s %s", method, path)
+        for attempt in range(_MAX_RETRIES + 1):
+            req = urllib.request.Request(url, data=payload, headers=headers, method=method)
+            try:
+                open_request = self._opener.open if self._opener else urllib.request.urlopen
+                with open_request(req, timeout=self._timeout) as resp:
+                    body = resp.read()
+                    result = json.loads(body) if body else None
+                    log_scm_permission(
+                        log, self._diagnostic_actor, method, path, PermissionOutcome.SUCCEEDED
+                    )
+                    return result
+            except urllib.error.HTTPError as e:
+                if e.code in _TRANSIENT_HTTP_CODES and attempt < _MAX_RETRIES:
+                    time.sleep(2**attempt)
+                    continue
+                err_body = e.read().decode()[:200] if hasattr(e, "read") else ""
+                log_scm_permission(
+                    log,
+                    self._diagnostic_actor,
+                    method,
+                    path,
+                    PermissionOutcome.DENIED if e.code in {401, 403} else PermissionOutcome.UNKNOWN,
+                    e.code,
+                )
+                raise GitHubAPIError(e.code, method, path, err_body) from e
+            except (urllib.error.URLError, TimeoutError):
+                if attempt < _MAX_RETRIES:
+                    time.sleep(2**attempt)
+                    continue
+                log_scm_permission(
+                    log, self._diagnostic_actor, method, path, PermissionOutcome.UNKNOWN
+                )
+                raise
+            except (ValueError, UnicodeError):
+                log_scm_permission(
+                    log, self._diagnostic_actor, method, path, PermissionOutcome.UNKNOWN
+                )
+                raise
+        raise RuntimeError("GitHub retry loop exhausted")

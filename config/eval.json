@@ -1,0 +1,17 @@
+{
+  "policy_version": "2026-08-28.v1",
+  "formula_version": "bound-evidence.v1",
+  "test_policy_version": "2026-08-29.runner.v1",
+  "weights": {
+    "test_pass_rate": 0.3,
+    "syntax_valid": 0.2,
+    "hallucination_free": 0.3,
+    "scope_compliant": 0.2
+  },
+  "baseline": 0.8,
+  "fail_fast_on": ["syntax_valid"],
+  "_test_runner_doc": "Control-Plane-Policy: test_cmd is a command with {test} placeholder; use a dotted module/class/method for unittest and a logical name or node ID for pytest. test_timeout is seconds (default 60). Candidate marker files may select only the built-in runner templates and cannot override this policy. Planning and Doctor inspect runner readiness without executing tests.",
+  "test_cmd": null,
+  "test_timeout": 60,
+  "verifier_toolchain": null
+}

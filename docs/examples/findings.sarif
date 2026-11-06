@@ -1,0 +1,59 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "S.A.M.U.E.L.",
+          "rules": [
+            {
+              "id": "LLM09:2025"
+            },
+            {
+              "id": "A05:2021"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "LLM09:2025",
+          "level": "error",
+          "message": {
+            "text": "Nicht aufloesbare Imports: totally_made_up_hallucination_pkg"
+          },
+          "properties": {
+            "owasp_risk": "LLM09:2025",
+            "message_name": "UnresolvedSymbol",
+            "correlation_id": "demo-corr-1",
+            "issue": 99
+          }
+        },
+        {
+          "ruleId": "A05:2021",
+          "level": "error",
+          "message": {
+            "text": "Riskante Pfade (workflow-permissions): .github/workflows/deploy.yml"
+          },
+          "properties": {
+            "owasp_risk": "A05:2021",
+            "message_name": "GateFailed",
+            "correlation_id": "demo-corr-1",
+            "issue": 99,
+            "gate": "path_risk"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ".github/workflows/deploy.yml"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

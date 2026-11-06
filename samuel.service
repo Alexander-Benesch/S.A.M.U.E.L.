@@ -1,0 +1,23 @@
+# S.A.M.U.E.L. systemd-Unit (Vorlage).
+# Generiere eine fertige Unit mit echten Pfaden/User:
+#     cd /etc/samuel
+#     /opt/samuel/current/bin/samuel install-service --mode watch
+#     sudo /opt/samuel/current/bin/samuel install-service --write
+# Oder Platzhalter unten (<...>) ersetzen und nach /etc/systemd/system/ kopieren.
+
+[Unit]
+Description=S.A.M.U.E.L. Agent
+After=network.target
+
+[Service]
+Type=simple
+User=<user>
+WorkingDirectory=/etc/samuel
+EnvironmentFile=/etc/samuel/.env
+ExecStart=/opt/samuel/current/bin/samuel watch
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target

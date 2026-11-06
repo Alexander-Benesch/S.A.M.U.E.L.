@@ -1,0 +1,5 @@
+# #970/#971: source releases must carry the operator path, independent of SCM discovery.
+include docker-compose.yml docker-compose.setup.yml
+include tools/samuel-container tools/container_init.py tools/container_install_smoke.py
+include docs/INSTALL.md docs/CONTAINER_RELEASE_OPERATIONS.md
+include containers/verifier-pytest.lock

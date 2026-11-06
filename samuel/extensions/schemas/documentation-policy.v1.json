@@ -1,0 +1,64 @@
+{
+  "$defs": {
+    "DocumentationConsumer": {
+      "additionalProperties": false,
+      "properties": {
+        "consumer_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Consumer Id",
+          "type": "string"
+        },
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "tool_digest": {
+          "title": "Tool Digest",
+          "type": "string"
+        }
+      },
+      "required": [
+        "consumer_id",
+        "path",
+        "tool_digest"
+      ],
+      "title": "DocumentationConsumer",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "consumer": {
+      "$ref": "#/$defs/DocumentationConsumer"
+    },
+    "documents": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 128,
+      "minItems": 1,
+      "title": "Documents",
+      "type": "array"
+    },
+    "repository": {
+      "maxLength": 255,
+      "minLength": 3,
+      "title": "Repository",
+      "type": "string"
+    },
+    "schema": {
+      "const": "samuel-documentation-inventory-policy.v1",
+      "title": "Schema",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "repository",
+    "consumer",
+    "documents"
+  ],
+  "title": "DocumentationPolicy",
+  "type": "object"
+}
