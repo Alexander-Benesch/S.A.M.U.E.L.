@@ -1,0 +1,987 @@
+#!/usr/bin/env bash
+# Official manifest-bound OCI operator installer (#970/#971). Host Python not required.
+set -euo pipefail
+umask 077
+installer_dir="$(cd -- "$(dirname -- "$0")/.." && pwd -P)"
+usage() {
+  cat <<'HELP'
+Usage: samuel-container install|setup|start|update|init|toolchain|doctor|project --manifest FILE --manifest-sha256 SHA256
+       [--installer-archive FILE] [--compose-dir DIR] [--image REFERENCE]
+       [--root /absolute/prefix] [--port 7777] [--project samuel]
+       [--admin-username USER] (install only; interactive local administrator onboarding)
+       [--restore-update SHA256] (explicit source files/State restoration; reconcile remains required)
+       [--recover-maintenance yes] (explicit recovery after the previous operator process ended)
+       [--release-source FILE] (install only; verified bootstrap source record)
+       [--approve-project SHA256] (start only; explicit approval of prepared project bytes)
+Bootstrap: samuel-container install|setup|start [--bootstrap-profile FILE] [--root DIR]
+Update:    samuel-container update --target RELEASE [--bootstrap-profile FILE] [--root DIR]
+Recovery:  samuel-container update --recover-update SHA256 [--bootstrap-profile FILE] [--root DIR]
+           install also accepts --port PORT and --project NAME.
+           setup/start reuse the installed receipt and cached kit; no release selection.
+           Uses the independently verified package profile; no built-in URL or trust root.
+install: initialize empty paths, generate missing keys with samuel setup, start setup dashboard.
+         --admin-username prompts for inventory/cutover approval and a hidden password.
+setup: explicitly stop production and open writable setup on the same installation.
+start: switch a prepared installation to production after operator-reviewed setup.
+init: only initialize/verify paths; supports the separately checked historical repair toolkit.
+toolchain: prepare/register an offline Python/Pytest artifact for an existing stopped installation.
+          Requires --requirements-lock FILE --lock-sha256 SHA256 --wheelhouse DIR.
+project: register an existing standalone project for this stopped installation (no clone/chown).
+         Requires --project-source HOST_PATH --project-target CONTAINER_PATH
+                  --project-repository HTTP_URL --project-revision FULL_SHA.
+doctor: one-off diagnosis of an existing installation; optional --branch-protection-token-file FILE.
+Requires Linux/amd64, Bash, Docker Engine >=26, Compose >=2.26 (v2 or v5), sha256sum, realpath.
+Update requires the local root operator, explicit terminal approval and independently rechecked
+release inputs. Recovery resumes only the exact pending update after the prior operator ended.
+Only the explicitly declared compatible schema is supported; no arbitrary migration.
+The bootstrap handoff and initial root trust require their own independent qualification.
+HELP
+}
+fail() { echo "container installer failed: $*" >&2; exit 1; }
+check_prerequisites() {
+  for executable in docker sha256sum realpath; do command -v "$executable" >/dev/null || fail "$executable missing"; done
+  [[ "$(uname -s)/$(uname -m)" == Linux/x86_64 ]] || fail "supported host platform is Linux/amd64"
+  server=$(docker version --format '{{.Server.Version}}' 2>/dev/null) || fail "Docker daemon inaccessible; check service and permissions"
+  [[ "$server" =~ ^([0-9]+)\. ]] && (( BASH_REMATCH[1] >= 26 )) || fail "Docker Engine >=26 required"
+  server_platform=$(docker info --format '{{.OSType}}/{{.Architecture}}' 2>/dev/null) || fail "Docker daemon info unavailable"
+  [[ "$server_platform" == linux/x86_64 || "$server_platform" == linux/amd64 ]] || fail "Docker daemon platform must be Linux/amd64"
+  compose_version=$(docker compose version --short 2>/dev/null) || fail "Docker Compose plugin missing"
+  [[ "$compose_version" =~ ^v?([0-9]+)\.([0-9]+)\. ]] || fail "unrecognized Compose version"
+  compose_major=${BASH_REMATCH[1]}; compose_minor=${BASH_REMATCH[2]}
+  (( (compose_major == 2 && compose_minor >= 26) || compose_major == 5 )) || fail "Compose >=2.26 (v2 or v5) required"
+  echo "Docker/Compose and Linux/amd64 prerequisites verified"
+}
+# Root-owned, non-writable ancestors prevent unprivileged rename races between
+# this check and Docker's bind. A host administrator remains a trusted operator.
+check_project_host() {
+  local source="$1" cursor metadata owner group mode device inode
+  [[ "$source" =~ ^/[A-Za-z0-9/._-]+$ && -d "$source" ]] || fail "project source missing or invalid"
+  [[ "$(realpath -e -- "$source")" == "$source" ]] || fail "project source must be canonical"
+  cursor="$source"
+  while :; do
+    [[ ! -L "$cursor" && -d "$cursor" ]] || fail "project path substituted"
+    metadata=$(stat -c '%u %g %a %d %i' -- "$cursor") || fail "project path stat failed"
+    read -r owner group mode device inode <<< "$metadata"
+    (( (8#$mode & 8#022) == 0 )) || fail "project path permits group/other writes"
+    if [[ "$cursor" != "$source" ]]; then
+      [[ "$owner" == 0 ]] || fail "project ancestors must be owned by root"
+    elif [[ $# == 5 ]]; then
+      [[ "$device $inode $owner $group" == "$2 $3 $4 $5" ]] || fail "registered project identity or owner changed"
+    fi
+    [[ "$cursor" != / ]] || break
+    cursor=$(dirname -- "$cursor")
+  done
+}
+[[ "${1:-}" != --help && "${1:-}" != -h ]] || { usage; exit 0; }
+operation=${1:-}
+case "$operation" in install|setup|start|update|init|toolchain|doctor|project) ;; *) usage >&2; exit 1 ;; esac
+shift
+manifest=""; manifest_sha=""; image=""; archive=""; compose_dir="$installer_dir"
+install_root=/; port=7777; project=samuel
+requirements_lock=""; lock_sha=""; wheelhouse=""; toolchain_root=""
+branch_token_file=""
+update_target=""; update_preparation=""; update_preparation_sha=""; recover_update=""; restore_update=""
+admin_username=""; admin_reason=""; recover_maintenance=""; bootstrap_profile=""; approved_project=""; release_source=""
+project_source=""; project_target=""; project_repository=""; project_revision=""
+while (($#)); do
+  [[ $# -ge 2 ]] || fail "missing option value"
+  case "$1" in
+    --target) update_target=$2 ;;
+    --restore-update) [[ "$2" =~ ^[0-9a-f]{64}$ ]] || fail "restoration requires the previous preparation SHA256"; restore_update=$2 ;;
+    --recover-update) [[ "$2" =~ ^[0-9a-f]{64}$ ]] || fail "update recovery requires the previous preparation SHA256"; recover_update=$2 ;;
+    --update-preparation) update_preparation=$2 ;;
+    --update-preparation-sha256) update_preparation_sha=$2 ;;
+    --release-source) release_source=$2 ;;
+    --approve-project) [[ "$2" =~ ^[0-9a-f]{64}$ ]] || fail "project approval requires SHA256"; approved_project=$2 ;;
+    --bootstrap-profile) bootstrap_profile=$2 ;;
+    --manifest) manifest=$2 ;;
+    --manifest-sha256) manifest_sha=$2 ;;
+    --image) image=$2 ;;
+    --installer-archive) archive=$2 ;;
+    --compose-dir) compose_dir=$2 ;;
+    --root) install_root=$2 ;;
+    --port) port=$2 ;;
+    --project) project=$2 ;;
+    --requirements-lock) requirements_lock=$2 ;;
+    --lock-sha256) lock_sha=$2 ;;
+    --wheelhouse) wheelhouse=$2 ;;
+    --project-source) project_source=$2 ;;
+    --project-target) project_target=$2 ;;
+    --project-repository) project_repository=$2 ;;
+    --project-revision) project_revision=$2 ;;
+    --branch-protection-token-file) branch_token_file=$2 ;;
+    --recover-maintenance) [[ "$2" == yes ]] || fail "recovery requires explicit yes"; recover_maintenance=$2 ;;
+    --admin-username) [[ -n "$2" ]] || fail "administrator username must not be empty"; admin_username=$2 ;;
+    *) fail "unknown option" ;;
+  esac
+  shift 2
+done
+if [[ -n "$restore_update" ]]; then
+  [[ "$operation" == update && -z "$recover_update" ]] || fail "restoration is a separate explicit update recovery choice"
+  recover_update=$restore_update
+fi
+if [[ "$operation" != update && -n "$update_target$update_preparation$update_preparation_sha$recover_update" ]]; then fail "update inputs require update"; fi
+if [[ -n "$release_source" && "$operation" != install ]]; then fail "release source binding requires install"; fi
+if [[ -n "$approved_project" && "$operation" != start ]]; then fail "project approval requires start"; fi
+if [[ "$operation" != project && -n "$project_source$project_target$project_repository$project_revision" ]]; then fail "project options require the project operation"; fi
+if [[ "$operation" != toolchain && -n "$requirements_lock$lock_sha$wheelhouse" ]]; then fail "toolchain options require the toolchain operation"; fi
+if [[ "$operation" != doctor && -n "$branch_token_file" ]]; then fail "temporary credential requires the doctor operation"; fi
+if [[ -n "$recover_maintenance" && "$operation" != setup && "$operation" != start && "$operation" != project && "$operation" != toolchain ]]; then fail "maintenance recovery requires setup, start, project or toolchain"; fi
+[[ "$install_root" =~ ^/[A-Za-z0-9/._-]*$ && "/$install_root/" != */../* && "/$install_root/" != */./* ]] || fail "invalid absolute installation root"
+[[ "$port" =~ ^[0-9]{1,5}$ ]] && ((10#$port >= 1 && 10#$port <= 65535)) || fail "invalid dashboard port"
+[[ "$project" =~ ^[a-z0-9][a-z0-9_-]*$ ]] || fail "invalid Compose project name"
+if [[ -z "$manifest$bootstrap_profile" && ( "$operation" == install || "$operation" == setup || "$operation" == start || "$operation" == update ) && -f "$installer_dir/bootstrap-profile.json" ]]; then
+  bootstrap_profile="$installer_dir/bootstrap-profile.json"
+fi
+if [[ -n "$bootstrap_profile" ]]; then
+  [[ ( "$operation" == install || "$operation" == setup || "$operation" == start || "$operation" == update ) && -z "$manifest$manifest_sha$image$archive$release_source" && "$compose_dir" == "$installer_dir" ]] || fail "bootstrap profile requires install/setup/start without manual release inputs"
+  if [[ "$operation" == install ]]; then
+    [[ -t 0 && -t 2 ]] || fail "bootstrap installation requires an interactive terminal for administrator onboarding"
+  else
+    [[ -z "$admin_username" && "$port" == 7777 && "$project" == samuel ]] || fail "setup/start reuse installed port and project; no onboarding or layout overrides"
+  fi
+  check_prerequisites
+  [[ -f "$bootstrap_profile" && ! -L "$bootstrap_profile" ]] || fail "bootstrap profile must be a regular file"
+  bootstrap_profile=$(realpath -e -- "$bootstrap_profile")
+  bootstrap_root="$(dirname -- "$bootstrap_profile")/trusted-root.json"
+  [[ -f "$bootstrap_root" && ! -L "$bootstrap_root" ]] || fail "independently bound trusted-root.json missing"
+  bootstrap_image=$(sed -nE 's/.*"bootstrap_image"[[:space:]]*:[[:space:]]*"([^"[:space:]]+@sha256:[0-9a-f]{64})".*/\1/p' "$bootstrap_profile")
+  [[ "$bootstrap_image" =~ ^[A-Za-z0-9][A-Za-z0-9._:/-]*@sha256:[0-9a-f]{64}$ ]] || fail "bootstrap profile must bind one immutable verifier image"
+  bootstrap_cache="${install_root%/}/srv/samuel/release-cache"
+  cursor="$bootstrap_cache"
+  while [[ "$cursor" != / ]]; do
+    [[ ! -L "$cursor" ]] || fail "bootstrap cache ancestors must not be symlinks"
+    cursor=$(dirname -- "$cursor")
+  done
+  if [[ "$operation" == install ]]; then
+    mkdir -p -- "$bootstrap_cache"
+  else
+    if [[ "$operation" == update ]]; then
+      mkdir -p -- "$bootstrap_cache"
+    else
+      [[ -d "$bootstrap_cache" ]] || fail "installed release cache missing; use the existing explicit operator inputs"
+    fi
+  fi
+  bootstrap_cache=$(realpath -e -- "$bootstrap_cache")
+  [[ "$bootstrap_cache$installer_dir" != *,* ]] || fail "Docker mount source must not contain commas"
+  bootstrap_snapshot=$(mktemp -d)
+  trap 'rm -rf -- "$bootstrap_snapshot"' EXIT
+  cp -- "$bootstrap_profile" "$bootstrap_snapshot/profile.json"
+  cp -- "$bootstrap_root" "$bootstrap_snapshot/trusted-root.json"
+  echo "Using the operator-supplied bootstrap binding. This operation does not qualify its initial authenticated handoff."
+  echo "Fetching the pinned bootstrap image; the first download and extraction may take several minutes."
+  docker pull --platform linux/amd64 "$bootstrap_image" >"$bootstrap_snapshot/pull.log" 2>&1 || fail "bootstrap verifier unavailable; verify existing registry access"
+  if [[ "$operation" == update ]]; then
+    [[ "$EUID" == 0 && -z "$update_preparation$update_preparation_sha" ]] || fail "update requires the local root operator; no supplied preparation"
+    if [[ -n "$recover_update" ]]; then
+      [[ -z "$update_target" ]] || fail "recovery selects only the previous operation; no new target"
+      preparation_command=recover-update
+      preparation_selection=(--update-preparation-sha256 "$recover_update")
+    else
+      [[ -n "$update_target" ]] || fail "update requires --target"
+      preparation_command=prepare-update
+      preparation_selection=(--target-version "$update_target")
+    fi
+    [[ -t 0 && -t 2 ]] || fail "update requires an interactive terminal for explicit operator approval"
+    installed_receipt="${install_root%/}/etc/samuel/.container-install.json"
+    [[ -f "$installed_receipt" && ! -L "$installed_receipt" ]] || fail "existing installation receipt required"
+    docker run --rm --no-healthcheck --network none --read-only --cap-drop ALL --security-opt no-new-privileges \
+      --user 0:0 --entrypoint python \
+      --mount "type=bind,src=$installer_dir/tools/container_init.py,dst=/bootstrap/container_init.py,readonly" \
+      --mount "type=bind,src=$installed_receipt,dst=/bootstrap/installation.json,readonly" \
+      "$bootstrap_image" /bootstrap/container_init.py installation-inputs \
+      --installation-receipt /bootstrap/installation.json --host-root "$install_root" >"$bootstrap_snapshot/installed" \
+      || fail "existing installation receipt invalid"
+    mapfile -t installed <"$bootstrap_snapshot/installed"
+    [[ ${#installed[@]} == 5 && "${installed[0]}" == SAMUEL_INSTALLATION_INPUTS \
+      && "${installed[1]}" =~ ^[1-9][0-9]*$ && "${installed[2]}" =~ ^[1-9][0-9]*$ \
+      && "${installed[3]}" =~ ^[0-9]{1,5}$ && "${installed[4]}" =~ ^[a-z0-9][a-z0-9_-]*$ ]] \
+      || fail "invalid existing installation response"
+    # Read committed WAL through the existing read-only adapter. This mount
+    # allows SQLite coordination files, not database initialization/migration.
+    docker run --rm --no-healthcheck --network none --read-only --cap-drop ALL --security-opt no-new-privileges \
+      --user "${installed[1]}:${installed[2]}" --entrypoint samuel \
+      --mount "type=bind,src=${install_root%/}/etc/samuel/config,dst=/app/config,readonly" \
+      --mount "type=bind,src=${install_root%/}/var/lib/samuel,dst=/app/data" \
+      "$bootstrap_image" --config /app/config state status --read-only --json \
+      >"$bootstrap_snapshot/state.json" || fail "existing read-only state check failed; no transition performed"
+    docker run --rm --no-healthcheck --read-only --cap-drop ALL --cap-add DAC_READ_SEARCH --security-opt no-new-privileges \
+      --user 0:0 --tmpfs /tmp:rw,noexec,nosuid --entrypoint python \
+      --mount "type=bind,src=$bootstrap_snapshot/profile.json,dst=/bootstrap/profile.json,readonly" \
+      --mount "type=bind,src=$bootstrap_snapshot/trusted-root.json,dst=/bootstrap/trusted-root.json,readonly" \
+      --mount "type=bind,src=$bootstrap_snapshot/state.json,dst=/bootstrap/state.json,readonly" \
+      --mount "type=bind,src=$installer_dir/tools/container_init.py,dst=/bootstrap/container_init.py,readonly" \
+      --mount "type=bind,src=${install_root%/}/etc/samuel,dst=/bootstrap/config-root,readonly" \
+      --mount "type=bind,src=$bootstrap_cache,dst=/bootstrap/cache" \
+      "$bootstrap_image" /bootstrap/container_init.py "$preparation_command" \
+      --bootstrap-profile /bootstrap/profile.json --bootstrap-root /bootstrap/trusted-root.json \
+      --bootstrap-cache /bootstrap/cache --config-root /bootstrap/config-root --host-root "$install_root" \
+      --image "$bootstrap_image" "${preparation_selection[@]}" --state-report /bootstrap/state.json \
+      >"$bootstrap_snapshot/prepared" || fail "independent update preparation failed; no transition performed"
+    mapfile -t prepared <"$bootstrap_snapshot/prepared"
+    [[ ${#prepared[@]} == 10 && "${prepared[0]}" == SAMUEL_UPDATE_PREPARED \
+      && "${prepared[1]}" =~ ^artifacts/[0-9a-f]{64}/[A-Za-z0-9][A-Za-z0-9._-]*$ \
+      && "${prepared[2]}" =~ ^[0-9a-f]{64}$ \
+      && "${prepared[3]}" =~ ^artifacts/[0-9a-f]{64}/samuel-oci-[A-Za-z0-9._-]+\.tar\.gz$ \
+      && "${prepared[4]}" =~ ^installers/[0-9a-f]{64}$ \
+      && "${prepared[5]}" =~ ^[A-Za-z0-9][A-Za-z0-9._:/-]*@sha256:[0-9a-f]{64}$ \
+      && "${prepared[6]}" == "${installed[3]}" && "${prepared[7]}" == "${installed[4]}" \
+      && "${prepared[8]}" =~ ^update-preparations/[0-9a-f]{64}\.json$ \
+      && "${prepared[9]}" =~ ^[0-9a-f]{64}$ ]] || fail "invalid prepared update inputs"
+    recovery_options=()
+    if [[ -n "$restore_update" ]]; then recovery_options=(--restore-update "$restore_update")
+    elif [[ -n "$recover_update" ]]; then recovery_options=(--recover-update "$recover_update"); fi
+    rm -rf -- "$bootstrap_snapshot"
+    trap - EXIT
+    exec bash "$bootstrap_cache/${prepared[4]}/tools/samuel-container" update \
+      --manifest "$bootstrap_cache/${prepared[1]}" --manifest-sha256 "${prepared[2]}" \
+      --installer-archive "$bootstrap_cache/${prepared[3]}" --image "${prepared[5]}" \
+      --update-preparation "$bootstrap_cache/${prepared[8]}" --update-preparation-sha256 "${prepared[9]}" \
+      --root "$install_root" --port "${prepared[6]}" --project "${prepared[7]}" "${recovery_options[@]}"
+  fi
+  if [[ "$operation" != install ]]; then
+    installed_receipt="${install_root%/}/etc/samuel/.container-install.json"
+    [[ -f "$installed_receipt" && ! -L "$installed_receipt" ]] || fail "existing installation receipt required"
+    docker run --rm --no-healthcheck --network none --read-only --cap-drop ALL --security-opt no-new-privileges \
+      --user 0:0 --tmpfs /tmp:rw,noexec,nosuid --entrypoint python \
+      --mount "type=bind,src=$bootstrap_snapshot/profile.json,dst=/bootstrap/profile.json,readonly" \
+      --mount "type=bind,src=$bootstrap_snapshot/trusted-root.json,dst=/bootstrap/trusted-root.json,readonly" \
+      --mount "type=bind,src=$installer_dir/tools/container_init.py,dst=/bootstrap/container_init.py,readonly" \
+      --mount "type=bind,src=$installed_receipt,dst=/bootstrap/installation.json,readonly" \
+      --mount "type=bind,src=$bootstrap_cache,dst=/bootstrap/cache,readonly" \
+      "$bootstrap_image" /bootstrap/container_init.py installed-operator \
+      --bootstrap-profile /bootstrap/profile.json --bootstrap-root /bootstrap/trusted-root.json \
+      --bootstrap-cache /bootstrap/cache --installation-receipt /bootstrap/installation.json \
+      --host-root "$install_root" --image "$bootstrap_image" >"$bootstrap_snapshot/prepared" \
+      || fail "installed operator inputs invalid; no lifecycle action performed"
+    mapfile -t prepared <"$bootstrap_snapshot/prepared"
+    [[ ${#prepared[@]} == 8 && "${prepared[0]}" == SAMUEL_INSTALLED_OPERATOR \
+      && "${prepared[1]}" =~ ^artifacts/[0-9a-f]{64}/[A-Za-z0-9][A-Za-z0-9._-]*$ \
+      && "${prepared[2]}" =~ ^[0-9a-f]{64}$ \
+      && "${prepared[3]}" =~ ^artifacts/[0-9a-f]{64}/samuel-oci-[A-Za-z0-9._-]+\.tar\.gz$ \
+      && "${prepared[4]}" =~ ^installers/[0-9a-f]{64}$ \
+      && "${prepared[5]}" =~ ^[A-Za-z0-9][A-Za-z0-9._:/-]*@sha256:[0-9a-f]{64}$ \
+      && "${prepared[6]}" =~ ^[0-9]{1,5}$ && "${prepared[7]}" =~ ^[a-z0-9][a-z0-9_-]*$ ]] \
+      && (( 10#${prepared[6]} >= 1 && 10#${prepared[6]} <= 65535 )) \
+      || fail "invalid installed operator receipt"
+    existing_options=()
+    if [[ -n "$recover_maintenance" ]]; then existing_options+=(--recover-maintenance "$recover_maintenance"); fi
+    if [[ -n "$approved_project" ]]; then existing_options+=(--approve-project "$approved_project"); fi
+    rm -rf -- "$bootstrap_snapshot"
+    trap - EXIT
+    exec bash "$bootstrap_cache/${prepared[4]}/tools/samuel-container" "$operation" \
+      --manifest "$bootstrap_cache/${prepared[1]}" --manifest-sha256 "${prepared[2]}" \
+      --installer-archive "$bootstrap_cache/${prepared[3]}" --image "${prepared[5]}" \
+      --root "$install_root" --port "${prepared[6]}" --project "${prepared[7]}" "${existing_options[@]}"
+  fi
+  docker run --rm --no-healthcheck --read-only --cap-drop ALL --security-opt no-new-privileges \
+    --user "$EUID:${GROUPS[0]}" --tmpfs /tmp:rw,noexec,nosuid --entrypoint python \
+    --mount "type=bind,src=$bootstrap_snapshot/profile.json,dst=/bootstrap/profile.json,readonly" \
+    --mount "type=bind,src=$bootstrap_snapshot/trusted-root.json,dst=/bootstrap/trusted-root.json,readonly" \
+    --mount "type=bind,src=$installer_dir/tools/container_init.py,dst=/bootstrap/container_init.py,readonly" \
+    --mount "type=bind,src=$bootstrap_cache,dst=/bootstrap/cache" \
+    "$bootstrap_image" /bootstrap/container_init.py prepare-bootstrap \
+    --bootstrap-profile /bootstrap/profile.json --bootstrap-root /bootstrap/trusted-root.json \
+    --bootstrap-cache /bootstrap/cache --image "$bootstrap_image" >"$bootstrap_snapshot/prepared" || fail "bootstrap verification failed; installation not started"
+  mapfile -t prepared <"$bootstrap_snapshot/prepared"
+  [[ ${#prepared[@]} == 6 && "${prepared[0]}" == SAMUEL_BOOTSTRAP_PREPARED \
+    && "${prepared[1]}" =~ ^artifacts/[0-9a-f]{64}/[A-Za-z0-9][A-Za-z0-9._-]*$ \
+    && "${prepared[2]}" =~ ^[0-9a-f]{64}$ \
+    && "${prepared[3]}" =~ ^artifacts/[0-9a-f]{64}/samuel-oci-[A-Za-z0-9._-]+\.tar\.gz$ \
+    && "${prepared[4]}" =~ ^installers/[0-9a-f]{64}$ \
+    && "${prepared[5]}" =~ ^sources/[0-9a-f]{64}\.json$ ]] || fail "invalid prepared installer receipt"
+  if [[ -z "$admin_username" ]]; then
+    read -r -p 'Initial administrator username [admin]: ' admin_username || fail "administrator onboarding cancelled"
+    admin_username=${admin_username:-admin}
+  fi
+  rm -rf -- "$bootstrap_snapshot"
+  trap - EXIT
+  bash "$bootstrap_cache/${prepared[4]}/tools/samuel-container" install \
+    --manifest "$bootstrap_cache/${prepared[1]}" --manifest-sha256 "${prepared[2]}" \
+    --installer-archive "$bootstrap_cache/${prepared[3]}" \
+    --release-source "$bootstrap_cache/${prepared[5]}" \
+    --root "$install_root" --port "$port" --project "$project" --admin-username "$admin_username"
+  next_start=(bash "$installer_dir/tools/samuel-container" start)
+  if [[ "$bootstrap_profile" != "$installer_dir/bootstrap-profile.json" ]]; then
+    next_start+=(--bootstrap-profile "$bootstrap_profile")
+  fi
+  if [[ "$install_root" != / ]]; then next_start+=(--root "$install_root"); fi
+  echo "After dashboard setup, use this single bootstrap command with the same host privileges (no manual release inputs):"
+  printf '  %q' "${next_start[0]}"; printf ' %q' "${next_start[@]:1}"; printf '\n'
+  exit 0
+fi
+if [[ -n "$admin_username" ]]; then
+  [[ "$operation" == install ]] || fail "--admin-username requires the install operation"
+  [[ -t 0 && -t 2 ]] || fail "administrator onboarding requires an interactive terminal"
+  echo "Local identity setup disables legacy API-key access. Inventory all browser, API and monitoring clients first (including no existing clients on a fresh installation)."
+  read -r -p 'Reason for local identity cutover: ' admin_reason || fail "administrator onboarding cancelled"
+  [[ "$admin_reason" =~ [^[:space:]] ]] || fail "identity cutover requires a reason"
+  read -r -p 'Type yes to confirm client inventory and authorize the cutover: ' admin_confirmation || fail "administrator onboarding cancelled"
+  [[ "$admin_confirmation" == yes ]] || fail "identity cutover not approved"
+fi
+[[ -f "$manifest" && ! -L "$manifest" ]] || fail "manifest must be a regular file"
+[[ "$manifest_sha" =~ ^[0-9a-f]{64}$ ]] || fail "invalid expected manifest SHA-256"
+command -v sha256sum >/dev/null || fail "sha256sum missing"
+actual_sha="$(sha256sum -- "$manifest")"; actual_sha=${actual_sha%% *}
+[[ "$actual_sha" == "$manifest_sha" ]] || fail "manifest SHA-256 mismatch"
+check_prerequisites
+# This selects only an immutable pull candidate. The image-side JSON parser
+# checks that it is exactly container.reference before any operator paths exist.
+if [[ -z "$image" ]]; then
+  image=$(sed -nE 's/.*"reference"[[:space:]]*:[[:space:]]*"([^"[:space:]]+@sha256:[0-9a-f]{64})".*/\1/p' "$manifest")
+fi
+[[ "$image" =~ ^[A-Za-z0-9][A-Za-z0-9._:/-]*@sha256:[0-9a-f]{64}$ ]] || fail "manifest must supply one immutable container.reference"
+if [[ "$operation" == update ]]; then
+  # Bind the executable image before invoking any image-side parser. This is
+  # selection of a previously verified private preparation, not fresh approval.
+  [[ "$EUID" == 0 && "$update_preparation_sha" =~ ^[0-9a-f]{64}$ ]] || fail "private root-owned update preparation required"
+  expected_preparation="${install_root%/}/srv/samuel/release-cache/update-preparations/$update_preparation_sha.json"
+  [[ "$update_preparation" == "$expected_preparation" && -f "$update_preparation" && ! -L "$update_preparation" \
+    && "$(realpath -e -- "$update_preparation")" == "$update_preparation" ]] || fail "update preparation must remain in the fixed cache"
+  preparation_parent=$(dirname -- "$update_preparation")
+  for protected_directory in "$preparation_parent" "$(dirname -- "$preparation_parent")"; do
+    preparation_metadata=$(stat -c '%u %g %a' -- "$protected_directory") || fail "private preparation directory stat failed"
+    read -r preparation_uid preparation_gid preparation_mode <<< "$preparation_metadata"
+    [[ "$preparation_uid:$preparation_gid" == 0:0 ]] && (( (8#$preparation_mode & 8#077) == 0 )) || fail "update preparation directories are not private and operator owned"
+  done
+  preparation_metadata=$(stat -c '%u %g %a' -- "$update_preparation") || fail "private preparation stat failed"
+  read -r preparation_uid preparation_gid preparation_mode <<< "$preparation_metadata"
+  [[ "$preparation_uid:$preparation_gid" == 0:0 ]] && (( (8#$preparation_mode & 8#077) == 0 )) || fail "update preparation is not private and operator owned"
+  preparation_actual=$(sha256sum -- "$update_preparation") || fail "private preparation unavailable"
+  [[ "${preparation_actual%% *}" == "$update_preparation_sha" ]] || fail "private preparation digest differs"
+  prepared_image=$(sed -nE 's/.*"target_image"[[:space:]]*:[[:space:]]*"([^"[:space:]]+@sha256:[0-9a-f]{64})".*/\1/p' "$update_preparation")
+  [[ "$prepared_image" == "$image" ]] || fail "selected image differs from the independently prepared target"
+fi
+manifest=$(realpath -e -- "$manifest"); compose_dir=$(realpath -e -- "$compose_dir")
+[[ "$manifest" != *,* && "$installer_dir" != *,* && "$compose_dir" != *,* ]] || fail "Docker mount source must not contain commas"
+if [[ "$operation" != init ]]; then
+  [[ -f "$archive" && ! -L "$archive" ]] || fail "published --installer-archive required"
+fi
+snapshot_dir=$(mktemp -d)
+maintenance_pid=""; maintenance_read=""; maintenance_write=""
+maintenance_name="${project}-samuel-maintenance"
+maintenance_attempt=${snapshot_dir##*/}
+maintenance_attempted=0
+cleanup() {
+  # Closing stdin leaves durable maintenance pending, even after host failure.
+  if [[ -n "$maintenance_write" ]]; then exec {maintenance_write}>&-; fi
+  if [[ -n "$maintenance_read" ]]; then exec {maintenance_read}<&-; fi
+  if [[ -n "$maintenance_pid" ]]; then wait "$maintenance_pid" || true; fi
+  # The Docker name fences host actions even if the lock-holding CLI dies.
+  # Only this attempt's exited container can be removed; never force removal.
+  if [[ "$maintenance_attempted" == 1 ]]; then
+    local held held_id held_attempt
+    held=$(docker inspect --format '{{.Id}}|{{index .Config.Labels "org.samuel.lifecycle.attempt"}}' "$maintenance_name" 2>/dev/null) || held=""
+    held_id=${held%%|*}; held_attempt=${held#*|}
+    if [[ "$held_id" =~ ^[0-9a-f]{64}$ && "$held_attempt" == "$maintenance_attempt" ]]; then
+      docker rm "$held_id" >/dev/null 2>&1 || echo "Maintenance container retained; inspect the previous operator process before explicit recovery." >&2
+    fi
+  fi
+  rm -rf -- "$snapshot_dir"
+}
+trap cleanup EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+# The image healthcheck bootstraps another audit writer. Keep one-shot CLI
+# tasks and the lock holder alone; service health and readiness stay on.
+printf '%s\n' '{"services":{"samuel":{"healthcheck":{"disable":true}}}}' >"$snapshot_dir/maintenance-healthcheck.json"
+begin_maintenance() {
+  local target="$1" marker receipt_sha
+  local recovery_advice="use --recover-maintenance yes"
+  local maintenance_options=()
+  receipt_sha=$(sha256sum -- "$receipt") || fail "verified installation receipt unavailable"
+  receipt_sha=${receipt_sha%% *}
+  if [[ "$operation" == update ]]; then
+    receipt_sha=$update_preparation_sha
+    recovery_advice="use the printed --recover-update $update_preparation_sha command"
+    if [[ -n "$restore_update" ]]; then
+      recovery_advice="use the printed --restore-update $update_preparation_sha command"
+    fi
+    if [[ -z "$recover_update" ]]; then
+      maintenance_options=(--backup-before-transition)
+    else
+      maintenance_options=(--resume-pending)
+    fi
+  fi
+  if [[ -n "$recover_maintenance$recover_update" ]]; then
+    local previous previous_id previous_operator probe_error
+    previous=$(docker inspect --format '{{.Id}}|{{.State.Status}}|{{.Config.Image}}|{{index .Config.Labels "org.samuel.lifecycle.binding"}}|{{index .Config.Labels "org.samuel.lifecycle.operator"}}' "$maintenance_name" 2>/dev/null) || {
+      [[ -n "$recover_update" ]] || fail "no recoverable maintenance container; inspect the existing local operator state"
+      previous=$(docker ps -a --filter "name=^/$maintenance_name$" -q) || fail "maintenance container lookup unavailable"
+      [[ -z "$previous" ]] || fail "existing maintenance container cannot be inspected"
+    }
+    if [[ -n "$previous" ]]; then
+    previous_operator=${previous##*|}; previous=${previous%|*}
+    previous_id=${previous%%|*}
+    [[ "$previous_id" =~ ^[0-9a-f]{64}$ && "${previous#*|}" == "exited|$image|$receipt_sha" ]] || fail "maintenance is running or belongs to a different installation; recovery denied"
+    [[ "$previous_operator" =~ ^[1-9][0-9]*$ ]] || fail "previous operator process identity unknown"
+    if LC_ALL=C kill -0 "$previous_operator" 2>"$snapshot_dir/operator-probe.log"; then
+      fail "previous operator process still exists; maintenance recovery denied"
+    fi
+    probe_error=$(<"$snapshot_dir/operator-probe.log")
+    [[ "$probe_error" == *"No such process"* ]] || fail "previous operator process end cannot be verified; recovery denied"
+    docker rm "$previous_id" >/dev/null || fail "maintenance recovery failed"
+    fi
+  fi
+  maintenance_attempted=1
+  echo "Waiting for maintenance checks and the requested backup; the first response may take up to 180 seconds."
+  coproc MAINTENANCE { exec "${maintenance_compose[@]}" -f "$snapshot_dir/maintenance-healthcheck.json" run --no-deps -T --name "$maintenance_name" \
+    --label "org.samuel.lifecycle.attempt=$maintenance_attempt" \
+    --label "org.samuel.lifecycle.binding=$receipt_sha" \
+    --label "org.samuel.lifecycle.operator=$$" samuel maintenance \
+    --target "$target" --binding "$receipt_sha" --reason "Explicit installer operation: $operation" "${maintenance_options[@]}"; }
+  maintenance_pid=$MAINTENANCE_PID
+  exec {maintenance_read}<&"${MAINTENANCE[0]}"
+  exec {maintenance_write}>&"${MAINTENANCE[1]}"
+  exec {MAINTENANCE[0]}<&-
+  exec {MAINTENANCE[1]}>&-
+  # This first reply includes Compose/container startup, validated bootstrap,
+  # State/SCM admission checks and the requested backup. Give that work its own
+  # bounded startup window; no host transition is authorized before READY.
+  IFS= read -r -t 180 marker <&"$maintenance_read" || fail "maintenance admission unavailable; no host transition performed; inspect the existing operator state and $recovery_advice only after the previous operator process ended"
+  if [[ "$operation" == update ]]; then
+    [[ "$marker" == 'SAMUEL_MAINTENANCE_BACKUP '* ]] || fail "maintenance backup binding unavailable; no host transition performed"
+    printf '%s\n' "${marker#SAMUEL_MAINTENANCE_BACKUP }" >"$snapshot_dir/maintenance-backup.json"
+    IFS= read -r -t 60 marker <&"$maintenance_read" || fail "maintenance admission unavailable after backup; no host transition performed; inspect the existing operator state and $recovery_advice only after the previous operator process ended"
+  fi
+  [[ "$marker" == SAMUEL_MAINTENANCE_READY ]] || fail "unexpected maintenance response; no host transition performed"
+}
+assert_update_guard() {
+  [[ -n "$maintenance_pid" ]] && kill -0 "$maintenance_pid" 2>/dev/null || fail "maintenance process lost; update remains pending"
+  local held
+  held=$(docker inspect --format '{{.State.Running}}|{{index .Config.Labels "org.samuel.lifecycle.attempt"}}|{{index .Config.Labels "org.samuel.lifecycle.binding"}}' "$maintenance_name") || fail "maintenance guard unavailable"
+  [[ "$held" == "true|$maintenance_attempt|$update_preparation_sha" ]] || fail "update no longer holds its maintenance guard"
+}
+complete_maintenance() {
+  local marker
+  printf 'COMMIT\n' >&"$maintenance_write" || fail "maintenance process lost; transition remains unconfirmed"
+  IFS= read -r -t 60 marker <&"$maintenance_read" || fail "maintenance completion unavailable; retry the same operator command"
+  [[ "$marker" == SAMUEL_MAINTENANCE_COMMITTED ]] || fail "maintenance not completed; retry the same operator command"
+  wait "$maintenance_pid" || fail "maintenance completion failed; inspect existing local state"
+  maintenance_pid=""
+}
+cp -- "$manifest" "$snapshot_dir/release-manifest.json"; chmod 0444 "$snapshot_dir/release-manifest.json"
+bootstrap=(--mount "type=bind,src=$snapshot_dir/release-manifest.json,dst=/bootstrap/release-manifest.json,readonly"
+           --mount "type=bind,src=$installer_dir/tools/container_init.py,dst=/bootstrap/container_init.py,readonly")
+identity=(--manifest /bootstrap/release-manifest.json --manifest-sha256 "$manifest_sha" --image "$image")
+if [[ -n "$release_source" ]]; then
+  [[ -f "$release_source" && ! -L "$release_source" ]] || fail "release source must be a regular file"
+  cp -- "$release_source" "$snapshot_dir/release-source.json"; chmod 0444 "$snapshot_dir/release-source.json"
+  bootstrap+=(--mount "type=bind,src=$snapshot_dir/release-source.json,dst=/bootstrap/release-source.json,readonly")
+  identity+=(--release-source /bootstrap/release-source.json)
+fi
+if [[ "$operation" == update ]]; then
+  [[ "$update_preparation_sha" =~ ^[0-9a-f]{64}$ ]] || fail "bound operator update preparation required"
+  update_cache="${install_root%/}/srv/samuel/release-cache"
+  [[ "$update_preparation" == "$update_cache/update-preparations/$update_preparation_sha.json" ]] || fail "update preparation outside the installation cache"
+  [[ -d "$update_cache" && "$(realpath -e -- "$update_cache")" == "$update_cache" ]] || fail "update cache is not canonical"
+  bootstrap+=(--mount "type=bind,src=$update_cache,dst=/bootstrap/cache,readonly")
+  identity+=(--bootstrap-cache /bootstrap/cache --host-root "$install_root"
+             --update-preparation "/bootstrap/cache/update-preparations/$update_preparation_sha.json"
+             --update-preparation-sha256 "$update_preparation_sha")
+fi
+if [[ -n "$archive" ]]; then
+  archive=$(realpath -e -- "$archive")
+  [[ "$archive" != *,* ]] || fail "Docker mount source must not contain commas"
+  cp -- "$archive" "$snapshot_dir/installer.tar.gz"; chmod 0444 "$snapshot_dir/installer.tar.gz"
+  bootstrap+=(--mount "type=bind,src=$snapshot_dir/installer.tar.gz,dst=/bootstrap/installer.tar.gz,readonly"
+              --mount "type=bind,src=$installer_dir,dst=/bootstrap/source,readonly")
+  identity+=(--installer-archive /bootstrap/installer.tar.gz)
+  # The selected Compose directory must contain the same release-bound files.
+  cmp -s "$compose_dir/docker-compose.yml" "$installer_dir/docker-compose.yml" &&
+    cmp -s "$compose_dir/docker-compose.setup.yml" "$installer_dir/docker-compose.setup.yml" || fail "compose-dir differs from release installer"
+fi
+echo "Fetching the selected release image; the first download and extraction may take several minutes."
+docker pull --platform linux/amd64 "$image" >"$snapshot_dir/pull.log" 2>&1 || fail "image unavailable; verify registry access and existing docker login (use --password-stdin)"
+docker image inspect "$image" | docker run --rm --no-healthcheck -i --network none --entrypoint python \
+  "${bootstrap[@]}" "$image" /bootstrap/container_init.py verify "${identity[@]}"
+echo "Manifest, immutable image identity and release assets verified"
+expected_version=$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.version"}}' "$image")
+expected_revision=$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' "$image")
+prefix=${install_root%/}
+config_root="$prefix/etc/samuel"; data_root="$prefix/var/lib/samuel"; work_root="$prefix/srv/samuel/workspaces"
+log_root="$prefix/var/log/samuel"; backup_root="$prefix/srv/samuel/backups"
+for directory in "$config_root" "$data_root" "$work_root" "$log_root" "$backup_root"; do
+  cursor="$directory"
+  while [[ "$cursor" != / ]]; do
+    [[ ! -L "$cursor" ]] || fail "installation paths must not contain symlinks"
+    cursor=$(dirname -- "$cursor")
+  done
+  [[ ! -e "$directory" || -d "$directory" ]] || fail "installation path is not a directory"
+done
+receipt="$config_root/.container-install.json"
+compose=(env -u SAMUEL_IMAGE -u SAMUEL_ENV_FILE -u SAMUEL_CONFIG_DIR -u SAMUEL_DATA_DIR
+         -u SAMUEL_WORK_DIR -u SAMUEL_LOG_DIR -u SAMUEL_BACKUP_DIR -u SAMUEL_DASHBOARD_BIND
+         -u SAMUEL_DASHBOARD_PORT -u COMPOSE_PROJECT_NAME -u COMPOSE_FILE -u COMPOSE_PROFILES
+         docker compose --env-file "$config_root/compose.env" -f "$config_root/compose/docker-compose.yml")
+if [[ "$operation" == install && -e "$receipt" ]]; then
+  fail "installation already prepared; use explicit setup or start with the same manifest; existing sources preserved"
+fi
+if [[ "$operation" == setup || "$operation" == start || "$operation" == toolchain || "$operation" == doctor || "$operation" == project ]]; then
+  [[ -f "$receipt" && ! -L "$receipt" ]] || fail "existing initialized installation required"
+fi
+toolchain_args=(); toolchain_identity=(); init_command=init
+if [[ "$operation" == toolchain ]]; then
+  [[ "$lock_sha" =~ ^[0-9a-f]{64}$ ]] || fail "invalid toolchain lock SHA-256"
+  [[ -f "$requirements_lock" && ! -L "$requirements_lock" && -d "$wheelhouse" && ! -L "$wheelhouse" ]] || fail "toolchain lock and wheelhouse required"
+  requirements_lock=$(realpath -e -- "$requirements_lock"); wheelhouse=$(realpath -e -- "$wheelhouse")
+  [[ "$requirements_lock" != *,* && "$wheelhouse" != *,* ]] || fail "mount source must not contain commas"
+  [[ ! -e "$config_root/.verifier-toolchain.json" && ! -e "$config_root/compose/docker-compose.toolchain.yml" ]] || fail "toolchain already registered"
+  [[ -z "$("${compose[@]}" ps -q samuel)" ]] || fail "stop runtime before toolchain preparation"
+  toolchain_root="$prefix/srv/samuel/toolchains/sha256-$lock_sha"
+  cursor="$toolchain_root"
+  while [[ "$cursor" != / ]]; do
+    [[ ! -L "$cursor" ]] || fail "toolchain paths must not contain symlinks"
+    cursor=$(dirname -- "$cursor")
+  done
+  [[ ! -e "$toolchain_root" && ! -L "$toolchain_root" ]] || fail "toolchain destination already exists; preserve failed attempts"
+  toolchain_args=(--mount "type=bind,src=$requirements_lock,dst=/bootstrap/requirements.lock,readonly"
+                  --mount "type=bind,src=$wheelhouse,dst=/bootstrap/wheelhouse,readonly"
+                  --mount "type=bind,src=$toolchain_root,dst=/opt/samuel-verifier")
+  init_command=prepare-toolchain
+  toolchain_identity=(--requirements-lock /bootstrap/requirements.lock --lock-sha256 "$lock_sha"
+                      --wheelhouse /bootstrap/wheelhouse --host-toolchain-root "$toolchain_root")
+fi
+prepare_project_inputs() {
+  [[ "$project_source" = /* && -d "$project_source" && -n "$project_target" && -n "$project_repository" && -n "$project_revision" ]] || fail "project source, target, repository and full revision required"
+  [[ "$project_source" != *,* && "$project_source" != *:* ]] || fail "invalid project mount source"
+  cursor="$project_source"
+  while [[ "$cursor" != / ]]; do
+    [[ ! -L "$cursor" ]] || fail "project paths must not contain symlinks"
+    cursor=$(dirname -- "$cursor")
+  done
+  check_project_host "$project_source"
+  toolchain_args=(--mount "type=bind,src=$project_source,dst=/prepare/project")
+  init_command=register-project
+  toolchain_identity=(--project-source "$project_source" --project-target "$project_target"
+                      --project-repository "$project_repository" --project-revision "$project_revision")
+}
+if [[ "$operation" == project ]]; then
+  prepare_project_inputs
+  [[ -z "$("${compose[@]}" ps -q samuel)" ]] || fail "stop runtime before project registration"
+fi
+if [[ "$operation" == install || "$operation" == init ]]; then
+  mkdir -p -- "$config_root" "$data_root" "$work_root" "$log_root" "$backup_root"
+else
+  for directory in "$config_root" "$data_root" "$work_root" "$log_root" "$backup_root"; do
+    [[ -d "$directory" ]] || fail "existing installation directory missing; no initialization performed"
+  done
+fi
+initialize_paths() {
+local selected_command="$1" mount_access=""
+if [[ "$selected_command" == verify-installed || "$selected_command" == verify-update-source ]]; then mount_access=",readonly"; fi
+init_output=$(docker run --rm --no-healthcheck --network none --read-only --tmpfs /tmp:rw,nosuid,nodev --user 0:0 --entrypoint python \
+  "${active_toolchain_args[@]}" \
+  "${bootstrap[@]}" \
+  --mount "type=bind,src=$compose_dir/docker-compose.yml,dst=/bootstrap/docker-compose.yml,readonly" \
+  --mount "type=bind,src=$compose_dir/docker-compose.setup.yml,dst=/bootstrap/docker-compose.setup.yml,readonly" \
+  --mount "type=bind,src=$config_root,dst=/prepare/config-root$mount_access" \
+  --mount "type=bind,src=$data_root,dst=/prepare/data$mount_access" \
+  --mount "type=bind,src=$work_root,dst=/prepare/workspaces$mount_access" \
+  --mount "type=bind,src=$log_root,dst=/prepare/logs$mount_access" \
+  --mount "type=bind,src=$backup_root,dst=/prepare/backups$mount_access" \
+  "$image" /bootstrap/container_init.py "$selected_command" "${identity[@]}" \
+  --config-root "$config_root" --data-root "$data_root" --work-root "$work_root" \
+  --log-root "$log_root" --backup-root "$backup_root" --port "$port" --project "$project" \
+  "${toolchain_identity[@]}") || fail "installation prerequisites failed"
+echo "$init_output"
+while read -r marker source device inode owner group; do
+  if [[ "$marker" == PROJECT_BINDING ]]; then
+    check_project_host "$source" "$device" "$inode" "$owner" "$group"
+  elif [[ "$marker" == UPDATE_SOURCE ]]; then
+    [[ "$source" =~ ^[0-9]+\.[0-9]+\.[0-9]+((a|b|rc)[0-9]+)?$ && "$device" =~ ^[0-9a-f]{64}$ ]] || fail "invalid source release response"
+    update_source_version=$source
+  elif [[ "$marker" == TOOLCHAIN_BINDING ]]; then
+    [[ "$source" == "$prefix/srv/samuel/toolchains/"* && "$device" =~ ^[0-9a-f]{64}$ ]] || fail "invalid source toolchain response"
+    check_project_host "$source"
+    [[ "$(stat -c '%u:%g' -- "$source")" == 0:0 ]] || fail "source toolchain must remain operator-owned"
+    update_old_toolchain=$source
+    update_old_toolchain_sha=$device
+  fi
+done <<< "$init_output"
+}
+run_update_step() {
+  local step="$1" access=",readonly" output marker source device inode owner group entry
+  local step_bootstrap=() step_options=() step_mounts=() step_caps=(--cap-add DAC_READ_SEARCH)
+  if [[ "$step" == apply || "$step" == restore ]]; then
+    access=""
+    step_caps=(--cap-add DAC_OVERRIDE --cap-add CHOWN --cap-add FOWNER)
+  elif [[ -n "$recover_update" && ( "$step" == verify || "$step" == toolchain ) ]]; then
+    # The existing resume validator reconstructs the old metadata ownership in
+    # private /tmp before comparing it with the read-only active sources.
+    step_caps+=(--cap-add CHOWN --cap-add FOWNER)
+  fi
+  for entry in "${bootstrap[@]}"; do
+    if [[ ( "$step" == capture || "$step" == apply || "$step" == restore ) && "$entry" == "type=bind,src=$update_cache,dst=/bootstrap/cache,readonly" ]]; then
+      entry="type=bind,src=$update_cache,dst=/bootstrap/cache"
+    fi
+    step_bootstrap+=("$entry")
+  done
+  if [[ -n "$recover_update" ]]; then step_options+=(--recover-update); fi
+  if [[ -n "$update_old_toolchain" ]]; then
+    local toolchain_access=",readonly"
+    if [[ "$step" == toolchain ]]; then toolchain_access=""; fi
+    step_mounts+=(--mount "type=bind,src=$prefix/srv/samuel/toolchains,dst=/prepare/toolchains$toolchain_access")
+    step_options+=(--toolchains /prepare/toolchains)
+  fi
+  if [[ "$step" == capture || "$step" == restore ]]; then
+    step_mounts+=(--mount "type=bind,src=$snapshot_dir/maintenance-backup.json,dst=/bootstrap/maintenance-backup.json,readonly")
+    step_options+=(--backup-receipt /bootstrap/maintenance-backup.json)
+  fi
+  output=$(docker run --rm --no-healthcheck --network none --read-only --cap-drop ALL "${step_caps[@]}" \
+    --security-opt no-new-privileges --tmpfs /tmp:rw,nosuid,nodev --user 0:0 --entrypoint python \
+    "${step_bootstrap[@]}" "${active_toolchain_args[@]}" "${step_mounts[@]}" \
+    --mount "type=bind,src=$config_root,dst=/prepare/config-root$access" \
+    --mount "type=bind,src=$data_root,dst=/prepare/data,readonly" \
+    --mount "type=bind,src=$work_root,dst=/prepare/workspaces,readonly" \
+    --mount "type=bind,src=$log_root,dst=/prepare/logs,readonly" \
+    --mount "type=bind,src=$backup_root,dst=/prepare/backups,readonly" \
+    "$image" /bootstrap/container_init.py update-step "${identity[@]}" \
+    --update-step "$step" "${step_options[@]}") || fail "update $step failed; maintenance remains pending; preserve the printed recovery binding"
+  echo "$output"
+  while read -r marker source device inode owner group; do
+    if [[ "$marker" == PROJECT_BINDING ]]; then
+      check_project_host "$source" "$device" "$inode" "$owner" "$group"
+    elif [[ "$marker" == RESTORE_BACKUP ]]; then
+      [[ "$source" =~ ^/app/data/backups/[A-Za-z0-9._/-]+$ && "$source" != *..* && "$device" =~ ^sha256:[0-9a-f]{64}$ && -z "$inode$owner$group" ]] || fail "invalid restoration backup response"
+      restore_backup=$source
+    elif [[ "$marker" == RESTORE_SOURCE ]]; then
+      [[ "$source" =~ ^[A-Za-z0-9][A-Za-z0-9._:/-]*@sha256:[0-9a-f]{64}$ && "$device" =~ ^[0-9a-f]{40}([0-9a-f]{24})?$ && "$inode" == "$update_source_version" && -z "$owner$group" ]] || fail "invalid restoration image response"
+      restore_source_image=$source; restore_source_revision=$device
+    elif [[ "$marker" == RESTORE_CONTEXT ]]; then
+      [[ "$source" =~ ^update-captures/$update_preparation_sha/[0-9a-f]{32}/restore-compose.json$ && -z "$device$inode$owner$group" ]] || fail "invalid restoration operator context"
+      restore_compose="$update_cache/$source"
+    elif [[ "$marker" == RESTORE_INSTALLER ]]; then
+      [[ "$source" =~ ^artifacts/[0-9a-f]{64}/[A-Za-z0-9._-]+$ && "$device" =~ ^[0-9a-f]{64}$ && "$inode" =~ ^artifacts/[0-9a-f]{64}/[A-Za-z0-9._-]+$ && "$owner" =~ ^installers/[0-9a-f]{64}$ && -z "$group" ]] || fail "invalid original installer selection"
+      restore_manifest="$update_cache/$source"; restore_manifest_sha=$device
+      restore_archive="$update_cache/$inode"; restore_kit="$update_cache/$owner"
+    fi
+  done <<< "$output"
+}
+prepare_update_context() {
+  local recovery_options=()
+  [[ "$EUID" == 0 && -t 0 && -t 2 ]] || fail "update requires the local root operator and interactive approval"
+  [[ -z "$recover_update" || "$recover_update" == "$update_preparation_sha" ]] || fail "recovery binding differs from the prepared operation"
+  if [[ -n "$recover_update" ]]; then recovery_options=(--recover-update); fi
+  mkdir -- "$snapshot_dir/operator-context"
+  docker run --rm --no-healthcheck --network none --read-only --cap-drop ALL --security-opt no-new-privileges \
+    --entrypoint samuel \
+    --mount "type=bind,src=$config_root/config,dst=/app/config,readonly" \
+    --mount "type=bind,src=$data_root,dst=/app/data" \
+    "$image" --config /app/config state status --read-only --json >"$snapshot_dir/update-state.json" \
+    || fail "fresh read-only state check failed; no transition performed"
+  local context_bootstrap=() entry
+  for entry in "${bootstrap[@]}"; do
+    if [[ "$entry" == "type=bind,src=$update_cache,dst=/bootstrap/cache,readonly" ]]; then
+      entry="type=bind,src=$update_cache,dst=/bootstrap/cache"
+    fi
+    context_bootstrap+=("$entry")
+  done
+  docker run --rm --no-healthcheck --read-only --cap-drop ALL --cap-add DAC_READ_SEARCH \
+    --security-opt no-new-privileges --tmpfs /tmp:rw,nosuid,nodev --user 0:0 --entrypoint python \
+    "${context_bootstrap[@]}" \
+    --mount "type=bind,src=$snapshot_dir/update-state.json,dst=/bootstrap/update-state.json,readonly" \
+    --mount "type=bind,src=$config_root,dst=/prepare/config-root,readonly" \
+    --mount "type=bind,src=$snapshot_dir/operator-context,dst=/bootstrap/operator-context" \
+    "$image" /bootstrap/container_init.py update-context "${identity[@]}" \
+    --operator-context /bootstrap/operator-context --state-report /bootstrap/update-state.json \
+    --port "$port" --project "$project" "${recovery_options[@]}" >"$snapshot_dir/update-context" \
+    || fail "protected update context invalid; no host transition performed"
+  mapfile -t context <"$snapshot_dir/update-context"
+  [[ ${#context[@]} == 6 && "${context[0]}" == SAMUEL_UPDATE_CONTEXT \
+    && "${context[1]}" =~ ^[0-9]+\.[0-9]+\.[0-9]+((a|b|rc)[0-9]+)?$ \
+    && "${context[2]}" =~ ^installers/[0-9a-f]{64}$ \
+    && ( "${context[5]}" == source || "${context[5]}" == pending || "${context[5]}" == restoring ) ]] || fail "invalid protected update context response"
+  update_source_version=${context[1]}
+  update_source_kit="$update_cache/${context[2]}"
+  update_metadata_stage=${context[5]}
+  [[ "$update_metadata_stage" != restoring || -n "$restore_update" ]] || fail "source restoration already started; use its existing local recovery procedure, not forward activation"
+  [[ -z "$restore_update" || "$update_metadata_stage" != source ]] || fail "restoration requires an attempted metadata update; inspect the unchanged source installation"
+  if [[ "${context[3]}" != - ]]; then
+    [[ "${context[3]}" == "$prefix/srv/samuel/toolchains/"* && "${context[4]}" =~ ^[0-9a-f]{64}$ ]] || fail "invalid retained toolchain identity"
+    check_project_host "${context[3]}"
+    [[ "$(stat -c '%u:%g' -- "${context[3]}")" == 0:0 ]] || fail "retained toolchain is not operator owned"
+    update_old_toolchain=${context[3]}; update_old_toolchain_sha=${context[4]}
+    active_toolchain_args=(--mount "type=bind,src=$update_old_toolchain,dst=/opt/samuel-verifier,readonly")
+  else
+    [[ "${context[4]}" == - ]] || fail "incomplete retained toolchain identity"
+  fi
+}
+active_toolchain_args=()
+update_source_version=""; update_old_toolchain=""; update_old_toolchain_sha=""
+update_source_kit=""; update_metadata_stage=""
+if [[ "$operation" == update ]]; then
+  prepare_update_context
+  if [[ "$update_metadata_stage" == pending || "$update_metadata_stage" == restoring ]]; then
+    [[ -n "$recover_update" ]] || fail "metadata application already started; explicit recovery required"
+    run_update_step verify
+  else
+    initialize_paths verify-update-source
+  fi
+elif [[ "$operation" == install || "$operation" == init ]]; then
+  initialize_paths init
+else
+  initialize_paths verify-installed
+fi
+if [[ "$operation" == init ]]; then
+  echo "Operator paths initialized/verified; no runtime started. Use the documented CLI setup before the dashboard."
+  exit 0
+fi
+prepared_project_sha=""
+read_project_preparation() {
+  local output
+  output=$(docker run --rm --no-healthcheck --network none --read-only --cap-drop ALL --security-opt no-new-privileges \
+    --entrypoint python "${bootstrap[@]}" \
+    --mount "type=bind,src=$config_root/config,dst=/bootstrap/project-config,readonly" \
+    --mount "type=bind,src=$config_root/.env,dst=/bootstrap/operator.env,readonly" \
+    "$image" /bootstrap/container_init.py project-request \
+    --config-root /bootstrap/project-config --operator-env /bootstrap/operator.env) || fail "prepared project invalid or inconsistent with SCM"
+  mapfile -t project_request_data <<< "$output"
+  [[ ${#project_request_data[@]} == 6 && "${project_request_data[0]}" == SAMUEL_PROJECT_REQUEST \
+    && "${project_request_data[1]}" =~ ^[0-9a-f]{64}$ ]] || fail "invalid project preparation response"
+}
+if [[ "$operation" == start && ! -e "$config_root/config/project-binding.json" \
+  && ( -e "$config_root/config/project-registration-request.json" || -L "$config_root/config/project-registration-request.json" ) ]]; then
+  read_project_preparation
+  prepared_project_sha=${project_request_data[1]}
+  project_source=${project_request_data[2]}; project_target=${project_request_data[3]}
+  project_repository=${project_request_data[4]}; project_revision=${project_request_data[5]}
+  prepare_project_inputs
+  printf 'Prepared single project: host=%s target=%s repository=%s revision=%s\nPreparation SHA256: %s\n' \
+    "$project_source" "$project_target" "$project_repository" "$project_revision" "$prepared_project_sha"
+  echo "Host registration will independently check source identity, ownership, Git origin and revision. No clone or ownership change is authorized."
+  if [[ -n "$approved_project" ]]; then
+    [[ "$approved_project" == "$prepared_project_sha" ]] || fail "project approval differs from prepared bytes"
+  else
+    [[ -t 0 && -t 2 ]] || fail "project registration requires interactive approval or --approve-project SHA256"
+    read -r -p 'Type yes to authorize this project registration and Production start: ' project_confirmation || fail "project approval cancelled"
+    [[ "$project_confirmation" == yes ]] || fail "project registration not approved"
+  fi
+elif [[ -n "$approved_project" ]]; then
+  fail "no pending project registration to approve"
+fi
+# Setup replaces inherited file mounts so atomic writes can rename their targets.
+# Apply registered overlays afterwards to preserve project/toolchain mounts.
+maintenance_compose=("${compose[@]}")
+mode=production
+if [[ "$operation" == install || "$operation" == setup ]]; then
+  compose+=(-f "$config_root/compose/docker-compose.setup.yml")
+  mode=setup
+fi
+# Extend the same canonical Compose command only after registration verification.
+if [[ -f "$config_root/config/project-binding.json" ]]; then
+  compose+=(-f "$config_root/compose/docker-compose.project.yml")
+  maintenance_compose+=(-f "$config_root/compose/docker-compose.project.yml")
+fi
+if [[ -f "$config_root/.verifier-toolchain.json" ]]; then
+  compose+=(-f "$config_root/compose/docker-compose.toolchain.yml")
+  maintenance_compose+=(-f "$config_root/compose/docker-compose.toolchain.yml")
+fi
+if [[ "$operation" == update ]]; then
+  # The guard keeps using the verified old installer and its fixed environment
+  # across partial metadata writes. Only its CLI image is the verified target.
+  maintenance_compose=(env -u SAMUEL_IMAGE -u SAMUEL_ENV_FILE -u SAMUEL_CONFIG_DIR -u SAMUEL_DATA_DIR
+    -u SAMUEL_WORK_DIR -u SAMUEL_LOG_DIR -u SAMUEL_BACKUP_DIR -u SAMUEL_DASHBOARD_BIND
+    -u SAMUEL_DASHBOARD_PORT -u COMPOSE_PROJECT_NAME -u COMPOSE_FILE -u COMPOSE_PROFILES
+    docker compose --env-file "$snapshot_dir/operator-context/compose.env"
+    -f "$update_source_kit/docker-compose.yml")
+  if [[ -f "$config_root/config/project-binding.json" ]]; then
+    maintenance_compose+=(-f "$config_root/compose/docker-compose.project.yml")
+  fi
+  if [[ -n "$update_old_toolchain" ]]; then
+    maintenance_compose+=(-f "$snapshot_dir/operator-context/toolchain.yml")
+  fi
+  maintenance_compose+=(-f "$snapshot_dir/operator-context/maintenance.yml")
+  if [[ -n "$restore_update" ]]; then
+    printf 'Restore source release %s from interrupted target %s\nPreparation SHA256: %s\n' "$update_source_version" "$expected_version" "$update_preparation_sha"
+  else
+    printf 'Update %s -> %s, revision %s\nPreparation SHA256: %s\n' "$update_source_version" "$expected_version" "$expected_revision" "$update_preparation_sha"
+  fi
+  echo "The operator independently checked the release inputs. This is not initial-trust qualification."
+  if [[ -n "$restore_update" ]]; then
+    echo "Approval authorizes runtime stop, restoration of the bound source release metadata and existing State backup. Reconcile and identity recovery remain separate operator decisions; the runtime stays stopped."
+  else
+    echo "Approval authorizes the managed backup, file capture, explicit runtime stop, bound update and Production restart; no workflow start."
+  fi
+  echo "If interrupted, first verify that the previous operator process ended. Then explicitly run the same bound recovery with the same host privileges:"
+  recovery_flag=--recover-update
+  if [[ -n "$restore_update" ]]; then recovery_flag=--restore-update; fi
+  recovery_command=(bash "$installer_dir/tools/samuel-container" update
+    --manifest "$manifest" --manifest-sha256 "$manifest_sha" --installer-archive "$archive"
+    --image "$image" --update-preparation "$update_preparation" --update-preparation-sha256 "$update_preparation_sha"
+    --root "$install_root" --port "$port" --project "$project" "$recovery_flag" "$update_preparation_sha")
+  printf '  %q' "${recovery_command[0]}"
+  printf ' %q' "${recovery_command[@]:1}"
+  printf '\n'
+  approval_prompt='Type yes to authorize this exact update operation: '
+  if [[ -n "$restore_update" ]]; then approval_prompt='Type yes to authorize restoration of the source release and State backup: '; fi
+  read -r -p "$approval_prompt" update_confirmation || fail "update cancelled"
+  [[ "$update_confirmation" == yes ]] || fail "update not approved"
+fi
+if [[ "$operation" == doctor ]]; then
+  doctor_args=(run --rm --no-deps)
+  if [[ -n "$branch_token_file" ]]; then
+    [[ -f "$branch_token_file" && ! -L "$branch_token_file" ]] || fail "temporary token must be a regular file"
+    branch_token_file=$(realpath -e -- "$branch_token_file")
+    [[ "$branch_token_file" != *:* ]] || fail "temporary token mount source must not contain colons"
+    doctor_args+=(--volume "$branch_token_file:/run/secrets/branch-protection:ro")
+  fi
+  doctor_args+=(samuel doctor)
+  if [[ -n "$branch_token_file" ]]; then doctor_args+=(--branch-protection-token-file /run/secrets/branch-protection); fi
+  "${compose[@]}" -f "$snapshot_dir/maintenance-healthcheck.json" "${doctor_args[@]}"
+  exit $?
+fi
+if [[ "$operation" == project || "$operation" == toolchain ]]; then
+  begin_maintenance stopped
+  [[ -z "$("${compose[@]}" ps -q samuel)" ]] || fail "runtime started before registration; no registration performed"
+  if [[ "$operation" == toolchain ]]; then mkdir -p -- "$toolchain_root"; fi
+  active_toolchain_args=("${toolchain_args[@]}")
+  initialize_paths "$init_command"
+  complete_maintenance
+  echo "Registration completed with runtime stopped; use the same manifest-bound installer for explicit setup or start."
+  exit 0
+fi
+begin_maintenance "$mode"
+if [[ -n "$prepared_project_sha" ]]; then
+  read_project_preparation
+  [[ "${project_request_data[1]}" == "$prepared_project_sha" ]] || fail "project preparation changed after approval; transition remains pending"
+fi
+if [[ "$operation" == update ]]; then
+  assert_update_guard
+  "${maintenance_compose[@]}" stop samuel >"$snapshot_dir/stop.log" 2>&1 || fail "runtime stop failed; maintenance remains pending"
+  assert_update_guard
+  if [[ -n "$restore_update" ]]; then
+    restore_backup=""; restore_compose=""; restore_source_image=""; restore_source_revision=""
+    restore_manifest=""; restore_manifest_sha=""; restore_archive=""; restore_kit=""
+    run_update_step restore
+    assert_update_guard
+    [[ -n "$restore_backup" && -n "$restore_compose" && -n "$restore_source_image" && -n "$restore_manifest" && -n "$restore_kit" ]] || fail "restoration inputs incomplete; runtime remains stopped"
+    [[ "$("${compose[@]}" config --images)" == "$restore_source_image" ]] || fail "restored Compose image differs from the source release"
+    if ! docker image inspect "$restore_source_image" >/dev/null 2>&1; then
+      docker pull --platform linux/amd64 "$restore_source_image" >"$snapshot_dir/restore-pull.log" 2>&1 || fail "original source image unavailable; restoration remains open"
+    fi
+    [[ "$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' "$restore_source_image")" == "$restore_source_revision" \
+      && "$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.version"}}' "$restore_source_image")" == "$update_source_version" ]] || fail "original source image identity differs"
+    restore_cli=("${compose[@]}" -f "$restore_compose" run --rm --no-deps -T samuel)
+    restore_start=(bash "$restore_kit/tools/samuel-container" start
+      --manifest "$restore_manifest" --manifest-sha256 "$restore_manifest_sha"
+      --installer-archive "$restore_archive" --image "$restore_source_image"
+      --root "$install_root" --port "$port" --project "$project")
+    echo "If this process is interrupted, retain the backup and inspect the existing local State recovery operation. Dashboard access is not required."
+    echo "Read the recovery state with the same host privileges:"
+    printf '  %q' "${restore_cli[0]}"; printf ' %q' "${restore_cli[@]:1}" state status --json; printf '\n'
+    echo "Then run the existing reconcile-scan, review/resolve any findings, and explicitly reconcile-complete. Recover local identities separately where required. These actions do not authorize a workflow start."
+    echo "Only after recovery is complete, explicitly start the original release:"
+    printf '  %q' "${restore_start[0]}"; printf ' %q' "${restore_start[@]:1}"; printf '\n'
+    "${restore_cli[@]}" state restore --source "$restore_backup" \
+      --reason "Explicit source recovery for update $update_preparation_sha" --json \
+      || fail "State restoration did not complete; inspect the printed local recovery command; runtime remains stopped"
+    echo "Source metadata and State backup restored. Reconciliation and any required identity recovery are still pending. Runtime remains stopped."
+    # EOF releases only this process's locks. Restore authority remains fenced by
+    # the existing State restore operation; never COMMIT the superseded update.
+    exit 0
+  fi
+  run_update_step capture
+  assert_update_guard
+  run_update_step toolchain
+  assert_update_guard
+  run_update_step apply
+  assert_update_guard
+else
+  "${compose[@]}" stop samuel >"$snapshot_dir/stop.log" 2>&1 || fail "runtime stop failed; maintenance remains open"
+fi
+if [[ -n "$prepared_project_sha" ]]; then
+  active_toolchain_args=("${toolchain_args[@]}")
+  initialize_paths register-project
+  [[ -f "$config_root/config/project-binding.json" && -f "$config_root/compose/docker-compose.project.yml" ]] || fail "project registration incomplete; runtime remains stopped"
+  compose+=(-f "$config_root/compose/docker-compose.project.yml")
+fi
+if [[ "$mode" == setup ]]; then
+  "${compose[@]}" -f "$snapshot_dir/maintenance-healthcheck.json" run --rm --no-deps samuel setup --non-interactive >"$snapshot_dir/setup.log" 2>&1 || fail "CLI setup failed; initialized sources preserved; runtime not ready"
+fi
+if [[ -n "$admin_username" ]]; then
+  "${compose[@]}" -f "$snapshot_dir/maintenance-healthcheck.json" run --rm --no-deps -it samuel identity bootstrap \
+    --username "$admin_username" --prompt-password || fail "administrator bootstrap failed; dashboard not started; initialized sources preserved"
+  "${compose[@]}" -f "$snapshot_dir/maintenance-healthcheck.json" run --rm --no-deps -T samuel identity cutover \
+    --client-inventory-confirmed --reason "$admin_reason" || fail "identity cutover failed; administrator preserved; complete the existing local cutover path before starting the dashboard"
+fi
+"${compose[@]}" up -d --no-build --pull never --force-recreate samuel >"$snapshot_dir/start.log" 2>&1 || fail "runtime start failed; initialized sources preserved; runtime not ready"
+# Run the mode-aware operator probe inside the exact manifest-bound service.
+# Local identities never reactivate the legacy key or require a new API token.
+probe='import json,os,sys,subprocess,urllib.request
+from pathlib import Path
+expected_mode=os.environ["SAMUEL_INSTALL_EXPECTED_MODE"]
+config=Path(os.environ["SAMUEL_RUNTIME_CONFIG_DIR"])
+access_mode=json.loads((config/"auth.json").read_text())["access_mode"]
+h={"X-API-Key":os.environ["SAMUEL_API_KEY"]} if access_mode=="legacy_api_key" else {}
+def get(p):
+ with urllib.request.urlopen(urllib.request.Request("http://127.0.0.1:7777"+p,headers=h),timeout=5) as r:return json.load(r)
+def verify_binding(actual_mode,b):
+ if actual_mode!=expected_mode or b["product_version"]!=os.environ["SAMUEL_INSTALL_EXPECTED_VERSION"] or b["revision"]!=os.environ["SAMUEL_INSTALL_EXPECTED_REVISION"]:sys.exit(42)
+if access_mode=="legacy_api_key":
+ s=get("/api/v1/setup/status"); b=get("/api/v1/dashboard/status")["build"]
+ actual_mode=s["configuration"]["mode"]
+ verify_binding(actual_mode,b)
+ health=get("/api/v1/dashboard/health")
+else:
+ assert access_mode=="local_identity"
+ auth=get("/api/v1/auth/mode")
+ assert auth["access_mode"]==access_mode and auth["identity_status"]=="active"
+ argv=Path("/proc/1/cmdline").read_bytes().decode().split("\0")
+ assert "dashboard" in argv and argv.count("--configuration-mode")==1
+ actual_mode=argv[argv.index("--configuration-mode")+1]
+ from samuel import __build_info__
+ b=__build_info__.as_dict()
+ verify_binding(actual_mode,b)
+ checked=subprocess.run(["samuel","health","--json"],capture_output=True,text=True,timeout=60)
+ assert checked.returncode in (0,1)
+ health=json.loads(checked.stdout)
+ health["checks"]={k:v.get("passed") for k,v in health.get("checks",{}).items()}
+ if expected_mode=="production":assert checked.returncode==0
+if expected_mode=="setup":
+ assert all(health.get("checks",{}).get(k) is True for k in ("python","git","config","state","authority"))
+else:assert health["healthy"] is True'
+# Compare running identity with the manifest-verified labels, never operator overrides.
+for attempt in {1..60}; do
+  if "${compose[@]}" exec -T -e "SAMUEL_INSTALL_EXPECTED_MODE=$mode" \
+     -e "SAMUEL_INSTALL_EXPECTED_VERSION=$expected_version" \
+     -e "SAMUEL_INSTALL_EXPECTED_REVISION=$expected_revision" \
+     samuel python -c "$probe" >"$snapshot_dir/ready.log" 2>&1; then
+    cid=$("${compose[@]}" ps -q samuel)
+    [[ "$(docker inspect --format '{{.Config.Image}}' "$cid")" == "$image" ]] || fail "running image differs from manifest"
+    if [[ "$operation" == update ]]; then assert_update_guard; fi
+    complete_maintenance
+    if [[ "$mode" == setup ]]; then
+      echo "setup runtime ready; version/revision and local startup checks verified; complete SCM/provider settings before production"
+    else
+      echo "production runtime ready; version/revision and technical health verified"
+    fi
+    echo "Open: http://127.0.0.1:$port (remote hosts: use an SSH tunnel)"
+    if [[ "$mode" == setup ]]; then
+      if [[ -n "$admin_username" ]]; then
+        echo "Sign in with the new local administrator. Assign the required independent roles in the dashboard, complete and review setup, then run this installer with start and the same installation options (without --admin-username)."
+      else
+        echo "Authenticate using the configured local identity or, in legacy mode, the protected operator .env source; complete and review setup, then run this installer with start and the same installation options."
+      fi
+      # Render data as Bash arguments, never as an executable command template.
+      # Keep the separate operator decision and the normal start verification.
+      next_start=(bash "$installer_dir/tools/samuel-container" start
+                  --manifest "$manifest" --manifest-sha256 "$manifest_sha"
+                  --installer-archive "$archive" --compose-dir "$compose_dir"
+                  --image "$image" --root "$install_root" --port "$port" --project "$project")
+      if [[ "$EUID" == 0 && "${SUDO_UID:-}" =~ ^[0-9]+$ ]]; then
+        next_start=(sudo "${next_start[@]}")
+      fi
+      echo "After completing and reviewing dashboard setup, explicitly run this command in Bash with the same host privileges:"
+      printf '  %q' "${next_start[0]}"
+      printf ' %q' "${next_start[@]:1}"
+      printf '\n'
+    fi
+    exit 0
+  else
+    probe_exit=$?
+    (( probe_exit != 42 )) || fail "running version, revision or mode differs from manifest-bound installation"
+  fi
+  sleep 1
+done
+fail "runtime readiness failed; initialized sources preserved; no successful installation claimed"

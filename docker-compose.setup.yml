@@ -1,0 +1,15 @@
+# Explicit, short-lived override for an operator-led configuration change.
+# Use only together with docker-compose.yml after the production service stopped.
+services:
+  samuel:
+    # Replace inherited file mounts: setup writers atomically replace JSON files.
+    # Registered project/toolchain overlays are applied after this override.
+    volumes: !override
+      - ${SAMUEL_ENV_FILE:-.env}:/app/.env:rw
+      - ${SAMUEL_CONFIG_DIR:-./config}:/app/config:rw
+      - ${SAMUEL_DATA_DIR:-./data}:/app/data
+      - ${SAMUEL_LOG_DIR:-${SAMUEL_DATA_DIR:-./data}/logs}:/app/data/logs
+      - ${SAMUEL_BACKUP_DIR:-${SAMUEL_DATA_DIR:-./data}/backups}:/app/data/backups
+      - ${SAMUEL_WORK_DIR:-./workspaces}:/samuel-workspaces
+    restart: "no"
+    command: ["dashboard", "--host", "0.0.0.0", "--port", "7777", "--configuration-mode", "setup"]
