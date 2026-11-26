@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "enabled": false,
+  "required_qualified": false,
+  "integrity_key_env": "SAMUEL_EXECUTION_EVIDENCE_HMAC_KEY",
+  "gitea": {
+    "schema_version": 1,
+    "name": "gitea-reference-v1",
+    "repository": "owner/repository",
+    "workflow_id": "samuel-verification.yml",
+    "workflow_path": ".gitea/workflows/samuel-verification.yml",
+    "workflow_ref": "main",
+    "workflow_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "tool_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "environment_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "issuer": "gitea-reference-control-plane",
+    "integrity_key_id": "operator-configured",
+    "artifact_name": "samuel-verification-evidence",
+    "evidence_filename": "evidence.json",
+    "max_artifact_bytes": 262144,
+    "max_evidence_age_seconds": 3600,
+    "clock_skew_seconds": 60
+  }
+}

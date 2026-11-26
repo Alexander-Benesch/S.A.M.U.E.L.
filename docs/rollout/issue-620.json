@@ -1,0 +1,1147 @@
+{
+  "schema_version": "1.0",
+  "schema": "issue-620.schema.json",
+  "schema_digest": "sha256:a609012d69c017bd289b4d5399e02de5916911af760301c7adf740e5b58fd54c",
+  "decision_issue": 620,
+  "rollout_issue": 653,
+  "product_commit": "835bae937b9b20f5b6a82f2ee7e9a64022f95765",
+  "generated_at": "2026-08-29T21:20:46.812735Z",
+  "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+  "cases": [
+    {
+      "id": "success",
+      "result": "passed",
+      "run": {
+        "issue_number": 15,
+        "issue_url": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture/issues/15",
+        "evidence_comment_id": 40131,
+        "evidence_comment_url": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture/issues/15#issuecomment-40131"
+      },
+      "branch": "rollout-620/success",
+      "correlation_id": "rollout-620-success",
+      "verifier_dispatches": 1,
+      "terminal": {
+        "event": "GateEvaluationCompleted",
+        "count": 1,
+        "observed_at": "2026-08-29T21:20:45.753059Z",
+        "observation_key": "sha256:2ecfacf131171db0d283ea0f0b68192042c20c864fe1138aa4bd16ef0356afb4",
+        "evidence_digest": "sha256:872d38d420d29ba2135534514bc5c990249bad3c9bb839a57d76265819951b25",
+        "terminal_key": null,
+        "gate_result_schema_version": 2,
+        "observation_schema_version": 2,
+        "status": null,
+        "error_code": null
+      },
+      "subject": {
+        "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+        "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+        "head_sha": "b49493518b4a75d0c5db725bf340ab1718dbcf0b",
+        "contract_hash": "sha256:3cf0833edde88d23f9527dfb27406c6dd67dc4431a077e756144a822693ef840",
+        "policy_version": "2026-08-29.rollout-620.full.v1",
+        "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+      },
+      "gate_results": [
+        {
+          "gate": "7b",
+          "passed": true,
+          "executed": true,
+          "status": "passed",
+          "reason_code": "gate_7b_passed",
+          "reason": "Contract-Scope erfüllt: 1 Datei(en)",
+          "owasp_risk": null,
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "b49493518b4a75d0c5db725bf340ab1718dbcf0b",
+            "contract_hash": "sha256:3cf0833edde88d23f9527dfb27406c6dd67dc4431a077e756144a822693ef840",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          },
+          "tool": {
+            "control_id": "PRG-07B",
+            "scope_schema_version": 1,
+            "contract_hash": "sha256:3cf0833edde88d23f9527dfb27406c6dd67dc4431a077e756144a822693ef840",
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "b49493518b4a75d0c5db725bf340ab1718dbcf0b",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047",
+            "architecture_expansion": "disabled",
+            "architecture_roles": [],
+            "changed_files": [
+              "rollout_fixture/preflight620.py"
+            ],
+            "out_of_scope": [],
+            "diff_bytes": 362,
+            "diff_digest": "sha256:0631a84179b35341a56404184b554ecb164526412838015d656df80fdf40ee60"
+          }
+        },
+        {
+          "gate": 8,
+          "passed": true,
+          "executed": true,
+          "status": "passed",
+          "reason_code": "gate_8_passed",
+          "reason": "Keine Cross-Slice-Imports",
+          "owasp_risk": null,
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "b49493518b4a75d0c5db725bf340ab1718dbcf0b",
+            "contract_hash": "sha256:3cf0833edde88d23f9527dfb27406c6dd67dc4431a077e756144a822693ef840",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          }
+        },
+        {
+          "gate": 9,
+          "passed": true,
+          "executed": true,
+          "status": "passed",
+          "reason_code": "gate_9_passed",
+          "reason": "1 Candidate-Python-Datei(en) syntaktisch korrekt",
+          "owasp_risk": null,
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "b49493518b4a75d0c5db725bf340ab1718dbcf0b",
+            "contract_hash": "sha256:3cf0833edde88d23f9527dfb27406c6dd67dc4431a077e756144a822693ef840",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          },
+          "tool": {
+            "name": "cpython.ast",
+            "version": "3.13.5"
+          }
+        },
+        {
+          "gate": "13a",
+          "passed": true,
+          "executed": true,
+          "status": "passed",
+          "reason_code": "gate_13a_passed",
+          "reason": "Branch 0 Commits hinter main",
+          "owasp_risk": null,
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "b49493518b4a75d0c5db725bf340ab1718dbcf0b",
+            "contract_hash": "sha256:3cf0833edde88d23f9527dfb27406c6dd67dc4431a077e756144a822693ef840",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          }
+        },
+        {
+          "gate": "13b",
+          "passed": true,
+          "executed": true,
+          "status": "passed",
+          "reason_code": "gate_13b_passed",
+          "reason": "Diff nicht destruktiv",
+          "owasp_risk": null,
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "b49493518b4a75d0c5db725bf340ab1718dbcf0b",
+            "contract_hash": "sha256:3cf0833edde88d23f9527dfb27406c6dd67dc4431a077e756144a822693ef840",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          }
+        },
+        {
+          "gate": 11,
+          "passed": true,
+          "executed": true,
+          "status": "passed",
+          "reason_code": "gate_11_passed",
+          "reason": "Alle 2 Kriterien am Candidate nachgewiesen",
+          "owasp_risk": null,
+          "phase": "post_candidate",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "b49493518b4a75d0c5db725bf340ab1718dbcf0b",
+            "contract_hash": "sha256:3cf0833edde88d23f9527dfb27406c6dd67dc4431a077e756144a822693ef840",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          }
+        }
+      ],
+      "acceptance_evidence": {
+        "schema_version": 1,
+        "evaluation_subject": {
+          "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+          "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+          "head_sha": "b49493518b4a75d0c5db725bf340ab1718dbcf0b",
+          "contract_hash": "sha256:3cf0833edde88d23f9527dfb27406c6dd67dc4431a077e756144a822693ef840",
+          "policy_version": "2026-08-29.rollout-620.full.v1",
+          "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+        },
+        "contract": {
+          "schema_version": 2,
+          "revision": "1",
+          "contract_hash": "sha256:3cf0833edde88d23f9527dfb27406c6dd67dc4431a077e756144a822693ef840",
+          "criteria": [
+            {
+              "criterion_id": "AC-1028454b294aae8e",
+              "tag": "DIFF",
+              "text": "rollout_fixture/preflight620.py",
+              "mode": "automatic",
+              "required": true
+            },
+            {
+              "criterion_id": "AC-98d2177fdaf6c588",
+              "tag": "GREP",
+              "text": "\"ROLLOUT_620_SUCCESS = True\" rollout_fixture/preflight620.py",
+              "mode": "automatic",
+              "required": true
+            }
+          ],
+          "scope": {
+            "schema_version": 1,
+            "entries": [
+              {
+                "kind": "file",
+                "value": "rollout_fixture/preflight620.py"
+              }
+            ],
+            "architecture_expansion": "disabled"
+          },
+          "approval": {
+            "state": "approved",
+            "actor": "rollout-operator",
+            "method": "operator_controlled_fixture",
+            "source_id": "upstream:#653",
+            "approved_at": "2026-08-29T21:20:45.571790Z",
+            "contract_hash": "sha256:3cf0833edde88d23f9527dfb27406c6dd67dc4431a077e756144a822693ef840"
+          }
+        },
+        "results": [
+          {
+            "criterion_id": "AC-1028454b294aae8e",
+            "status": "passed",
+            "reason": "changed in immutable comparison: rollout_fixture/preflight620.py",
+            "tag": "DIFF",
+            "evidence": {
+              "schema_version": 1,
+              "kind": "diff",
+              "path": "rollout_fixture/preflight620.py",
+              "changed": true
+            }
+          },
+          {
+            "criterion_id": "AC-98d2177fdaf6c588",
+            "status": "passed",
+            "reason": "found in rollout_fixture/preflight620.py",
+            "tag": "GREP",
+            "evidence": {
+              "schema_version": 1,
+              "kind": "grep",
+              "pattern": "ROLLOUT_620_SUCCESS = True",
+              "found": true,
+              "matched_file": "rollout_fixture/preflight620.py"
+            }
+          }
+        ]
+      },
+      "score_observation": {
+        "count": 1,
+        "score": 1.0,
+        "scoreability": "scoreable",
+        "not_scoreable_reason": null,
+        "non_binding": true,
+        "observation_key": "sha256:2ecfacf131171db0d283ea0f0b68192042c20c864fe1138aa4bd16ef0356afb4",
+        "evidence_digest": "sha256:872d38d420d29ba2135534514bc5c990249bad3c9bb839a57d76265819951b25",
+        "score_key": "sha256:b99644eb4f86b8d0e4cc7b18e514972c747027e2b4dd3956e49c81e00f717c9c",
+        "scoring_policy_version": "2026-08-29.rollout-620.score.v1",
+        "scoring_policy_digest": "sha256:155594c411c5e15f41d9a86e8cfca72a8c0cc201ea822e858da9de536d206257",
+        "formula_version": "bound-evidence.v1"
+      },
+      "healing": {
+        "count": 1,
+        "classification": "not_needed",
+        "reason": "required_gates_passed",
+        "llm_calls": 0,
+        "claims": 0
+      },
+      "candidate_process_events": {
+        "test_run_completed": 0
+      },
+      "fault_injection": null,
+      "pr": {
+        "count": 1,
+        "number": 22,
+        "url": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture/pulls/22",
+        "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+        "head_sha": "b49493518b4a75d0c5db725bf340ab1718dbcf0b"
+      }
+    },
+    {
+      "id": "scope_fail",
+      "result": "passed",
+      "run": {
+        "issue_number": 16,
+        "issue_url": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture/issues/16",
+        "evidence_comment_id": 40133,
+        "evidence_comment_url": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture/issues/16#issuecomment-40133"
+      },
+      "branch": "rollout-620/scope-fail",
+      "correlation_id": "rollout-620-scope_fail",
+      "verifier_dispatches": 0,
+      "terminal": {
+        "event": "GateEvaluationCompleted",
+        "count": 1,
+        "observed_at": "2026-08-29T21:20:46.244158Z",
+        "observation_key": "sha256:444a60ef2e2c81d051b360edf67fcc2e771a53e986c4e9459d8016159d36e8cd",
+        "evidence_digest": "sha256:0856ff1fe82aa1ffe56e26d4a57ff337e3fd12e1992ae97fa02a17013f63ccb8",
+        "terminal_key": null,
+        "gate_result_schema_version": 2,
+        "observation_schema_version": 2,
+        "status": null,
+        "error_code": null
+      },
+      "subject": {
+        "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+        "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+        "head_sha": "5a6fb2c97ba8eaf6f383f1bffd5c1f6d15e95973",
+        "contract_hash": "sha256:3be39e8ea058f5fb8c96116dced1f8d47d20b2bbb8d6d9dc50b8628af586151e",
+        "policy_version": "2026-08-29.rollout-620.full.v1",
+        "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+      },
+      "gate_results": [
+        {
+          "gate": "7b",
+          "passed": false,
+          "executed": true,
+          "status": "failed",
+          "reason_code": "gate_7b_failed",
+          "reason": "Contract-Scope verletzt: 1 Datei(en): rollout_fixture/preflight620.py",
+          "owasp_risk": null,
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "5a6fb2c97ba8eaf6f383f1bffd5c1f6d15e95973",
+            "contract_hash": "sha256:3be39e8ea058f5fb8c96116dced1f8d47d20b2bbb8d6d9dc50b8628af586151e",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          },
+          "tool": {
+            "control_id": "PRG-07B",
+            "scope_schema_version": 1,
+            "contract_hash": "sha256:3be39e8ea058f5fb8c96116dced1f8d47d20b2bbb8d6d9dc50b8628af586151e",
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "5a6fb2c97ba8eaf6f383f1bffd5c1f6d15e95973",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047",
+            "architecture_expansion": "disabled",
+            "architecture_roles": [],
+            "changed_files": [
+              "rollout_fixture/preflight620.py"
+            ],
+            "out_of_scope": [
+              "rollout_fixture/preflight620.py"
+            ],
+            "diff_bytes": 365,
+            "diff_digest": "sha256:23651ff7f0864ce11b3f7a168667615dfe4dc8a0305e2da62493635b1b8820dc"
+          }
+        },
+        {
+          "gate": 8,
+          "passed": true,
+          "executed": true,
+          "status": "passed",
+          "reason_code": "gate_8_passed",
+          "reason": "Keine Cross-Slice-Imports",
+          "owasp_risk": null,
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "5a6fb2c97ba8eaf6f383f1bffd5c1f6d15e95973",
+            "contract_hash": "sha256:3be39e8ea058f5fb8c96116dced1f8d47d20b2bbb8d6d9dc50b8628af586151e",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          }
+        },
+        {
+          "gate": 9,
+          "passed": true,
+          "executed": true,
+          "status": "passed",
+          "reason_code": "gate_9_passed",
+          "reason": "1 Candidate-Python-Datei(en) syntaktisch korrekt",
+          "owasp_risk": null,
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "5a6fb2c97ba8eaf6f383f1bffd5c1f6d15e95973",
+            "contract_hash": "sha256:3be39e8ea058f5fb8c96116dced1f8d47d20b2bbb8d6d9dc50b8628af586151e",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          },
+          "tool": {
+            "name": "cpython.ast",
+            "version": "3.13.5"
+          }
+        },
+        {
+          "gate": "13a",
+          "passed": true,
+          "executed": true,
+          "status": "passed",
+          "reason_code": "gate_13a_passed",
+          "reason": "Branch 0 Commits hinter main",
+          "owasp_risk": null,
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "5a6fb2c97ba8eaf6f383f1bffd5c1f6d15e95973",
+            "contract_hash": "sha256:3be39e8ea058f5fb8c96116dced1f8d47d20b2bbb8d6d9dc50b8628af586151e",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          }
+        },
+        {
+          "gate": "13b",
+          "passed": true,
+          "executed": true,
+          "status": "passed",
+          "reason_code": "gate_13b_passed",
+          "reason": "Diff nicht destruktiv",
+          "owasp_risk": null,
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "5a6fb2c97ba8eaf6f383f1bffd5c1f6d15e95973",
+            "contract_hash": "sha256:3be39e8ea058f5fb8c96116dced1f8d47d20b2bbb8d6d9dc50b8628af586151e",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          }
+        },
+        {
+          "gate": 11,
+          "passed": null,
+          "executed": false,
+          "status": "skipped_precondition",
+          "reason_code": "gate_11_skipped_precondition",
+          "reason": "Nicht ausgeführt: erforderliches Preflight-Gate fehlgeschlagen",
+          "owasp_risk": null,
+          "phase": "post_candidate",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "5a6fb2c97ba8eaf6f383f1bffd5c1f6d15e95973",
+            "contract_hash": "sha256:3be39e8ea058f5fb8c96116dced1f8d47d20b2bbb8d6d9dc50b8628af586151e",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          }
+        }
+      ],
+      "acceptance_evidence": null,
+      "score_observation": {
+        "count": 1,
+        "score": null,
+        "scoreability": "not_scoreable",
+        "not_scoreable_reason": "missing_acceptance_evidence",
+        "non_binding": true,
+        "observation_key": "sha256:444a60ef2e2c81d051b360edf67fcc2e771a53e986c4e9459d8016159d36e8cd",
+        "evidence_digest": "sha256:0856ff1fe82aa1ffe56e26d4a57ff337e3fd12e1992ae97fa02a17013f63ccb8",
+        "score_key": "sha256:adbd1972c9d37f453f26f7b33e5bf5a1bb135521de65b2c7525a1f1aff3d8620",
+        "scoring_policy_version": "2026-08-29.rollout-620.score.v1",
+        "scoring_policy_digest": "sha256:155594c411c5e15f41d9a86e8cfca72a8c0cc201ea822e858da9de536d206257",
+        "formula_version": "bound-evidence.v1"
+      },
+      "healing": {
+        "count": 1,
+        "classification": "not_healable",
+        "reason": "gate_11_not_failed",
+        "llm_calls": 0,
+        "claims": 0
+      },
+      "candidate_process_events": {
+        "test_run_completed": 0
+      },
+      "fault_injection": null,
+      "pr": {
+        "count": 0,
+        "number": null,
+        "url": null,
+        "base_sha": null,
+        "head_sha": null
+      }
+    },
+    {
+      "id": "syntax_fail",
+      "result": "passed",
+      "run": {
+        "issue_number": 17,
+        "issue_url": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture/issues/17",
+        "evidence_comment_id": 40134,
+        "evidence_comment_url": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture/issues/17#issuecomment-40134"
+      },
+      "branch": "rollout-620/syntax-fail",
+      "correlation_id": "rollout-620-syntax_fail",
+      "verifier_dispatches": 0,
+      "terminal": {
+        "event": "GateEvaluationCompleted",
+        "count": 1,
+        "observed_at": "2026-08-29T21:20:46.411231Z",
+        "observation_key": "sha256:7d0bb98fd2d5094c3abe9d427ca4aa7118cf99be6abb96e108b04f5a3b00f122",
+        "evidence_digest": "sha256:dfd2e8e2d11e41ec0d2e9d07146dd12e53ccf9c05e426e36657934b3328a6c8b",
+        "terminal_key": null,
+        "gate_result_schema_version": 2,
+        "observation_schema_version": 2,
+        "status": null,
+        "error_code": null
+      },
+      "subject": {
+        "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+        "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+        "head_sha": "0082502f0619d921861261fbd75c0de472695a4a",
+        "contract_hash": "sha256:b8d5c96b1d55a55cae9f1a07d4b9ef35fd6af1e485cc6f20e2c548d74b11414a",
+        "policy_version": "2026-08-29.rollout-620.full.v1",
+        "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+      },
+      "gate_results": [
+        {
+          "gate": "7b",
+          "passed": true,
+          "executed": true,
+          "status": "passed",
+          "reason_code": "gate_7b_passed",
+          "reason": "Contract-Scope erfüllt: 1 Datei(en)",
+          "owasp_risk": null,
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "0082502f0619d921861261fbd75c0de472695a4a",
+            "contract_hash": "sha256:b8d5c96b1d55a55cae9f1a07d4b9ef35fd6af1e485cc6f20e2c548d74b11414a",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          },
+          "tool": {
+            "control_id": "PRG-07B",
+            "scope_schema_version": 1,
+            "contract_hash": "sha256:b8d5c96b1d55a55cae9f1a07d4b9ef35fd6af1e485cc6f20e2c548d74b11414a",
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "0082502f0619d921861261fbd75c0de472695a4a",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047",
+            "architecture_expansion": "disabled",
+            "architecture_roles": [],
+            "changed_files": [
+              "rollout_fixture/preflight620.py"
+            ],
+            "out_of_scope": [],
+            "diff_bytes": 359,
+            "diff_digest": "sha256:86addc4d79927ee984553f921e9ce342e0bc509c85b1a24dfa72e030900342a6"
+          }
+        },
+        {
+          "gate": 8,
+          "passed": true,
+          "executed": true,
+          "status": "passed",
+          "reason_code": "gate_8_passed",
+          "reason": "Keine Cross-Slice-Imports",
+          "owasp_risk": null,
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "0082502f0619d921861261fbd75c0de472695a4a",
+            "contract_hash": "sha256:b8d5c96b1d55a55cae9f1a07d4b9ef35fd6af1e485cc6f20e2c548d74b11414a",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          }
+        },
+        {
+          "gate": 9,
+          "passed": false,
+          "executed": true,
+          "status": "failed",
+          "reason_code": "gate_9_failed",
+          "reason": "Python-Syntaxprüfung fehlgeschlagen: rollout_fixture/preflight620.py:3: '(' was never closed (preflight620.py, line 3)",
+          "owasp_risk": null,
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "0082502f0619d921861261fbd75c0de472695a4a",
+            "contract_hash": "sha256:b8d5c96b1d55a55cae9f1a07d4b9ef35fd6af1e485cc6f20e2c548d74b11414a",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          },
+          "tool": {
+            "name": "cpython.ast",
+            "version": "3.13.5"
+          }
+        },
+        {
+          "gate": "13a",
+          "passed": true,
+          "executed": true,
+          "status": "passed",
+          "reason_code": "gate_13a_passed",
+          "reason": "Branch 0 Commits hinter main",
+          "owasp_risk": null,
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "0082502f0619d921861261fbd75c0de472695a4a",
+            "contract_hash": "sha256:b8d5c96b1d55a55cae9f1a07d4b9ef35fd6af1e485cc6f20e2c548d74b11414a",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          }
+        },
+        {
+          "gate": "13b",
+          "passed": true,
+          "executed": true,
+          "status": "passed",
+          "reason_code": "gate_13b_passed",
+          "reason": "Diff nicht destruktiv",
+          "owasp_risk": null,
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "0082502f0619d921861261fbd75c0de472695a4a",
+            "contract_hash": "sha256:b8d5c96b1d55a55cae9f1a07d4b9ef35fd6af1e485cc6f20e2c548d74b11414a",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          }
+        },
+        {
+          "gate": 11,
+          "passed": null,
+          "executed": false,
+          "status": "skipped_precondition",
+          "reason_code": "gate_11_skipped_precondition",
+          "reason": "Nicht ausgeführt: erforderliches Preflight-Gate fehlgeschlagen",
+          "owasp_risk": null,
+          "phase": "post_candidate",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "0082502f0619d921861261fbd75c0de472695a4a",
+            "contract_hash": "sha256:b8d5c96b1d55a55cae9f1a07d4b9ef35fd6af1e485cc6f20e2c548d74b11414a",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          }
+        }
+      ],
+      "acceptance_evidence": null,
+      "score_observation": {
+        "count": 1,
+        "score": null,
+        "scoreability": "not_scoreable",
+        "not_scoreable_reason": "missing_acceptance_evidence",
+        "non_binding": true,
+        "observation_key": "sha256:7d0bb98fd2d5094c3abe9d427ca4aa7118cf99be6abb96e108b04f5a3b00f122",
+        "evidence_digest": "sha256:dfd2e8e2d11e41ec0d2e9d07146dd12e53ccf9c05e426e36657934b3328a6c8b",
+        "score_key": "sha256:2cf08ea8e73f06f375ef6e721c8f0baa4c974005d02e34212078e8f8dc343b5d",
+        "scoring_policy_version": "2026-08-29.rollout-620.score.v1",
+        "scoring_policy_digest": "sha256:155594c411c5e15f41d9a86e8cfca72a8c0cc201ea822e858da9de536d206257",
+        "formula_version": "bound-evidence.v1"
+      },
+      "healing": {
+        "count": 1,
+        "classification": "not_healable",
+        "reason": "gate_11_not_failed",
+        "llm_calls": 0,
+        "claims": 0
+      },
+      "candidate_process_events": {
+        "test_run_completed": 0
+      },
+      "fault_injection": null,
+      "pr": {
+        "count": 0,
+        "number": null,
+        "url": null,
+        "base_sha": null,
+        "head_sha": null
+      }
+    },
+    {
+      "id": "freshness_unknown",
+      "result": "passed",
+      "run": {
+        "issue_number": 18,
+        "issue_url": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture/issues/18",
+        "evidence_comment_id": 40135,
+        "evidence_comment_url": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture/issues/18#issuecomment-40135"
+      },
+      "branch": "rollout-620/freshness-unknown",
+      "correlation_id": "rollout-620-freshness_unknown",
+      "verifier_dispatches": 0,
+      "terminal": {
+        "event": "GateEvaluationCompleted",
+        "count": 1,
+        "observed_at": "2026-08-29T21:20:46.503106Z",
+        "observation_key": "sha256:9df370b12e6d7d224154e1eb1f8a6c724c4f9f37d3fa4c707a1caf7ea674b2f2",
+        "evidence_digest": "sha256:d3c5dc2dd606c5c6d9d0ca0a1c7ba455f000c1863f7fcabe51b0b920bbb108e2",
+        "terminal_key": null,
+        "gate_result_schema_version": 2,
+        "observation_schema_version": 2,
+        "status": null,
+        "error_code": null
+      },
+      "subject": {
+        "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+        "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+        "head_sha": "40b716e217ce9a3cfb42c710dfbdc09fa635bb6c",
+        "contract_hash": "sha256:e9b5c1437d1e14797671e05fd12359016b3ecb2c7f6ee984ef7658e328d097ae",
+        "policy_version": "2026-08-29.rollout-620.freshness.v1",
+        "policy_digest": "sha256:b6b5f49c01466c70a75fc999eef93c80e417e3680ea4a5f9c1b3e5661861e6bd"
+      },
+      "gate_results": [
+        {
+          "gate": "13a",
+          "passed": false,
+          "executed": true,
+          "status": "failed",
+          "reason_code": "gate_13a_failed",
+          "reason": "Branch-Freshness für den Prüfgegenstand nicht prüfbar",
+          "owasp_risk": "A05:2021",
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "40b716e217ce9a3cfb42c710dfbdc09fa635bb6c",
+            "contract_hash": "sha256:e9b5c1437d1e14797671e05fd12359016b3ecb2c7f6ee984ef7658e328d097ae",
+            "policy_version": "2026-08-29.rollout-620.freshness.v1",
+            "policy_digest": "sha256:b6b5f49c01466c70a75fc999eef93c80e417e3680ea4a5f9c1b3e5661861e6bd"
+          }
+        },
+        {
+          "gate": 11,
+          "passed": null,
+          "executed": false,
+          "status": "skipped_precondition",
+          "reason_code": "gate_11_skipped_precondition",
+          "reason": "Nicht ausgeführt: erforderliches Preflight-Gate fehlgeschlagen",
+          "owasp_risk": null,
+          "phase": "post_candidate",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "40b716e217ce9a3cfb42c710dfbdc09fa635bb6c",
+            "contract_hash": "sha256:e9b5c1437d1e14797671e05fd12359016b3ecb2c7f6ee984ef7658e328d097ae",
+            "policy_version": "2026-08-29.rollout-620.freshness.v1",
+            "policy_digest": "sha256:b6b5f49c01466c70a75fc999eef93c80e417e3680ea4a5f9c1b3e5661861e6bd"
+          }
+        }
+      ],
+      "acceptance_evidence": null,
+      "score_observation": {
+        "count": 1,
+        "score": null,
+        "scoreability": "not_scoreable",
+        "not_scoreable_reason": "missing_acceptance_evidence",
+        "non_binding": true,
+        "observation_key": "sha256:9df370b12e6d7d224154e1eb1f8a6c724c4f9f37d3fa4c707a1caf7ea674b2f2",
+        "evidence_digest": "sha256:d3c5dc2dd606c5c6d9d0ca0a1c7ba455f000c1863f7fcabe51b0b920bbb108e2",
+        "score_key": "sha256:e83ec207b9a2accfd70a7428805e549ec78def3ff0a3e0e7d45a11bd0c667d60",
+        "scoring_policy_version": "2026-08-29.rollout-620.score.v1",
+        "scoring_policy_digest": "sha256:155594c411c5e15f41d9a86e8cfca72a8c0cc201ea822e858da9de536d206257",
+        "formula_version": "bound-evidence.v1"
+      },
+      "healing": {
+        "count": 1,
+        "classification": "not_healable",
+        "reason": "gate_11_not_failed",
+        "llm_calls": 0,
+        "claims": 0
+      },
+      "candidate_process_events": {
+        "test_run_completed": 0
+      },
+      "fault_injection": {
+        "kind": "bound_objects_unavailable_after_comparison",
+        "comparison_completed": true,
+        "local_git_metadata_hidden": true,
+        "restored": true
+      },
+      "pr": {
+        "count": 0,
+        "number": null,
+        "url": null,
+        "base_sha": null,
+        "head_sha": null
+      }
+    },
+    {
+      "id": "subject_unavailable",
+      "result": "passed",
+      "run": {
+        "issue_number": 19,
+        "issue_url": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture/issues/19",
+        "evidence_comment_id": 40136,
+        "evidence_comment_url": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture/issues/19#issuecomment-40136"
+      },
+      "branch": "rollout-620/missing-subject",
+      "correlation_id": "rollout-620-subject_unavailable",
+      "verifier_dispatches": 0,
+      "terminal": {
+        "event": "GateEvaluationUnavailable",
+        "count": 1,
+        "observed_at": "2026-08-29T21:20:46.569875Z",
+        "observation_key": null,
+        "evidence_digest": null,
+        "terminal_key": "sha256:ddd7e5eb3e1099b18e972cd78c736a6c6ab0ad03796bc896c8a2e22d1bbbf5cc",
+        "gate_result_schema_version": null,
+        "observation_schema_version": null,
+        "status": "not_evaluated",
+        "error_code": "subject_resolution_failed"
+      },
+      "subject": null,
+      "gate_results": [],
+      "acceptance_evidence": null,
+      "score_observation": {
+        "count": 0,
+        "score": null,
+        "scoreability": null,
+        "not_scoreable_reason": null,
+        "non_binding": null,
+        "observation_key": null,
+        "evidence_digest": null,
+        "score_key": null,
+        "scoring_policy_version": null,
+        "scoring_policy_digest": null,
+        "formula_version": null
+      },
+      "healing": {
+        "count": 0,
+        "classification": null,
+        "reason": null,
+        "llm_calls": 0,
+        "claims": 0
+      },
+      "candidate_process_events": {
+        "test_run_completed": 0
+      },
+      "fault_injection": null,
+      "pr": {
+        "count": 0,
+        "number": null,
+        "url": null,
+        "base_sha": null,
+        "head_sha": null
+      }
+    },
+    {
+      "id": "gate11_healable",
+      "result": "passed",
+      "run": {
+        "issue_number": 20,
+        "issue_url": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture/issues/20",
+        "evidence_comment_id": 40137,
+        "evidence_comment_url": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture/issues/20#issuecomment-40137"
+      },
+      "branch": "rollout-620/gate11-healable",
+      "correlation_id": "rollout-620-gate11_healable",
+      "verifier_dispatches": 1,
+      "terminal": {
+        "event": "GateEvaluationCompleted",
+        "count": 1,
+        "observed_at": "2026-08-29T21:20:46.801556Z",
+        "observation_key": "sha256:cfa1ba8d3f7c8bc416abdc9ac74f82a14b32ef7a7bfb7421d404944247b15f44",
+        "evidence_digest": "sha256:eee6f949cea9cc125507e76ce764cb73ad8d443f77aed11f0b6390f4ca6f3cfc",
+        "terminal_key": null,
+        "gate_result_schema_version": 2,
+        "observation_schema_version": 2,
+        "status": null,
+        "error_code": null
+      },
+      "subject": {
+        "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+        "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+        "head_sha": "26ef8b084c194af16ba7477b8d923e536407a864",
+        "contract_hash": "sha256:f545ddc477da3a8edf8c63831e20cf949b31f196e83e9d7fac0a0a31cb3072d6",
+        "policy_version": "2026-08-29.rollout-620.full.v1",
+        "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+      },
+      "gate_results": [
+        {
+          "gate": "7b",
+          "passed": true,
+          "executed": true,
+          "status": "passed",
+          "reason_code": "gate_7b_passed",
+          "reason": "Contract-Scope erfüllt: 1 Datei(en)",
+          "owasp_risk": null,
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "26ef8b084c194af16ba7477b8d923e536407a864",
+            "contract_hash": "sha256:f545ddc477da3a8edf8c63831e20cf949b31f196e83e9d7fac0a0a31cb3072d6",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          },
+          "tool": {
+            "control_id": "PRG-07B",
+            "scope_schema_version": 1,
+            "contract_hash": "sha256:f545ddc477da3a8edf8c63831e20cf949b31f196e83e9d7fac0a0a31cb3072d6",
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "26ef8b084c194af16ba7477b8d923e536407a864",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047",
+            "architecture_expansion": "disabled",
+            "architecture_roles": [],
+            "changed_files": [
+              "rollout_fixture/preflight620.py"
+            ],
+            "out_of_scope": [],
+            "diff_bytes": 358,
+            "diff_digest": "sha256:0c448cf7398406074914943b16c00889f849244dee72301134fe6e92e47d5a06"
+          }
+        },
+        {
+          "gate": 8,
+          "passed": true,
+          "executed": true,
+          "status": "passed",
+          "reason_code": "gate_8_passed",
+          "reason": "Keine Cross-Slice-Imports",
+          "owasp_risk": null,
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "26ef8b084c194af16ba7477b8d923e536407a864",
+            "contract_hash": "sha256:f545ddc477da3a8edf8c63831e20cf949b31f196e83e9d7fac0a0a31cb3072d6",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          }
+        },
+        {
+          "gate": 9,
+          "passed": true,
+          "executed": true,
+          "status": "passed",
+          "reason_code": "gate_9_passed",
+          "reason": "1 Candidate-Python-Datei(en) syntaktisch korrekt",
+          "owasp_risk": null,
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "26ef8b084c194af16ba7477b8d923e536407a864",
+            "contract_hash": "sha256:f545ddc477da3a8edf8c63831e20cf949b31f196e83e9d7fac0a0a31cb3072d6",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          },
+          "tool": {
+            "name": "cpython.ast",
+            "version": "3.13.5"
+          }
+        },
+        {
+          "gate": "13a",
+          "passed": true,
+          "executed": true,
+          "status": "passed",
+          "reason_code": "gate_13a_passed",
+          "reason": "Branch 0 Commits hinter main",
+          "owasp_risk": null,
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "26ef8b084c194af16ba7477b8d923e536407a864",
+            "contract_hash": "sha256:f545ddc477da3a8edf8c63831e20cf949b31f196e83e9d7fac0a0a31cb3072d6",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          }
+        },
+        {
+          "gate": "13b",
+          "passed": true,
+          "executed": true,
+          "status": "passed",
+          "reason_code": "gate_13b_passed",
+          "reason": "Diff nicht destruktiv",
+          "owasp_risk": null,
+          "phase": "preflight",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "26ef8b084c194af16ba7477b8d923e536407a864",
+            "contract_hash": "sha256:f545ddc477da3a8edf8c63831e20cf949b31f196e83e9d7fac0a0a31cb3072d6",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          }
+        },
+        {
+          "gate": 11,
+          "passed": false,
+          "executed": true,
+          "status": "failed",
+          "reason_code": "gate_11_failed",
+          "reason": "1 erforderliche Kriterien nicht erfüllt (failed)",
+          "owasp_risk": null,
+          "phase": "post_candidate",
+          "authority": "required",
+          "evaluation_subject": {
+            "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+            "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+            "head_sha": "26ef8b084c194af16ba7477b8d923e536407a864",
+            "contract_hash": "sha256:f545ddc477da3a8edf8c63831e20cf949b31f196e83e9d7fac0a0a31cb3072d6",
+            "policy_version": "2026-08-29.rollout-620.full.v1",
+            "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+          }
+        }
+      ],
+      "acceptance_evidence": {
+        "schema_version": 1,
+        "evaluation_subject": {
+          "repository": "https://scm.example.invalid/example-bot/S.A.M.U.E.L-rollout-fixture",
+          "base_sha": "17065926dfa1b36804b707744d6af006b524ed01",
+          "head_sha": "26ef8b084c194af16ba7477b8d923e536407a864",
+          "contract_hash": "sha256:f545ddc477da3a8edf8c63831e20cf949b31f196e83e9d7fac0a0a31cb3072d6",
+          "policy_version": "2026-08-29.rollout-620.full.v1",
+          "policy_digest": "sha256:f3738a0784b9c24cc3aa863f99cee0d263590f184cf41da6c0fff3dc6812b047"
+        },
+        "contract": {
+          "schema_version": 2,
+          "revision": "1",
+          "contract_hash": "sha256:f545ddc477da3a8edf8c63831e20cf949b31f196e83e9d7fac0a0a31cb3072d6",
+          "criteria": [
+            {
+              "criterion_id": "AC-1028454b294aae8e",
+              "tag": "DIFF",
+              "text": "rollout_fixture/preflight620.py",
+              "mode": "automatic",
+              "required": true
+            },
+            {
+              "criterion_id": "AC-d78957d71df1fc30",
+              "tag": "GREP",
+              "text": "\"EXPECTED_620_MARKER\" rollout_fixture/preflight620.py",
+              "mode": "automatic",
+              "required": true
+            }
+          ],
+          "scope": {
+            "schema_version": 1,
+            "entries": [
+              {
+                "kind": "file",
+                "value": "rollout_fixture/preflight620.py"
+              }
+            ],
+            "architecture_expansion": "disabled"
+          },
+          "approval": {
+            "state": "approved",
+            "actor": "rollout-operator",
+            "method": "operator_controlled_fixture",
+            "source_id": "upstream:#653",
+            "approved_at": "2026-08-29T21:20:46.583613Z",
+            "contract_hash": "sha256:f545ddc477da3a8edf8c63831e20cf949b31f196e83e9d7fac0a0a31cb3072d6"
+          }
+        },
+        "results": [
+          {
+            "criterion_id": "AC-1028454b294aae8e",
+            "status": "passed",
+            "reason": "changed in immutable comparison: rollout_fixture/preflight620.py",
+            "tag": "DIFF",
+            "evidence": {
+              "schema_version": 1,
+              "kind": "diff",
+              "path": "rollout_fixture/preflight620.py",
+              "changed": true
+            }
+          },
+          {
+            "criterion_id": "AC-d78957d71df1fc30",
+            "status": "failed",
+            "reason": "pattern not found: EXPECTED_620_MARKER",
+            "tag": "GREP",
+            "evidence": {
+              "schema_version": 1,
+              "kind": "grep",
+              "pattern": "EXPECTED_620_MARKER",
+              "found": false,
+              "matched_file": null
+            }
+          }
+        ]
+      },
+      "score_observation": {
+        "count": 1,
+        "score": 0.6,
+        "scoreability": "scoreable",
+        "not_scoreable_reason": null,
+        "non_binding": true,
+        "observation_key": "sha256:cfa1ba8d3f7c8bc416abdc9ac74f82a14b32ef7a7bfb7421d404944247b15f44",
+        "evidence_digest": "sha256:eee6f949cea9cc125507e76ce764cb73ad8d443f77aed11f0b6390f4ca6f3cfc",
+        "score_key": "sha256:300850ca8fab0f1b16613d824c5d8fe64d0a1932c4bcd75ed24cdfc9f3d56ee1",
+        "scoring_policy_version": "2026-08-29.rollout-620.score.v1",
+        "scoring_policy_digest": "sha256:155594c411c5e15f41d9a86e8cfca72a8c0cc201ea822e858da9de536d206257",
+        "formula_version": "bound-evidence.v1"
+      },
+      "healing": {
+        "count": 1,
+        "classification": "healable",
+        "reason": "single_automatic_failure",
+        "llm_calls": 0,
+        "claims": 0
+      },
+      "candidate_process_events": {
+        "test_run_completed": 0
+      },
+      "fault_injection": null,
+      "pr": {
+        "count": 0,
+        "number": null,
+        "url": null,
+        "base_sha": null,
+        "head_sha": null
+      }
+    }
+  ]
+}
