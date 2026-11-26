@@ -1,0 +1,14 @@
+{
+  "schema": "samuel-extension-capability.v1",
+  "capability_id": "documentation.static_claims",
+  "contract_version": "1.0",
+  "transport": "filesystem-json",
+  "effect": "advisory",
+  "claim_families": [
+    "documentation.inventory.v1"
+  ],
+  "permissions": [
+    "repository:read"
+  ],
+  "credentials": []
+}
