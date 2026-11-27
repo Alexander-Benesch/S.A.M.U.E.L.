@@ -1,0 +1,64 @@
+{
+  "base_image": {
+    "platform": "linux/amd64",
+    "platform_manifest_digest": "sha256:2b4f19dae3a777dfc3b76730bda1e82e1f66ab2a2686fa93ca78edbfb4f04ffe",
+    "reference": "python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1",
+    "verified_at": "2026-10-13T17:35:00Z"
+  },
+  "lock_contract": {
+    "build_lock": {
+      "path": "requirements-container-build.lock",
+      "sha256": "sha256:d6e4efa51ad14d4baeeaef60db8671cf5f60efa7cb99fdb755ac554ee0cd6a12"
+    },
+    "build_requirements": [
+      "setuptools>=84.1.0",
+      "setuptools-scm>=10.2,<11",
+      "pip>=26.2.2,<27"
+    ],
+    "exclude_newer": "2026-11-16T10:15:00Z",
+    "generator": "uv==0.12.6",
+    "python_platform": "x86_64-unknown-linux-gnu",
+    "python_version": "3.12",
+    "runtime_extras": [
+      "dashboard",
+      "llm",
+      "github",
+      "tree-sitter"
+    ],
+    "runtime_lock": {
+      "path": "requirements-container.lock",
+      "sha256": "sha256:f0fa18cbcc6ccd8d2be51236bf7ee34e903e97cb88d825108164c16d53f4063e"
+    },
+    "runtime_requirements": [
+      "argon2-cffi>=23.1,<26",
+      "pydantic>=2.0,<3",
+      "tuf>=7.0.1,<8",
+      "securesystemslib[crypto]>=1.0,<2",
+      "pip>=26.2.2,<27",
+      "jinja2>=3.1",
+      "anthropic>=0.40,<1",
+      "openai>=1.50,<2",
+      "certifi>=2026.10.19",
+      "cryptography>=43",
+      "tree-sitter>=0.24,<1",
+      "tree-sitter-javascript>=0.24",
+      "tree-sitter-typescript>=0.23"
+    ],
+    "source_digest": "sha256:eed16123c12ecadc4b7cb65aaacabc5e90d1b8ec772379deadba238344bc3ddc"
+  },
+  "schema_version": 1,
+  "system_packages": {
+    "packages": {
+      "git": "1:2.47.3-0+deb13u1"
+    },
+    "provider": "debian-snapshot",
+    "repositories": [
+      "http://snapshot.debian.org/archive/debian/20261005T000000Z",
+      "http://snapshot.debian.org/archive/debian-security/20261005T000000Z"
+    ],
+    "runtime_versions": {
+      "git": "2.47.3"
+    },
+    "snapshot": "20261005T000000Z"
+  }
+}

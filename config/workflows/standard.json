@@ -1,0 +1,12 @@
+{
+  "name": "standard",
+  "steps": [
+    {"on": "IssueReady", "send": "PlanIssue"},
+    {"on": "PlanApproved", "send": "Implement"},
+    {"on": "CodeGenerated", "send": "CreatePR"},
+    {"on": "HealingSuggested", "send": "Implement"},
+    {"on": "PRCreated", "send": "Review"}
+  ],
+  "max_risk": 3,
+  "max_parallel": 1
+}
